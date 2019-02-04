@@ -1,0 +1,19 @@
+# Compiled source
+
+*.class
+
+# Maven folders
+
+target/
+test/
+
+# Miscellaneous
+
+*.settings
+*.classpath
+*.project
+*.pdf
+*.iml
+
+*.vscode/
+*.idea/
