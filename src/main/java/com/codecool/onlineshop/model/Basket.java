@@ -1,4 +1,4 @@
-package com.codecool.onlineshop.main;
+package com.codecool.onlineshop;
 
 import java.util.ArrayList;
 import java.util.List;
