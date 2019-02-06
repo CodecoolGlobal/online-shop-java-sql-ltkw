@@ -1,3 +1,4 @@
+
 package com.codecool.onlineshop.model;
 
 public class User {
@@ -9,19 +10,15 @@ public class User {
     private Basket basket;
 
 
-    public User (Integer id, String name, String password, String userType, Basket basket) {
+    public User (Integer id, String name, String password, String userType){
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.userType = userType;
+        this.basket = new Basket();
+    }
 
-
-            this.id = id;
-            this.name = name;
-            this.password = password;
-            this.userType = userType;
-            this.basket = basket;
-            this.basket = basket;
-        }
-
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,8 +29,7 @@ public class User {
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
@@ -53,10 +49,8 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-
-
-
     public Basket getBasket() {
         return this.basket;
     }
+
 }
