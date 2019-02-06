@@ -73,6 +73,10 @@ public class View {
         scanner.nextLine();
         return num;
     }
+    public String getStringInput(){
+        String string = scanner.nextLine();
+        return string;
+    }
 
     public String getStringInput() {        
         Scanner scanner = new Scanner(System.in);

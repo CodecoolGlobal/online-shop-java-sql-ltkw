@@ -1,3 +1,4 @@
+
 package com.codecool.onlineshop.model;
 
 public class User {
@@ -17,7 +18,7 @@ public class User {
         this.basket = new Basket();
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

@@ -4,28 +4,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class Connector {
     Connection connection;
-    String database;
+    String databasePath;
 
-    public Connector(String database) {
-        this.database = "jdbc:sqlite:" + database;
-        connection = connectToDatabase(database);
+    public Connector(String databasePath) {
+        this.databasePath = databasePath;
+        connection = connectToDatabase(databasePath);
     }
 
-    private Connection connectToDatabase(String database) {
+    private Connection connectToDatabase(String databasePath) {
         connection = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection(database);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
         } catch (ClassNotFoundException e) {
             e.getStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return connection;
+        return connection;
     }
 
     public Connection getDatabaseConnection() {

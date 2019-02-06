@@ -1,13 +1,14 @@
 package com.codecool.onlineshop.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.List;
 
-import com.codecool.onlineshop.dao.Connector;
+import com.codecool.onlineshop.model.User;
 
-public class UsersDao {
+public interface UsersDao {
 
-    Connector connector = new Connector("jdbc:sqlite:Users.db");
-    Connection connection = connector.getDatabaseConnection();
+    public List<User> getUserData();
+    public User getUser(int id);
+    public void updateUser(User user);
+    public void deleteUser(User user);
+    public void addUser(User user);
 }
