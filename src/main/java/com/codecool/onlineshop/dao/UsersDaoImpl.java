@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -16,32 +15,15 @@ public class UsersDaoImpl implements UsersDao {
     Connector connector;
     Connection connection;
     Statement statement;
+    ResultSet resultSet;
     User user;
     private List<User> users;
 
     public UsersDaoImpl() {
         connector = new Connector("src/main/resources/databases/OnlineShop.db");
         connection = connector.getDatabaseConnection();
-        statement = connector.getStatement();
-        users = addUserData();
-    }
-    
-    private List<User> addUserData() {
-        ResultSet resultSet = connector.getResultSet("Users");
-
-        try {
-            while (resultSet.next()) {
-                int id = resultSet.getInt("UserID");
-                String name = resultSet.getString("Name");
-                String password = resultSet.getString("Password");
-                String userType = resultSet.getString("UserType");
-                user = new User(id, name, password, userType);
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return users;
+        users = new ArrayList<>();
+        addUserData();
     }
 
     public List<User> getUserData() {
@@ -55,7 +37,27 @@ public class UsersDaoImpl implements UsersDao {
     public void updateUser(User user) {
 
     }
-    public void deleteUser(User user){
 
+    public void deleteUser(User user) {
+
+    }
+
+    private List<User> addUserData() {
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users;");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("UserID");
+                String name = resultSet.getString("Name");
+                String password = resultSet.getString("Password");
+                String userType = resultSet.getString("UserType");
+                user = new User(id, name, password, userType);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
