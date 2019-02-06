@@ -48,7 +48,6 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-    
     public Basket getBasket() {
         return this.basket;
     }
