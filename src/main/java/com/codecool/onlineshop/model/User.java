@@ -7,14 +7,14 @@ public class User {
     private String password;
     private String userType;
 
-    public User (Integer id, String name, String password, String userType){
+    public User (int id, String name, String password, String userType){
         this.id = id;
         this.name = name;
         this.password = password;
         this.userType = userType;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
