@@ -55,6 +55,9 @@ public class UsersDaoImpl implements UsersDao {
                 user = new User(id, name, password, userType);
                 users.add(user);
             }
+            statement.close();
+            resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
