@@ -11,6 +11,7 @@ public class View {
     public final String ENTERCATEGORY = "Enter category of Product: ";
     public final String ENTERPRICE = "Enter price of product: ";
     public final String ENTERAMOUNT = "Enter amount of product: ";
+    public final String DELETEPRODUCT = "Enter ID of product to delete: ";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -74,14 +75,14 @@ public class View {
         return num;
     }
     public String getStringInput(){
-        String string = scanner.nextLine();
+        String string = scanner.nextLine().toString();
         return string;
     }
 
-    public String getStringInput() {        
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine().toString();        
-    }
+    // public String getStringInput() {        
+    //     Scanner scanner = new Scanner(System.in);
+    //     return scanner.nextLine().toString();        
+    // }
 
 
 }
