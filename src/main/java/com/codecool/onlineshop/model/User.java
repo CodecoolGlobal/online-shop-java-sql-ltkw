@@ -48,13 +48,10 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-<<<<<<< HEAD
 
     public Basket getBasket() {
         return this.basket;
     }
 
     
-=======
->>>>>>> 09b5e839f9f21a7c3a1496aab4079281e12caf66
 }
