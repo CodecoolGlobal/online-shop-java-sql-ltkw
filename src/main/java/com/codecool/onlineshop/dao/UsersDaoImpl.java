@@ -37,7 +37,17 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(int userId, String columnName, String newUpdate) {
+
+        try {
+            statement = connection.createStatement();
+            String update = "UPDATE Users set " + columnName + "=" + "\"" + newUpdate + "\"" + "where UserID = "
+                    + userId + ";";
+            statement.executeUpdate(update);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -51,8 +61,8 @@ public class UsersDaoImpl implements UsersDao {
 
         try {
             statement = connection.createStatement();
-            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName() + "\", "
-                    + "\"" + user.getPassword() + "\", " + "\"" + user.getUserType() + "\");";
+            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName()
+                    + "\", \"" + user.getPassword() + "\", \"" + user.getUserType() + "\");";
             statement.executeUpdate(insertInto);
             statement.close();
         } catch (SQLException e) {
