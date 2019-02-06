@@ -2,16 +2,20 @@ package com.codecool.onlineshop.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
-
 
 public class Connector {
     Connection connection;
+    Statement statement;
+    ResultSet resultSet;
     String database;
 
     public Connector(String database) {
         this.database = "jdbc:sqlite:" + database;
         connection = connectToDatabase(database);
+        statement = createStatement();
     }
 
     private Connection connectToDatabase(String database) {
@@ -25,10 +29,36 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return connection;
+        return connection;
     }
 
     public Connection getDatabaseConnection() {
         return connection;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public ResultSet getResultSet(String tableName) {
+        resultSet = null;
+
+        try {
+            resultSet = statement.executeQuery("SELECT * FROM " + tableName + ";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    private Statement createStatement() {
+        statement = null;
+
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
     }
 }
