@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class ProductsDaoImpl implements ProductDao {
-    private final String CONNECTIONSQL = "jdbc:sqlite:src/main/resources/databases/Products.db";
+    private final String CONNECTIONSQL = "jdbc:sqlite:src/main/resources/databases/OnlineShop.db";
     private final String SELECTDATA = "SELECT * FROM Products;";
     private Product product;
     List<Product> products;
