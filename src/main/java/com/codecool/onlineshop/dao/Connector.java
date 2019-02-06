@@ -2,28 +2,23 @@ package com.codecool.onlineshop.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 
 public class Connector {
     Connection connection;
-    Statement statement;
-    ResultSet resultSet;
-    String database;
+    String databasePath;
 
-    public Connector(String database) {
-        this.database = "jdbc:sqlite:" + database;
-        connection = connectToDatabase(database);
-        statement = createStatement();
+    public Connector(String databasePath) {
+        this.databasePath = databasePath;
+        connection = connectToDatabase(databasePath);
     }
 
-    private Connection connectToDatabase(String database) {
+    private Connection connectToDatabase(String databasePath) {
         connection = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection(database);
+            connection = DriverManager.getConnection(databasePath);
         } catch (ClassNotFoundException e) {
             e.getStackTrace();
         } catch (SQLException e) {
@@ -34,31 +29,5 @@ public class Connector {
 
     public Connection getDatabaseConnection() {
         return connection;
-    }
-
-    public Statement getStatement() {
-        return statement;
-    }
-
-    public ResultSet getResultSet(String tableName) {
-        resultSet = null;
-
-        try {
-            resultSet = statement.executeQuery("SELECT * FROM " + tableName + ";");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return resultSet;
-    }
-
-    private Statement createStatement() {
-        statement = null;
-
-        try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return statement;
     }
 }
