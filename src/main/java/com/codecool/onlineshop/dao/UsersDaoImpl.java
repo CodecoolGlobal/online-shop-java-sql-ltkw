@@ -52,8 +52,16 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(int userId) {
 
+        try {
+            statement = connection.createStatement();
+            String delete = "DELETE from Users WHERE UserID = " + userId + ";";
+            statement.executeUpdate(delete);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
