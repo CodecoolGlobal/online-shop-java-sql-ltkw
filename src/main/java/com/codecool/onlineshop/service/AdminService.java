@@ -39,6 +39,7 @@ public class AdminService {
         productDao.deleteProduct(productID);
     }
 
+
     public void editProductPrice() {
         view.showMessage(view.ENTERPRODUCTID);
         String productID = view.getStringInput();
@@ -46,4 +47,5 @@ public class AdminService {
         String productPrice = view.getStringInput();
         productDao.editProductPrice(productID, productPrice);
     }
+
 }

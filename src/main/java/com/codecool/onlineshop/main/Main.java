@@ -22,5 +22,6 @@ public class Main {
         // adminService.createNewProduct();
         //adminService.deleteProduct();
         //adminService.editProductPrice();
+
     }
 }

@@ -83,6 +83,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+
     public void editProductPrice(String productID, String productPrice) {
         try {
             connection.setAutoCommit(false);
@@ -98,6 +99,7 @@ public class ProductsDaoImpl implements ProductDao {
             System.exit(0);
         }
     }
+
 
     public Integer getProductsSize() {
         return products.size();
