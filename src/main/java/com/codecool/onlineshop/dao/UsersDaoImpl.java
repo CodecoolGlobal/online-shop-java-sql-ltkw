@@ -26,28 +26,43 @@ public class UsersDaoImpl implements UsersDao {
         addUserData();
     }
 
+    @Override
     public List<User> getUserData() {
         return users;
     }
 
+    @Override
     public User getUser(int id) {
         return users.get(id);
     }
 
-    public void updateUser(User user) {
+    @Override
+    public void updateUser(int userId, String columnName, String newUpdate) {
+
+        try {
+            statement = connection.createStatement();
+            String update = "UPDATE Users set " + columnName + "=" + "\"" + newUpdate + "\"" + "where UserID = "
+                    + userId + ";";
+            statement.executeUpdate(update);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    @Override
     public void deleteUser(User user) {
 
     }
 
+    @Override
     public void addUser(User user) {
 
         try {
             statement = connection.createStatement();
-            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName() + "\", "
-                    + "\"" + user.getPassword() + "\", " + "\"" + user.getUserType() + "\");";
+            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName()
+                    + "\", \"" + user.getPassword() + "\", \"" + user.getUserType() + "\");";
             statement.executeUpdate(insertInto);
             statement.close();
         } catch (SQLException e) {

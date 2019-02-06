@@ -14,6 +14,7 @@ test/
 *.project
 *.pdf
 *.iml
+*.DS_Store
 
 *.vscode/
 *.idea/
