@@ -11,6 +11,8 @@ public class Connector {
 
     public Connector(String database) {
         this.database = "jdbc:sqlite:" + database;
+        this.database = database;
+
         connection = connectToDatabase(database);
     }
 
