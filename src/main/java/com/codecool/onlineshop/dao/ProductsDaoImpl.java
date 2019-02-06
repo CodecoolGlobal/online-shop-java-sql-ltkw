@@ -4,28 +4,30 @@ import com.codecool.onlineshop.model.Product;
 
 import java.sql.*;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class ProductsDaoImpl implements ProductDao {
     private final String CONNECTIONSQL = "jdbc:sqlite:src/main/resources/databases/OnlineShop.db";
     private final String SELECTDATA = "SELECT * FROM Products;";
     private Product product;
     List<Product> products;
+    Connection connection;
+    Statement statement;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
 
     public ProductsDaoImpl () {
-        products = new LinkedList<Product>();
+        products = new ArrayList<Product>();
         getProductData();
     }
 
 
     public List<Product> getProductData() {
-        Connection connection = null;
-        Statement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(CONNECTIONSQL);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECTDATA);
+            resultSet = statement.executeQuery(SELECTDATA);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("productID");
@@ -33,15 +35,8 @@ public class ProductsDaoImpl implements ProductDao {
                 String category = resultSet.getString("Category");
                 int price  = resultSet.getInt("Price");
                 int amount = resultSet.getInt("Amount");
-                boolean isAvailable;
                 System.out.println(name);//delete it later
-                if (amount > 0) {
-                    isAvailable = true;
-                } else {
-                    isAvailable = false;
-                }
-                product = new Product(id, name, category, price, 
-                                    amount, isAvailable);
+                product = new Product(id, name, category, price, amount);
                 products.add(product);
             }
             resultSet.close();
@@ -55,7 +50,35 @@ public class ProductsDaoImpl implements ProductDao {
         return products;
     }
 
+    public void addNewProduct(String name, String category, String price, String amount) {
+        int productID = getProductsSize() + 1;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection(CONNECTIONSQL);
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
+                        "VALUES ( " + productID + "," + "'" + name + "'" + "," + 
+                        "'" + category + "'" + "," + price + "," + 
+                        amount +" );";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.commit();
+            connection.close();        
+        } catch (Exception error) {
+            System.err.println(error.getClass().getName() + ": " 
+                            + error.getMessage() );
+            System.exit(0);
+        }
+    }
 
+    public Integer getProductsSize() {
+        return products.size();
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
 
     public Product getProduct(int id) {
         return products.get(id);
@@ -68,4 +91,5 @@ public class ProductsDaoImpl implements ProductDao {
     public void deleteProduct(Product product){
 
     }
+
 }
