@@ -6,12 +6,15 @@ public class User {
     private String name;
     private String password;
     private String userType;
+    private Basket basket;
 
-    public User (Integer id, String name, String password, String userType){
+
+    public User (Integer id, String name, String password, String userType, Basket basket){
         this.id = id;
         this.name = name;
         this.password = password;
         this.userType = userType;
+        this.basket = basket;
     }
 
     public Integer getId() {
@@ -45,4 +48,10 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    public Basket getBasket() {
+        return this.basket;
+    }
+
+    
 }
