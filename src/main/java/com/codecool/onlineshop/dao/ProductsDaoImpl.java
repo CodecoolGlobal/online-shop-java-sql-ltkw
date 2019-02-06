@@ -11,6 +11,10 @@ public class ProductsDaoImpl implements ProductDao {
     private final String SELECTDATA = "SELECT * FROM Products;";
     private Product product;
     List<Product> products;
+    Connection connection;
+    Statement statement;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
 
     public ProductsDaoImpl () {
         products = new ArrayList<Product>();
@@ -19,13 +23,11 @@ public class ProductsDaoImpl implements ProductDao {
 
 
     public List<Product> getProductData() {
-        Connection connection = null;
-        Statement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(CONNECTIONSQL);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECTDATA);
+            resultSet = statement.executeQuery(SELECTDATA);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("productID");
@@ -48,7 +50,35 @@ public class ProductsDaoImpl implements ProductDao {
         return products;
     }
 
+    public void addNewProduct(String name, String category, String price, String amount) {
+        int productID = getProductsSize() + 1;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection(CONNECTIONSQL);
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
+                        "VALUES ( " + productID + "," + "'" + name + "'" + "," + 
+                        "'" + category + "'" + "," + price + "," + 
+                        amount +" );";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.commit();
+            connection.close();        
+        } catch (Exception error) {
+            System.err.println(error.getClass().getName() + ": " 
+                            + error.getMessage() );
+            System.exit(0);
+        }
+    }
 
+    public Integer getProductsSize() {
+        return products.size();
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
 
     public Product getProduct(int id) {
         return products.get(id);
@@ -62,8 +92,4 @@ public class ProductsDaoImpl implements ProductDao {
 
     }
 
-    public void addNewProduct(int id, String name, String category, int price, int amount) {
-        
-        
-    }
 }

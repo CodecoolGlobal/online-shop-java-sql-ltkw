@@ -7,6 +7,11 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
     private TableClass table = new TableClass();
 
+    public final String ENTERPRODUCT = "Enter name of Product: ";
+    public final String ENTERCATEGORY = "Enter category of Product: ";
+    public final String ENTERPRICE = "Enter price of product: ";
+    public final String ENTERAMOUNT = "Enter amount of product: ";
+
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -67,6 +72,11 @@ public class View {
         int num = scanner.nextInt();
         scanner.nextLine();
         return num;
+    }
+
+    public String getStringInput() {        
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine().toString();        
     }
 
 

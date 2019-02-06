@@ -80,7 +80,6 @@ public class Product {
                 ", category = " + category + "\n" +
 				", price = " + price + "\n" +
 				", amount = " + amount + "\n" +
-				", isAvailable = " + isAvailable + "\n" +
 				"}\n";
 	}
 }
