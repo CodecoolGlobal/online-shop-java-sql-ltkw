@@ -10,7 +10,7 @@ public class Connector {
     String database;
 
     public Connector(String database) {
-        this.database = database;
+        this.database = "jdbc:sqlite:" + database;
         connection = connectToDatabase(database);
     }
 
