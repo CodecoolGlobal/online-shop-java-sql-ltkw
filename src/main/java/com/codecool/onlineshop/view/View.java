@@ -32,7 +32,10 @@ public class View {
     // }
 
     public void displayMainMenu() {
-        showMessage("Welcome to our shop!\n 1. Log in \n 2. Create new user \n 3. Exit.");
+        showMessage("\n Welcome to our shop!" + 
+                    "\n 1. Log in" + 
+                    "\n 2. Create new user" + 
+                    "\n 3. Exit.");
     }
 
     public void displayCustomerMenu() {
