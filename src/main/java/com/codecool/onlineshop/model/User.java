@@ -6,21 +6,20 @@ public class User {
     private String name;
     private String password;
     private String userType;
-
     private Basket basket;
 
 
-    public User (Integer id, String name, String password, String userType, Basket basket){
+    public User (Integer id, String name, String password, String userType, Basket basket) {
 
 
-    public User (Integer id, String name, String password, String userType){
+            this.id = id;
+            this.name = name;
+            this.password = password;
+            this.userType = userType;
+            this.basket = basket;
+            this.basket = basket;
+        }
 
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.userType = userType;
-
-        this.basket = basket;
 
     public Integer getId() {
         return id;
@@ -33,7 +32,8 @@ public class User {
     public String getName() {
         return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -54,7 +54,9 @@ public class User {
         this.userType = userType;
     }
 
+
+
     public Basket getBasket() {
         return this.basket;
     }
-
+}
