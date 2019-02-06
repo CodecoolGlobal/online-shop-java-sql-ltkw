@@ -7,6 +7,7 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
     private TableClass table = new TableClass();
 
+    public final String ENTERPRODUCTID = "Enter ID of Product to edit: ";
     public final String ENTERPRODUCT = "Enter name of Product: ";
     public final String ENTERCATEGORY = "Enter category of Product: ";
     public final String ENTERPRICE = "Enter price of product: ";
@@ -56,8 +57,8 @@ public class View {
 
     public void displayAdminMenu() {
         showMessage("\n 1. Add new product" + 
-                    "\n 2. Edit product" + 
-                    "\n 3. Disable product" +
+                    "\n 2. Edit product price" + 
+                    "\n 3. Delete product" +
                     "\n 4. Add new category" +
                     "\n 5. Edit a category" +
                     "\n 6. Display all orders" + 

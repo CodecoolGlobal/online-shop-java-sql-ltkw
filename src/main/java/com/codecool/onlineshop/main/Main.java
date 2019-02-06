@@ -21,5 +21,6 @@ public class Main {
         AdminService adminService = new AdminService();
         // adminService.createNewProduct();
         //adminService.deleteProduct();
+        //adminService.editProductPrice();
     }
 }

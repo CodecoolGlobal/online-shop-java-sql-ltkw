@@ -29,10 +29,10 @@ public class AdminController {
                 adminService.createNewProduct();;
                 break;
             case 2:
-                adminService.deleteProduct();
+                adminService.editProductPrice();
                 break;
             case 3:
-                
+                adminService.deleteProduct();
                 break;
             case 4:
                 break;
