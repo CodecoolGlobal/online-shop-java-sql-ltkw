@@ -8,15 +8,13 @@ public class Product {
     private int price;
     private int amount;    
     private int rating;
-    private boolean isAvailable;
 
-    public Product(int id, String name, String category, int price, int amount, boolean isAvailable) {
+    public Product(int id, String name, String category, int price, int amount) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.amount = amount;        
-        this.isAvailable = isAvailable;
     }
 
     public int getId() {
@@ -43,9 +41,6 @@ public class Product {
         return rating;
     }
 
-    public boolean checkIfAvailable() {
-        return isAvailable;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -71,8 +66,11 @@ public class Product {
         this.rating = rating;
     }
 
-    public void setIfAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public boolean productIsAvailable() {
+        if(amount > 0) {
+            return true;
+        }
+        return false; 
     }
 
     @Override
@@ -82,7 +80,6 @@ public class Product {
                 ", category = " + category + "\n" +
 				", price = " + price + "\n" +
 				", amount = " + amount + "\n" +
-				", isAvailable = " + isAvailable + "\n" +
 				"}\n";
 	}
 }
