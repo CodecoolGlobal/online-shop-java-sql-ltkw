@@ -42,6 +42,19 @@ public class UsersDaoImpl implements UsersDao {
 
     }
 
+    public void addUser(User user) {
+
+        try {
+            statement = connection.createStatement();
+            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName() + "\", "
+                    + "\"" + user.getPassword() + "\", " + "\"" + user.getUserType() + "\");";
+            statement.executeUpdate(insertInto);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<User> addUserData() {
 
         try {
@@ -55,9 +68,8 @@ public class UsersDaoImpl implements UsersDao {
                 user = new User(id, name, password, userType);
                 users.add(user);
             }
-            statement.close();
             resultSet.close();
-            connection.close();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
