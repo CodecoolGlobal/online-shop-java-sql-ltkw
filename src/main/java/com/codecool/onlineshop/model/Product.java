@@ -75,4 +75,14 @@ public class Product {
         this.isAvailable = isAvailable;
     }
 
+    @Override
+	public String toString() {
+		return  "id = " + id + "\n" +
+                ", name = " + name + '\'' + "\n" +
+                ", category = " + category + "\n" +
+				", price = " + price + "\n" +
+				", amount = " + amount + "\n" +
+				", isAvailable = " + isAvailable + "\n" +
+				"}\n";
+	}
 }

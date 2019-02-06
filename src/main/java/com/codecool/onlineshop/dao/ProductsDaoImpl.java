@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class ProductsDaoImpl implements ProductDao {
-    private final String CONNECTIONSQL = "jdbc:sqlite:Products.db";
-    private final String selectData = "SELECT * FROM Products;";
+    private final String CONNECTIONSQL = "jdbc:sqlite:src/main/resources/databases/Products.db";
+    private final String SELECTDATA = "SELECT * FROM Products;";
     private Product product;
     List<Product> products;
 
@@ -25,7 +25,7 @@ public class ProductsDaoImpl implements ProductDao {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(CONNECTIONSQL);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectData);
+            ResultSet resultSet = statement.executeQuery(SELECTDATA);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("productID");
