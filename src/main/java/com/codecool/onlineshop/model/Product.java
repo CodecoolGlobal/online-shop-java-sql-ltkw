@@ -4,17 +4,18 @@ public class Product {
     
     private int id;
     private String name;
-    private double price;
-    private int amount;
-    private Category category;
+    private String category;
+    private int price;
+    private int amount;    
     private int rating;
     private boolean isAvailable;
 
-    public Product(String name, double price, int amount, Category category, boolean isAvailable) {
+    public Product(int id, String name, String category, int price, int amount, boolean isAvailable) {
+        this.id = id;
         this.name = name;
-        this.price = price;
-        this.amount = amount;
         this.category = category;
+        this.price = price;
+        this.amount = amount;        
         this.isAvailable = isAvailable;
     }
 
@@ -26,7 +27,7 @@ public class Product {
         return name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -34,7 +35,7 @@ public class Product {
         return amount;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -54,7 +55,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -62,7 +63,7 @@ public class Product {
         this.amount = amount;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
