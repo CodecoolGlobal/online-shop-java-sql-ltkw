@@ -1,4 +1,7 @@
 package com.codecool.onlineshop.view;
+import com.codecool.onlineshop.model.Product;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,16 +23,30 @@ public class View {
         System.out.println(message);
     }
 
-    public void productsTable (List products){
+    public void productsTable (ArrayList<ArrayList> products){
 
         table.setShowVerticalLines(true);
 
-        table.setHeaders("id","name","category","price","amount");   //tutaj umieszczamy naglowki, koniecznie jako string
-
-        table.addRow(id,name,Cateogry, price, amount);               // ta funkcja sluzy do przyjmowania pojedynczego rzedu
-
+        table.setHeaders("id","name","category","price","amount");
+        for (ArrayList l: products){
+            table.addRow(l.get(0).toString(),l.get(1).toString(),l.get(2).toString(),l.get(3).toString(),l.get(4).toString());
+        }
         table.print();
     }
+
+    /* sample usage
+
+    public void test(){
+        View view = new View();
+        ArrayList<ArrayList> nested = new ArrayList<ArrayList>();
+        for (Product p: products) {
+            nested.add(p.productParamToString());
+
+
+        }
+        view.productsTable(nested);
+    }
+     */
 
 
 }
