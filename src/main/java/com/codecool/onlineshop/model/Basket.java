@@ -12,7 +12,7 @@ public class Basket {
 
     public Basket(int id) {
         this.products = new ArrayList<Product>();
-        this.id = id;
+        this.id = id; 
     }
 
     public List<Product> getProducts() {
@@ -33,6 +33,6 @@ public class Basket {
     }
 
     public Iterator<Product> getIterator() {
-        return this.iterator;
+        return new ProductIterator(products);
     }
 }
