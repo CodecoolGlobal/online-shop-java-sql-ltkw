@@ -1,13 +1,11 @@
 package com.codecool.onlineshop.controller;
 
-import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.service.CustomerService;
 import com.codecool.onlineshop.view.View;
 
 public class CustomerController {
     
     private View view = new View();
-    private User customer;
     private boolean isRunning;
     private CustomerService customerService;
 
@@ -26,7 +24,7 @@ public class CustomerController {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
-                customer.getBasket().getProducts().toString();
+                customerService.getUser().getBasket().getProducts().toString();
                 break;
             case 2:
                 break;
