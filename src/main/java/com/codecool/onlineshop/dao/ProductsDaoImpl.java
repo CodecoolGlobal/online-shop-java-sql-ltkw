@@ -4,7 +4,7 @@ import com.codecool.onlineshop.model.Product;
 
 import java.sql.*;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class ProductsDaoImpl implements ProductDao {
     private final String CONNECTIONSQL = "jdbc:sqlite:src/main/resources/databases/OnlineShop.db";
@@ -13,7 +13,7 @@ public class ProductsDaoImpl implements ProductDao {
     List<Product> products;
 
     public ProductsDaoImpl () {
-        products = new LinkedList<Product>();
+        products = new ArrayList<Product>();
         getProductData();
     }
 
@@ -33,15 +33,8 @@ public class ProductsDaoImpl implements ProductDao {
                 String category = resultSet.getString("Category");
                 int price  = resultSet.getInt("Price");
                 int amount = resultSet.getInt("Amount");
-                boolean isAvailable;
                 System.out.println(name);//delete it later
-                if (amount > 0) {
-                    isAvailable = true;
-                } else {
-                    isAvailable = false;
-                }
-                product = new Product(id, name, category, price, 
-                                    amount, isAvailable);
+                product = new Product(id, name, category, price, amount);
                 products.add(product);
             }
             resultSet.close();
@@ -67,5 +60,10 @@ public class ProductsDaoImpl implements ProductDao {
 
     public void deleteProduct(Product product){
 
+    }
+
+    public void addNewProduct(int id, String name, String category, int price, int amount) {
+        
+        
     }
 }
