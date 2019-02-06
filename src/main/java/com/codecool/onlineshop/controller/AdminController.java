@@ -7,8 +7,8 @@ import com.codecool.onlineshop.service.AdminService;
 public class AdminController {
     private View view;
     private boolean isRunning;
-    ProductsDaoImpl productsDao;
-    AdminService adminService;
+    private ProductsDaoImpl productsDao;
+    private AdminService adminService;
 
     public AdminController() {
         view = new View();
@@ -26,9 +26,10 @@ public class AdminController {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
-                adminService.getNewProduct();;
+                adminService.createNewProduct();;
                 break;
             case 2:
+                adminService.deleteProduct();
                 break;
             case 3:
                 
