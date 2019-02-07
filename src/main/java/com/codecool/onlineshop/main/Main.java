@@ -13,7 +13,9 @@ public class Main {
     public static void main(String[] args) {
         // CustomerController controller = new CustomerController();
         // controller.handleCustomerController();
-        AdminService admin = new AdminService();
-        admin.deleteProductByUser();
+        // AdminService admin = new AdminService();
+        // admin.deleteProductByUser();
+        LoginController controller = new LoginController();
+        controller.startLoginController();;
     }
 }
