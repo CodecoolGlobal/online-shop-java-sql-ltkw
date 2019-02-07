@@ -1,17 +1,23 @@
 package com.codecool.onlineshop.service;
 
+import java.util.List;
+
+import com.codecool.onlineshop.dao.OrdersDaoImpl;
 import com.codecool.onlineshop.dao.ProductDao;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
+import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.view.View;
 
 public class AdminService {
 
     private View view;
     private ProductsDaoImpl productDao;
+    private OrdersDaoImpl orderDao;
 
     public AdminService() {
         view = new View();
         productDao = new ProductsDaoImpl();
+        orderDao = new OrdersDaoImpl();
     }
     
     public void createNewProduct() {
@@ -63,5 +69,13 @@ public class AdminService {
         ProductDao productDao = new ProductsDaoImpl();
         view.productsTable(productDao.getProducts());
 
+    }
+
+    public void displayOrdersForAdmin() {
+        orderDao = new OrdersDaoImpl();
+        List<Order> orders = orderDao.getOrderData();
+        for (Order order : orders) {
+            System.out.println(order);
+        } 
     }
 }
