@@ -3,12 +3,11 @@ package com.codecool.onlineshop.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.codecool.onlineshop.model.Basket;
+import static javax.swing.text.html.HTML.Tag.HEAD;
 
 public class Order {
 
     private Integer orderId;
-    private Basket basket;
     private int userID;
     private OrderStatus orderStatus;
     private List<Order> orders;
@@ -20,7 +19,6 @@ public class Order {
 
     public Order(int orderId, int productId, int productAmount, int productAmountPrice, int userID) {
         this.orderId = orderId;
-        this.basket = basket;
         this.userID = userID;
         this.orderStatus = OrderStatus.SUBMIT;
         this.orderSumPrice = orderSumPrice;
@@ -50,10 +48,6 @@ public class Order {
         return orderId;
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
-
     public int getUserID() {
         return userID;
     }
@@ -64,10 +58,6 @@ public class Order {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
     }
 
     public void setUser(int userID) {
