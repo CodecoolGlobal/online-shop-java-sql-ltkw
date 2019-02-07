@@ -21,7 +21,6 @@ public class UsersDaoImpl implements UsersDao {
 
     public UsersDaoImpl() {
         connector = new Connector("src/main/resources/databases/OnlineShop.db");
-        connection = connector.getDatabaseConnection();
         users = new ArrayList<>();
         addUserData();
     }
@@ -38,13 +37,14 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void updateUser(int userId, String columnName, String newUpdate) {
-
+        openConnection();
         try {
             statement = connection.createStatement();
             String update = "UPDATE Users set " + columnName + "=" + "\"" + newUpdate + "\"" + "where UserID = "
                     + userId + ";";
             statement.executeUpdate(update);
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,12 +53,13 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void deleteUser(int userId) {
-
+        openConnection();
         try {
             statement = connection.createStatement();
             String delete = "DELETE from Users WHERE UserID = " + userId + ";";
             statement.executeUpdate(delete);
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,20 +67,21 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void addUser(String name, String password, String userType) {
-
+        openConnection();
         try {
             statement = connection.createStatement();
             String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + name + "\", \""
                     + password + "\", \"" + userType + "\");";
             statement.executeUpdate(insertInto);
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private List<User> addUserData() {
-
+        openConnection();
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Users;");
@@ -93,9 +95,14 @@ public class UsersDaoImpl implements UsersDao {
             }
             resultSet.close();
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return users;
+    }
+
+    private void openConnection() {
+        connection = connector.getDatabaseConnection();
     }
 }

@@ -29,14 +29,16 @@ public class AdminController {
                 adminService.createNewProduct();;
                 break;
             case 2:
-                adminService.editProductPrice();
-                break;
-            case 3:
                 adminService.deleteProduct();
                 break;
+            case 3:
+                
+                break;
             case 4:
+                adminService.editProductPrice();
                 break;
             case 5:
+                adminService.editProductName();
                 break;
             case 6:
                 break;

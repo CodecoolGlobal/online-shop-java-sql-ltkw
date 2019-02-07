@@ -72,14 +72,18 @@ public class View {
     }
 
     public void displayAdminMenu() {
-        showMessage("\n 1. Add new product" + 
-                    "\n 2. Edit product price" + 
-                    "\n 3. Delete product" +
-                    "\n 4. Add new category" +
-                    "\n 5. Edit a category" +
+        showMessage("\n 1. Add new product" +                    
+                    "\n 2. Delete product" +
+                    "\n 3. Edit a category" +
+                    "\n 4. Edit a price" +
+                    "\n 5. Edit a name" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
+<<<<<<< HEAD
                     "\n 8. Edit product name"+
+=======
+                    "\n 8. Edit product price" + 
+>>>>>>> 045319a03eb309c55bf0509ee164c3c8a2df1a14
                     "\n 9. Exit");
     }
 
