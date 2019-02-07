@@ -14,8 +14,8 @@ public class Main {
         // CustomerController controller = new CustomerController();
         // controller.handleCustomerController();
         // AdminService admin = new AdminService();
-        // admin.deleteProductByUser();
+        // admin.editProductAmount();
         LoginController controller = new LoginController();
-        controller.startLoginController();;
+        controller.startLoginController();
     }
 }
