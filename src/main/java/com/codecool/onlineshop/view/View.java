@@ -78,10 +78,10 @@ public class View {
         return string;
     }
 
-    public String getStringInput() {        
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine().toString();        
-    }
+    // public String getStringInput() {        
+    //     Scanner scanner = new Scanner(System.in);
+    //     return scanner.nextLine().toString();        
+    // }
 
 
 }

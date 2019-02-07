@@ -1,5 +1,6 @@
 package com.codecool.onlineshop.controller;
 
+import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.service.CustomerService;
 import com.codecool.onlineshop.view.View;
 
@@ -8,14 +9,17 @@ public class CustomerController {
     private View view = new View();
     private boolean isRunning;
     private CustomerService customerService;
+    User customer = new User(1, "test", "pass", "customer");
 
     public CustomerController() {
-
+        this.isRunning = true;
+        this.customerService = new CustomerService(customer);
     }
 
     public void handleCustomerController() {
         while (isRunning) {
             view.displayCustomerMenu();
+            handleCustomerinput();
 
         }
     }
@@ -24,9 +28,10 @@ public class CustomerController {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
-                customerService.getUser().getBasket().getProducts().toString();
+                customerService.DisplayAllProductsInBasket();
                 break;
             case 2:
+                handleAddProduct();
                 break;
             case 3:
                 handleDeleteProduct();
@@ -36,6 +41,7 @@ public class CustomerController {
             case 5:
                 break;
             case 6:
+                customerService.displayAllProductsInShop();
                 break;
             case 7:
                 isRunning = false;
@@ -47,9 +53,17 @@ public class CustomerController {
     }
 
     public void handleDeleteProduct() {
-        view.showMessage("Enter product id you want to remove");
+        view.showMessage("Enter product ID you want to remove");
         int id = view.getIntegerInput();
         customerService.removeProductFromBasket(id);
+    }
+
+    public void handleAddProduct() {
+        view.showMessage("Enter product ID you want to add");
+        int id = view.getIntegerInput();
+        view.showMessage("Enter amount");
+        int amount = view.getIntegerInput();
+        customerService.addProductToBasket(id, amount);
     }
 
     
