@@ -23,13 +23,13 @@ public class View {
         System.out.println(message);
     }
 
-    public void productsTable (ArrayList<ArrayList> products){
+    public void productsTable (ArrayList<Product> products){
 
         table.setShowVerticalLines(true);
 
         table.setHeaders("id","name","category","price","amount");
-        for (ArrayList l: products){
-            table.addRow(l.get(0).toString(),l.get(1).toString(),l.get(2).toString(),l.get(3).toString(),l.get(4).toString());
+        for (Product p: products){
+            table.addRow(p.getId(),p.getName());
         }
         table.print();
     }
