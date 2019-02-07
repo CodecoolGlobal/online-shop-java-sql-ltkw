@@ -42,13 +42,24 @@ public class View {
         }
         table.print();
     }
-    public void ordersTable(List<Order> orderList){
+    public void ordersTableUser(List<Order> orderList){
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
-        table.setHeaders("order id","product id","product amount","price","user id");
+        table.setHeaders("order id","product name","product amount","price");
 
         for (Order o: orderList){
-            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductId()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()), String.valueOf(o.getUserID()));
+            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()));
+        }
+        table.print();
+    }
+
+    public void ordersTableAdmin(List<Order> orderList){
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id","product id", "product name","product amount","price","user id");
+
+        for (Order o: orderList){
+            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()),String.valueOf(o.getUserID()));
         }
         table.print();
     }
