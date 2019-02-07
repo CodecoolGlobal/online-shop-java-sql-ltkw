@@ -27,22 +27,25 @@ public class AdminController {
         view.clearScreen();
         switch (userInput) {
             case 1:
-                adminService.createNewProduct();;
+                adminService.createNewProduct();
                 break;
             case 2:
                 adminService.displayAllProductsInShop();
                 adminService.deleteProductAdmin();
                 break;
             case 3:
-                view.displayNotImplementedMessage();
+                adminService.displayAllProductsInShop();
                 break;
             case 4:
+                adminService.displayAllProductsInShop();
                 adminService.editProductPrice();
                 break;
             case 5:
+                adminService.displayAllProductsInShop();
                 adminService.editProductName();
                 break;
             case 6:
+                adminService.displayAllProductsInShop();
                 adminService.editProductAmount();
                 break;
             case 7:

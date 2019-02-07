@@ -62,6 +62,7 @@ public class LoginController {
     }
 
     public void chooseController(User user) {
+        view.clearScreen();
         if (user.getUserType().equals("ADMIN")) {
             view.showMessage("asdsfasdfadf");
             AdminController adminController = new AdminController();
