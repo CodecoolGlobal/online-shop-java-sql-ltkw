@@ -38,6 +38,13 @@ public class AdminService {
         String productID = view.getStringInput();
         productDao.deleteProduct(productID);
     }
+    public void editProductName(){
+        view.showMessage(view.ENTERPRODUCTID);
+        String productID = view.getStringInput();
+        view.showMessage(view.ENTERNAME);
+        String productName = view.getStringInput();
+        productDao.editProductName(productID, productName);
+    }
 
 
     public void editProductPrice() {

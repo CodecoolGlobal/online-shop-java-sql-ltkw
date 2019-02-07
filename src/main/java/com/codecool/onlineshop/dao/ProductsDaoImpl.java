@@ -99,6 +99,22 @@ public class ProductsDaoImpl implements ProductDao {
             System.exit(0);
         }
     }
+    public void editProductName(String productID, String productName){
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sql = "UPDATE Products SET Name = " + productName +
+                    " WHERE productID = " + productID + ";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.commit();
+        } catch (Exception error) {
+            System.err.println(error.getClass().getName() + ": "
+                    + error.getMessage() );
+            System.exit(0);
+        }
+
+    }
 
 
     public Integer getProductsSize() {

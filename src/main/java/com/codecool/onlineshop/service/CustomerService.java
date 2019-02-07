@@ -51,7 +51,6 @@ public class CustomerService {
                 p.setAmount(view.getIntegerInput());
             }
         }
-
     }
 
 
@@ -65,8 +64,8 @@ public class CustomerService {
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
             }
-
         }
+        view.productsTable(productsByCategory);
     }
 
 

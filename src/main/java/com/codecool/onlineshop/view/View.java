@@ -1,5 +1,6 @@
 package com.codecool.onlineshop.view;
-import java.util.List;
+import com.codecool.onlineshop.model.Product;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class View {
@@ -13,6 +14,7 @@ public class View {
     public final String ENTERPRICE = "Enter price of product: ";
     public final String ENTERAMOUNT = "Enter amount of product: ";
     public final String DELETEPRODUCT = "Enter ID of product to delete: ";
+    public final String ENTERNAME = "Enter name of product: ";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -27,16 +29,17 @@ public class View {
         System.out.println(message);
     }
 
-    // public void productsTable (List products){
+    public void productsTable (ArrayList<Product> products){
 
-    //     table.setShowVerticalLines(true);
+        table.setShowVerticalLines(true);
 
-    //     table.setHeaders("id","name","category","price","amount");   //tutaj umieszczamy naglowki, koniecznie jako string
-
-    //     table.addRow(id,name,Cateogry, price, amount);               // ta funkcja sluzy do przyjmowania pojedynczego rzedu
-
-    //     table.print();
-    // }
+        table.setHeaders("id","name","category","price","amount");
+        for (Product p: products){
+            String.valueOf(p.getId());
+            table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
+        }
+        table.print();
+    }
 
     public void displayMainMenu() {
         showMessage("\n Welcome to our shop!" + 
