@@ -30,19 +30,23 @@ public class LoginController {
             int userInput = view.getIntegerInput();
             switch (userInput) {
                 case 1:
-                chooseController(handleLogin());;
+                    chooseController(handleLogin());;
                     break;
                 case 2:
+                    handleAddNewUser();
                     break;
                 case 3:
                     isRunning = false;
+                    break;
                 default:
+                    view.showMessage("Wrong input!");
                     break;
             }
         }
     }
 
     public User handleLogin() {
+        this.usersDao = new UsersDaoImpl();
         List<User> users = usersDao.getUserData();
         view.showMessage("Name: ");
         String name = view.getStringInput();
@@ -64,6 +68,14 @@ public class LoginController {
             CustomerController customerController = new CustomerController();
             customerController.handleCustomerController();
         }
+    }
+
+    public void handleAddNewUser() {
+        view.showMessage("Name: ");
+        String name = view.getStringInput();
+        view.showMessage("Password");
+        String password = view.getStringInput();
+        usersDao.addUser(name, password, "CUSTOMER");
     }
 
 

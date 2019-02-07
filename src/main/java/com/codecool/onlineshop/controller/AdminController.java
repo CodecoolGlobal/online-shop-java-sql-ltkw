@@ -32,7 +32,7 @@ public class AdminController {
                 adminService.deleteProduct();
                 break;
             case 3:
-                
+                view.displayNotImplementedMessage();
                 break;
             case 4:
                 adminService.editProductPrice();
@@ -41,8 +41,10 @@ public class AdminController {
                 adminService.editProductName();
                 break;
             case 6:
+                view.displayNotImplementedMessage();
                 break;
             case 7:
+                view.displayNotImplementedMessage();
                 break;
             case 8:
                 adminService.editProductName();

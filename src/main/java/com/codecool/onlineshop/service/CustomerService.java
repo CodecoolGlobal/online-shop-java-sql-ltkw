@@ -49,9 +49,6 @@ public class CustomerService {
     }
 
     public void displayAllProductsInShop() {
-        // while (shopIterator.hasNext()) {
-        //     view.showMessage(shopIterator.next().toString());
-        // }
         view.productsTable(productDao.getProducts());
     }
 

@@ -28,25 +28,35 @@ public class CustomerController {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
+                view.clearScreen();
                 customerService.DisplayAllProductsInBasket();
                 break;
             case 2:
+                view.clearScreen();
                 handleAddProduct();
                 break;
             case 3:
+                view.clearScreen();
                 handleDeleteProduct();
                 break;
             case 4:
+                view.clearScreen();
+                view.displayNotImplementedMessage();
                 break;
             case 5:
+                view.clearScreen();
+                view.displayNotImplementedMessage();
                 break;
             case 6:
+                view.clearScreen();
                 customerService.displayAllProductsInShop();
                 break;
             case 7:
+                view.clearScreen();
                 customerService.displayProductsBycategory();
                 break;
             case 8:
+                view.clearScreen();
                 customerService.editProductQuantity();
                 break;
             case 9:

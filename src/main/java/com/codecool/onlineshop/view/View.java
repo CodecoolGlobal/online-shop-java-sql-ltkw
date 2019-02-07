@@ -61,7 +61,7 @@ public class View {
 
     public void displayCustomerMenu() {
         showMessage("\n 1. Display my basket" + 
-                    "\n 2. Add product" + 
+                    "\n 2. Add product to my basket" + 
                     "\n 3. Remove product" +
                     "\n 4. Place an order" +
                     "\n 5. Display my order history" +
@@ -79,11 +79,7 @@ public class View {
                     "\n 5. Edit a name" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
-<<<<<<< HEAD
-                    "\n 8. Edit product name"+
-=======
-                    "\n 8. Edit product price" + 
->>>>>>> 045319a03eb309c55bf0509ee164c3c8a2df1a14
+                    "\n 8. Edit product name" +
                     "\n 9. Exit");
     }
 
@@ -99,6 +95,22 @@ public class View {
     public String getStringInput(){
         String string = scanner.nextLine().toString();
         return string;
+    }
+
+    public void displayNotImplementedMessage() {
+        showMessage("Not implemented yet");
+        getEmptyInput();
+
+    }
+
+    public void getEmptyInput() {
+        showMessage("Press enter to continue ");
+        String input = scanner.nextLine();
+        if (input.isEmpty()) {
+            clearScreen();
+        }
+        clearScreen();
+
     }
 
     // public String getStringInput() {        
