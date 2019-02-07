@@ -39,11 +39,6 @@ public class OrdersDaoImpl implements OrdersDao {
     }
 
     @Override
-    public Order getOrder(int id) {
-        return orders.get(id);
-    }
-
-    @Override
     public void addOrder(User user) {
         Iterator<Product> basketIterator = user.getBasket().getIterator();
         Product currentProduct;
@@ -57,14 +52,14 @@ public class OrdersDaoImpl implements OrdersDao {
             orderId = 1;
         } else {
             orders.sort(Order::compareTo);
-            orderId = orders.get(0).getOrderId() + 1;
+            orderId = orders.get(orders.size()-1).getOrderId() + 1;
         }
 
         while (basketIterator.hasNext()) {
             currentProduct = basketIterator.next();
             productId = currentProduct.getId();
             productAmount = currentProduct.getAmount();
-            productAmountPrice = currentProduct.getAmount() * productAmount;
+            productAmountPrice = currentProduct.getAmount() * currentProduct.getPrice();
             userId = user.getId();
 
             try {
