@@ -28,7 +28,7 @@ public class AdminController {
                 adminService.createNewProduct();;
                 break;
             case 2:
-                adminService.deleteProduct();
+                adminService.deleteProductAdmin();
                 break;
             case 3:
                 view.displayNotImplementedMessage();
