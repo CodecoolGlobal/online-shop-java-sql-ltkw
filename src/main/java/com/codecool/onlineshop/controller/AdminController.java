@@ -35,6 +35,7 @@ public class AdminController {
                 break;
             case 3:
                 adminService.displayAllProductsInShop();
+                view.getEmptyInput();
                 break;
             case 4:
                 adminService.displayAllProductsInShop();
