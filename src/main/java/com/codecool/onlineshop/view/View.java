@@ -73,7 +73,8 @@ public class View {
     }
 
     public void displayCustomerMenu() {
-        showMessage("\n 1. Display my basket" + 
+        showMessage("Customer menu:" + 
+                    "\n 1. Display my basket" + 
                     "\n 2. Add product to my basket" + 
                     "\n 3. Remove product" +
                     "\n 4. Place an order" +
@@ -85,7 +86,8 @@ public class View {
     }
 
     public void displayAdminMenu() {
-        showMessage("\n 1. Add new product" +                    
+        showMessage("Admin menu:" +
+                    "\n 1. Add new product" +                    
                     "\n 2. Delete product" +
                     "\n 3. Display products" +
                     "\n 4. Edit product price" +

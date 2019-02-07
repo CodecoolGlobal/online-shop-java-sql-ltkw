@@ -72,7 +72,6 @@ public class AdminService {
     public void displayAllProductsInShop() {
         ProductDao productDao = new ProductsDaoImpl();
         view.productsTable(productDao.getProducts());
-
     }
 
     public void displayOrdersForAdmin() {
