@@ -77,7 +77,7 @@ public class CustomerService {
         view.showMessage("enter category name ");
         String name = view.getStringInput();
         ArrayList<Product> productsByCategory = new ArrayList<>();
-        for(Product p: productsDao.getProductData()){
+        for(Product p: productsDao.getProducts()){
             Product product = p;
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
