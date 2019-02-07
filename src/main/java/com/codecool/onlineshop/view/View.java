@@ -98,7 +98,7 @@ public class View {
     public void displayAdminMenu() {
         showMessage("\n 1. Add new product" +                    
                     "\n 2. Delete product" +
-                    "\n 3. Edit product category" +
+                    "\n 3. Display products" +
                     "\n 4. Edit product price" +
                     "\n 5. Edit product name" +
                     "\n 6. Edit an amount" +
