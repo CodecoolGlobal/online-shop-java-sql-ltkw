@@ -13,19 +13,6 @@ public class Main {
         CustomerController controller = new CustomerController();
         controller.handleCustomerController();
 
-        // ProductsDaoImpl product = new ProductsDaoImpl();
-        // ArrayList<Product> prod = (ArrayList<Product>) product.getProducts();
-        // ProductIterator iter = new ProductIterator(prod);
-        // while (iter.hasNext()) {
-        //     System.out.println(iter.next());
-        // }
 
-        //product.getProductData();
-
-        // String name = "Mango";
-        // String category = "Juice";
-        // int price = 6;
-        // int amount = 21;
-        // product.addNewProduct(name, category, price, amount);
     }
 }

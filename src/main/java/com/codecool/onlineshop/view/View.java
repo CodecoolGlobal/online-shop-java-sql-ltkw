@@ -1,4 +1,7 @@
 package com.codecool.onlineshop.view;
+
+import com.codecool.onlineshop.model.Product;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,10 +10,13 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
     private TableClass table = new TableClass();
 
+    public final String ENTERPRODUCTID = "Enter ID of Product to edit: ";
     public final String ENTERPRODUCT = "Enter name of Product: ";
     public final String ENTERCATEGORY = "Enter category of Product: ";
     public final String ENTERPRICE = "Enter price of product: ";
     public final String ENTERAMOUNT = "Enter amount of product: ";
+    public final String DELETEPRODUCT = "Enter ID of product to delete: ";
+    public final String ENTERNAME = "Enter name of product: ";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -25,16 +31,17 @@ public class View {
         System.out.println(message);
     }
 
-    // public void productsTable (List products){
+    public void productsTable (List<Product> products){
 
-    //     table.setShowVerticalLines(true);
+        table.setShowVerticalLines(true);
 
-    //     table.setHeaders("id","name","category","price","amount");   //tutaj umieszczamy naglowki, koniecznie jako string
-
-    //     table.addRow(id,name,Cateogry, price, amount);               // ta funkcja sluzy do przyjmowania pojedynczego rzedu
-
-    //     table.print();
-    // }
+        table.setHeaders("id","name","category","price","amount");
+        for (Product p: products){
+            String.valueOf(p.getId());
+            table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
+        }
+        table.print();
+    }
 
     public void displayMainMenu() {
         showMessage("\n Welcome to our shop!" + 
@@ -55,8 +62,8 @@ public class View {
 
     public void displayAdminMenu() {
         showMessage("\n 1. Add new product" + 
-                    "\n 2. Edit product" + 
-                    "\n 3. Disable product" +
+                    "\n 2. Edit product price" + 
+                    "\n 3. Delete product" +
                     "\n 4. Add new category" +
                     "\n 5. Edit a category" +
                     "\n 6. Display all orders" + 
@@ -74,7 +81,7 @@ public class View {
         return num;
     }
     public String getStringInput(){
-        String string = scanner.nextLine();
+        String string = scanner.nextLine().toString();
         return string;
     }
 

@@ -44,15 +44,14 @@ public class CustomerService {
     }
 
     public void DisplayAllProductsInBasket() {
-        while (basketIterator.hasNext()) {
-            view.showMessage(basketIterator.next().toString());
-        }
+        view.productsTable(user.getBasket().getProducts());
     }
 
     public void displayAllProductsInShop() {
-        while (shopIterator.hasNext()) {
-            view.showMessage(shopIterator.next().toString());
-        }
+        // while (shopIterator.hasNext()) {
+        //     view.showMessage(shopIterator.next().toString());
+        // }
+        view.productsTable(productDao.getProducts());
     }
 
     public User getUser() {
@@ -68,7 +67,6 @@ public class CustomerService {
                 p.setAmount(view.getIntegerInput());
             }
         }
-
     }
 
 
@@ -82,8 +80,8 @@ public class CustomerService {
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
             }
-
         }
+        view.productsTable(productsByCategory);
     }
 
 
