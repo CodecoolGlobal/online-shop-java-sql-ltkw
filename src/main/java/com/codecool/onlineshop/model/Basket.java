@@ -8,9 +8,10 @@ public class Basket {
 
     private int id;
     private List<Product> products;
+    private ProductIterator basketIterator;
 
     public Basket() {
-        this.products = new ArrayList<Product>(); 
+        this.products = new ArrayList<Product>();
     }
 
     public List<Product> getProducts() {
@@ -31,6 +32,7 @@ public class Basket {
     }
 
     public Iterator<Product> getIterator() {
-        return new ProductIterator(products);
+        basketIterator = new ProductIterator(products);
+        return basketIterator;
     }
 }

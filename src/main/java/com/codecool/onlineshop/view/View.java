@@ -1,8 +1,7 @@
 package com.codecool.onlineshop.view;
+
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,8 +30,8 @@ public class View {
     public void showMessage(String message){
         System.out.println(message);
     }
-
     public void productsTable(List<Product> products){
+
         table.setShowVerticalLines(true);
         table.setHeaders("id","name","category","price","amount");
         for (Product p: products){
