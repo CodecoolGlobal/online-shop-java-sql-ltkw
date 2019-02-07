@@ -16,13 +16,14 @@ public class CustomerService {
     private Iterator<Product> basketIterator;
     private Iterator<Product> shopIterator;
     private ProductsDaoImpl productDao;
-    View view = new View();
+    private View view;
 
     public CustomerService(User user) {
         this.user = user;
         this.basketIterator = user.getBasket().getIterator();
         this.productDao = new ProductsDaoImpl();
         this.shopIterator = new ProductIterator(productDao.getProducts());
+        this.view = new View();
     }
 
     public void addProductToBasket(int id, int amount) {
