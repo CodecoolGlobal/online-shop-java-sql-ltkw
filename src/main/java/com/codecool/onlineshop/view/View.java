@@ -1,7 +1,7 @@
 package com.codecool.onlineshop.view;
 
 import com.codecool.onlineshop.model.Product;
-import java.util.ArrayList;
+import com.codecool.onlineshop.model.User;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,17 +30,26 @@ public class View {
     public void showMessage(String message){
         System.out.println(message);
     }
-
-    public void productsTable (List<Product> products){
+    public void productsTable(List<Product> products){
 
         table.setShowVerticalLines(true);
-
         table.setHeaders("id","name","category","price","amount");
         for (Product p: products){
             String.valueOf(p.getId());
             table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
         }
         table.print();
+    }
+
+    public void usersTable(List<User> users){
+        table.setShowVerticalLines(true);
+        table.setHeaders("id","name","password","user type");
+        for (User u: users){
+            table.addRow(String.valueOf(u.getId()),u.getName(),u.getPassword(),u.getUserType());
+
+        }
+        table.print();
+
     }
 
     public void displayMainMenu() {
@@ -56,19 +65,26 @@ public class View {
                     "\n 3. Remove product" +
                     "\n 4. Place an order" +
                     "\n 5. Display my order history" +
-                    "\n 6. Display all products" + 
-                    "\n 7. Exit");
+                    "\n 6. Display all products" +
+                    "\n 7. Display all products from given category"+
+                    "\n 8. Edit products quantity"+
+                    "\n 9. Exit");
     }
 
     public void displayAdminMenu() {
-        showMessage("\n 1. Add new product" + 
-                    "\n 2. Edit product price" + 
-                    "\n 3. Delete product" +
-                    "\n 4. Add new category" +
-                    "\n 5. Edit a category" +
+        showMessage("\n 1. Add new product" +                    
+                    "\n 2. Delete product" +
+                    "\n 3. Edit a category" +
+                    "\n 4. Edit a price" +
+                    "\n 5. Edit a name" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
-                    "\n 8. Exit");
+<<<<<<< HEAD
+                    "\n 8. Edit product name"+
+=======
+                    "\n 8. Edit product price" + 
+>>>>>>> 045319a03eb309c55bf0509ee164c3c8a2df1a14
+                    "\n 9. Exit");
     }
 
     public int getIntegerInput() {
