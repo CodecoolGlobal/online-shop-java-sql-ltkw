@@ -14,18 +14,18 @@ public class LoginController {
     private UsersDaoImpl usersDao;
 
     public LoginController() {
-        this.usersDao = new UsersDaoImpl();
         this.view = new View();
         this.isRunning = true;
+        this.usersDao = new UsersDaoImpl();
     }
 
     public void startLoginController() {
+        view.clearScreen();
         handleLoginController();
     }
 
     public void handleLoginController() {
         while (isRunning) {
-            view.clearScreen();
             view.displayMainMenu();
             int userInput = view.getIntegerInput();
             switch (userInput) {
@@ -63,9 +63,11 @@ public class LoginController {
 
     public void chooseController(User user) {
         if (user.getUserType().equals("ADMIN")) {
+            view.showMessage("asdsfasdfadf");
             AdminController adminController = new AdminController();
+            adminController.handleAdminController();
         } else if (user.getUserType().equals("CUSTOMER")) {
-            CustomerController customerController = new CustomerController();
+            CustomerController customerController = new CustomerController(user);
             customerController.handleCustomerController();
         }
     }

@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class View {
 
     private Scanner scanner = new Scanner(System.in);
-    private TableClass table = new TableClass();
 
     public final String ENTERPRODUCTID = "Enter ID of Product to edit: ";
     public final String ENTERPRODUCT = "Enter name of Product: ";
@@ -33,7 +32,7 @@ public class View {
 
 
     public void productsTable(List<Product> products){
-
+        TableClass table = new TableClass();
         table.setShowVerticalLines(true);
         table.setHeaders("id","name","category","price","amount");
         for (Product p: products){
@@ -44,6 +43,7 @@ public class View {
     }
 
     public void usersTable(List<User> users){
+        TableClass table = new TableClass();
         table.setShowVerticalLines(true);
         table.setHeaders("id","name","password","user type");
         for (User u: users){
@@ -76,13 +76,12 @@ public class View {
     public void displayAdminMenu() {
         showMessage("\n 1. Add new product" +                    
                     "\n 2. Delete product" +
-                    "\n 3. Edit a category" +
-                    "\n 4. Edit a price" +
-                    "\n 5. Edit a name" +
+                    "\n 3. Edit product category" +
+                    "\n 4. Edit product price" +
+                    "\n 5. Edit product name" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
-                    "\n 8. Edit product name" +
-                    "\n 9. Exit");
+                    "\n 8. Exit");
     }
 
     public int getIntegerInput() {

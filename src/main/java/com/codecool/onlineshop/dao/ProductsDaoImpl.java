@@ -88,7 +88,7 @@ public class ProductsDaoImpl implements ProductDao {
         while (shopIterator.hasNext()) {   
             Product currentProduct = shopIterator.next();      
             if (currentProduct.getId() == productId){
-                lastAmout = currentProduct.getPrice() - amount;
+                lastAmout = currentProduct.getAmount() - amount;
             }
         }
         
@@ -124,6 +124,7 @@ public class ProductsDaoImpl implements ProductDao {
 
     public void editProductName(String productID, String productName){
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "UPDATE Products SET Name = " + productName +
