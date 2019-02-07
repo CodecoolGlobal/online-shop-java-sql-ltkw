@@ -18,6 +18,7 @@ public class CustomerController {
 
     public void handleCustomerController() {
         while (isRunning) {
+            view.clearScreen();
             view.displayCustomerMenu();
             handleCustomerinput();
 
@@ -33,6 +34,7 @@ public class CustomerController {
                 break;
             case 2:
                 view.clearScreen();
+                customerService.displayAllProductsInShop();
                 handleAddProduct();
                 break;
             case 3:
@@ -57,6 +59,7 @@ public class CustomerController {
                 break;
             case 8:
                 view.clearScreen();
+                customerService.DisplayAllProductsInBasket();
                 customerService.editProductQuantity();
                 break;
             case 9:

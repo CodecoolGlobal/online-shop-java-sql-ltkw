@@ -18,7 +18,6 @@ public class AdminController {
     public void handleAdminController() {
         while (isRunning) {
             view.displayAdminMenu();
-
         }
     }
 
@@ -47,8 +46,6 @@ public class AdminController {
                 view.displayNotImplementedMessage();
                 break;
             case 8:
-                adminService.editProductName();
-            case 9:
                 isRunning = false;
             default:
                 break;

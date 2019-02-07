@@ -20,6 +20,7 @@ public class LoginController {
     }
 
     public void startLoginController() {
+        view.clearScreen();
         handleLoginController();
     }
 
