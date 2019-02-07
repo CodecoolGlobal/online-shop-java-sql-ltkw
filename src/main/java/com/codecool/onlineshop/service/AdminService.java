@@ -33,11 +33,20 @@ public class AdminService {
         productDao.addNewProduct(name, category, price, amount);
     }
 
-    public void deleteProduct() {
+    public void deleteProductAdmin() {
         view.showMessage(view.DELETEPRODUCT);
         String productID = view.getStringInput();
-        productDao.deleteProduct(productID);
+        productDao.deleteProductAdmin(productID);;
     }
+
+    public void deleteProductByUser() {
+        view.showMessage(view.ENTERPRODUCTID);
+        String productID = view.getStringInput();
+        view.showMessage(view.ENTERAMOUNT);
+        String productAmount = view.getStringInput();
+        productDao.deleteProductsByUser(productID, productAmount);
+    }
+
     public void editProductName(){
         view.showMessage(view.ENTERPRODUCTID);
         String productID = view.getStringInput();
