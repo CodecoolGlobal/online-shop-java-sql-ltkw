@@ -104,6 +104,6 @@ public class CustomerService {
                 userOrders.add(order);
             }
         }
-        view.ordersTable(userOrders);
+        view.ordersTableUser(userOrders);
     }
 }
