@@ -65,8 +65,10 @@ public class View {
                     "\n 3. Remove product" +
                     "\n 4. Place an order" +
                     "\n 5. Display my order history" +
-                    "\n 6. Display all products" + 
-                    "\n 7. Exit");
+                    "\n 6. Display all products" +
+                    "\n 7. Display all products from given category"+
+                    "\n 8. Edit products quantity"+
+                    "\n 9. Exit");
     }
 
     public void displayAdminMenu() {
@@ -77,7 +79,8 @@ public class View {
                     "\n 5. Edit a category" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
-                    "\n 8. Exit");
+                    "\n 8. Edit product name"+
+                    "\n 9. Exit");
     }
 
     public int getIntegerInput() {

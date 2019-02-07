@@ -58,7 +58,7 @@ public class CustomerService {
         return this.user;
     }
 
-    public void editProductquantity (){
+    public void editProductQuantity (){
         view.showMessage("enter product name whose quantity you want to change");
         String name = view.getStringInput();
         for (Product p: user.getBasket().getProducts()){
@@ -70,7 +70,7 @@ public class CustomerService {
     }
 
 
-    public void getProductsBycategory(){
+    public void displayProductsBycategory(){
         ProductsDaoImpl productsDao = new ProductsDaoImpl();
         view.showMessage("enter category name ");
         String name = view.getStringInput();

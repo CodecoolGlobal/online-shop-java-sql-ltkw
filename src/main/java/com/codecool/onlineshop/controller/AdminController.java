@@ -43,6 +43,8 @@ public class AdminController {
             case 7:
                 break;
             case 8:
+                adminService.editProductName();
+            case 9:
                 isRunning = false;
             default:
                 break;
