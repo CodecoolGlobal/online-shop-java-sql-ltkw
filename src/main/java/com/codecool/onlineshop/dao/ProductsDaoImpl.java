@@ -88,7 +88,7 @@ public class ProductsDaoImpl implements ProductDao {
         while (shopIterator.hasNext()) {   
             Product currentProduct = shopIterator.next();      
             if (currentProduct.getId() == productId){
-                lastAmout = currentProduct.getPrice() - amount;
+                lastAmout = currentProduct.getAmount() - amount;
             }
         }
         
