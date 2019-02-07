@@ -63,4 +63,8 @@ public class AdminService {
         String productPrice = view.getStringInput();
         productDao.editProductPrice(productID, productPrice);
     }
+
+    public void displayAllProductsInShop() {
+        view.productsTable(productDao.getProducts());
+    }
 }
