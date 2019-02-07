@@ -38,31 +38,35 @@ public class AdminService {
         productDao.deleteProductAdmin(productID);;
     }
 
-    
-
-    public void editProductName(){
-        view.showMessage(view.ENTERPRODUCTID);
+    public String getID(String message) {
+        view.showMessage(message);
         String productID = view.getStringInput();
-        view.showMessage(view.ENTERNAME);
-        String productName = view.getStringInput();
-        productDao.editProductName(productID, productName);
+        return productID;
+    }
+
+    public String editValueOfProduct(String message) {
+        view.showMessage(message);
+        String producValue = view.getStringInput();
+        return producValue;
+    }
+
+    public void editProductName() {
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productName = editValueOfProduct(view.ENTERNAME);
+        productDao.editProductName(getProductId, productName);
     }
 
 
     public void editProductPrice() {
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERPRICE);
-        String productPrice = view.getStringInput();
-        productDao.editProductPrice(productID, productPrice);
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productPrice = editValueOfProduct(view.ENTERPRICE);
+        productDao.editProductPrice(getProductId, productPrice);
     }
 
     public void  editProductAmount() {
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERAMOUNT);
-        String productAmount = view.getStringInput();
-        productDao.editProductAmount(productID, productAmount);
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productAmount = editValueOfProduct(view.ENTERAMOUNT);
+        productDao.editProductAmount(getProductId, productAmount);
     }
 
     public void displayAllProductsInShop() {
