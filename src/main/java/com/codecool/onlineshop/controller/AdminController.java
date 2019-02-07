@@ -21,7 +21,7 @@ public class AdminController {
         }
     }
 
-    public void handleCustomerinput() {
+    public void handleAdminInput() {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
@@ -40,13 +40,17 @@ public class AdminController {
                 adminService.editProductName();
                 break;
             case 6:
-                view.displayNotImplementedMessage();
+                adminService.editProductAmount();
                 break;
             case 7:
                 view.displayNotImplementedMessage();
                 break;
             case 8:
+                view.displayNotImplementedMessage();
+                break;
+            case 9:
                 isRunning = false;
+                break;
             default:
                 break;
 

@@ -1,12 +1,10 @@
 package com.codecool.onlineshop.service;
 
-import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.view.View;
 
 public class AdminService {
 
-    //private User user;
     private View view;
     private ProductsDaoImpl productDao;
 
@@ -15,11 +13,6 @@ public class AdminService {
         view = new View();
         productDao = new ProductsDaoImpl();
     }
-
-    // public User getUser() {
-    //     return this.user;
-    // }
- 
     
     public void createNewProduct() {
         view.showMessage(view.ENTERPRODUCT);
@@ -39,13 +32,7 @@ public class AdminService {
         productDao.deleteProductAdmin(productID);;
     }
 
-    public void deleteProductByUser() {
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERAMOUNT);
-        String productAmount = view.getStringInput();
-        productDao.deleteProductsByUser(productID, productAmount);
-    }
+    
 
     public void editProductName(){
         view.showMessage(view.ENTERPRODUCTID);
@@ -62,5 +49,13 @@ public class AdminService {
         view.showMessage(view.ENTERPRICE);
         String productPrice = view.getStringInput();
         productDao.editProductPrice(productID, productPrice);
+    }
+
+    public void  editProductAmount() {
+        view.showMessage(view.ENTERPRODUCTID);
+        String productID = view.getStringInput();
+        view.showMessage(view.ENTERAMOUNT);
+        String productAmount = view.getStringInput();
+        productDao.editProductAmount(productID, productAmount);
     }
 }

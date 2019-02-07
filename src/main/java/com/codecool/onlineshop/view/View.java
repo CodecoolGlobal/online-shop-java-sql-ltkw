@@ -77,10 +77,11 @@ public class View {
                     "\n 3. Edit a category" +
                     "\n 4. Edit a price" +
                     "\n 5. Edit a name" +
-                    "\n 6. Display all orders" + 
-                    "\n 7. Make a discount" +
-                    "\n 8. Edit product name" +
-                    "\n 9. Exit");
+                    "\n 6. Edit an amount" +
+                    "\n 7. Display all orders" + 
+                    "\n 8. Make a discount" +
+                    "\n 9. Edit product name" +
+                    "\n 10. Exit");
     }
 
     public int getIntegerInput() {
