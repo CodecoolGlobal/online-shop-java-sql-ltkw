@@ -59,6 +59,7 @@ public class AdminService {
         view.showMessage(view.ENTERAMOUNT);
         String productAmount = view.getStringInput();
         productDao.editProductAmount(productID, productAmount);
+    }
 
     public void displayAllProductsInShop() {
         ProductDao productDao = new ProductsDaoImpl();
