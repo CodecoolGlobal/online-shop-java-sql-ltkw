@@ -30,6 +30,8 @@ public class View {
     public void showMessage(String message){
         System.out.println(message);
     }
+
+
     public void productsTable(List<Product> products){
 
         table.setShowVerticalLines(true);
