@@ -80,7 +80,13 @@ public class CustomerService {
         view.productsTable(productsByCategory);
     }
 
-
+    public void deleteProductByUser() {
+        view.showMessage(view.ENTERPRODUCTID);
+        String productID = view.getStringInput();
+        view.showMessage(view.ENTERAMOUNT);
+        String productAmount = view.getStringInput();
+        productDao.deleteProductsByUser(productID, productAmount);
+    }
 
 
 }
