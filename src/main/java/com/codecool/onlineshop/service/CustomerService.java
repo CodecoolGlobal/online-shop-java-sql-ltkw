@@ -6,36 +6,52 @@ import java.util.List;
 
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.model.Product;
+import com.codecool.onlineshop.model.ProductIterator;
 import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.view.View;
 
 public class CustomerService {
 
     private User user;
-    private Iterator<Product> iterator;
+    private Iterator<Product> basketIterator;
+    private Iterator<Product> shopIterator;
+    private ProductsDaoImpl productDao;
     View view = new View();
 
     public CustomerService(User user) {
         this.user = user;
-        this.iterator = user.getBasket().getIterator();
+        this.basketIterator = user.getBasket().getIterator();
+        this.productDao = new ProductsDaoImpl();
+        this.shopIterator = new ProductIterator(productDao.getProducts());
     }
 
-    // public void addProductToBasket(Product product, int amount) {
-    // user.getBasket().addProduct(product, amount);
-    // }
-
-    public void removeProductFromBasket(int id) {
-        if (iterator.hasNext()) {
-            if (iterator.next().getId() == id) {
-                user.getBasket().deleteProduct(iterator.next());
+    public void addProductToBasket(int id, int amount) {
+        while (shopIterator.hasNext()) {
+            Product current = shopIterator.next();
+            if (current.getId() == id) {
+                user.getBasket().addProduct(current, amount);
             }
         }
     }
 
-    public void DisplayAllProducts() {
-        if (iterator.hasNext()) {
-            iterator.next().toString();
+    public void removeProductFromBasket(int id) {
+        while (basketIterator.hasNext()) {
+            Product productToRemove = basketIterator.next();
+            if (productToRemove.getId() == id) {
+                user.getBasket().deleteProduct(productToRemove);
+            }
         }
+    }
+
+    public void DisplayAllProductsInBasket() {
+        view.productsTable(user.getBasket().getProducts());
+    }
+
+    public void displayAllProductsInShop() {
+        // while (shopIterator.hasNext()) {
+        //     view.showMessage(shopIterator.next().toString());
+        // }
+        view.productsTable(productDao.getProducts());
     }
 
     public User getUser() {
@@ -51,7 +67,6 @@ public class CustomerService {
                 p.setAmount(view.getIntegerInput());
             }
         }
-
     }
 
 
@@ -65,8 +80,8 @@ public class CustomerService {
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
             }
-
         }
+        view.productsTable(productsByCategory);
     }
 
 

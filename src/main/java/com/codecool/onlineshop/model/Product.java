@@ -75,11 +75,11 @@ public class Product {
 
     @Override
 	public String toString() {
-		return  "id = " + id + "\n" +
-                ", name = " + name + '\'' + "\n" +
-                ", category = " + category + "\n" +
-				", price = " + price + "\n" +
-				", amount = " + amount + "\n" +
-				"}\n";
+		return  "id = " + id +
+                ", \nname = " + name +
+                ", \ncategory = " + category +
+				", \nprice = " + price +
+				", \namount = " + amount +
+				"\n";
 	}
 }

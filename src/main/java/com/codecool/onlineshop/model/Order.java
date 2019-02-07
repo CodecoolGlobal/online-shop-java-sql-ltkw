@@ -4,13 +4,13 @@ public class Order {
 
     private int id;
     private Basket basket;
-    private User user;
+    private int userID;
     private OrderStatus orderStatus;
 
-    public Order(int id, Basket basket, User user, String orderStatus) {
+    public Order(int id, Basket basket, int userID, String orderStatus) {
         this.id = id;
         this.basket = basket;
-        this.user = user;
+        this.userID = userID;
         this.orderStatus = OrderStatus.SUBMIT;
     }
 
@@ -22,8 +22,8 @@ public class Order {
         return basket;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserID() {
+        return userID;
     }
 
     public OrderStatus getOrderStatus() {
@@ -38,8 +38,8 @@ public class Order {
         this.basket = basket;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(int userID) {
+        this.userID = userID;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

@@ -6,6 +6,7 @@ public class LoginController {
 
     private View view = new View();
     boolean isRunning = true;
+    
 
     public void startLogin() {
         view.displayMainMenu();
@@ -23,6 +24,8 @@ public class LoginController {
                 break;
         }
     }
+
+
 
     
 }
