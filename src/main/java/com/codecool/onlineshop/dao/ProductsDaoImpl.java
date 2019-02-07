@@ -124,6 +124,7 @@ public class ProductsDaoImpl implements ProductDao {
 
     public void editProductName(String productID, String productName){
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "UPDATE Products SET Name = " + productName +

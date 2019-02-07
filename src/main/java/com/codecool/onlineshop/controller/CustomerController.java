@@ -9,16 +9,16 @@ public class CustomerController {
     private View view = new View();
     private boolean isRunning;
     private CustomerService customerService;
-    User customer = new User(1, "test", "pass", "customer");
+    User customer;
 
-    public CustomerController() {
+    public CustomerController(User customer) {
+        this.customer = customer;
         this.isRunning = true;
         this.customerService = new CustomerService(customer);
     }
 
     public void handleCustomerController() {
         while (isRunning) {
-            view.clearScreen();
             view.displayCustomerMenu();
             handleCustomerinput();
 
