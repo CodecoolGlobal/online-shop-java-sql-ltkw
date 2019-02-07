@@ -9,19 +9,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-import com.codecool.onlineshop.model.Basket;
 import com.codecool.onlineshop.dao.Connector;
 import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
 
 public class OrdersDaoImpl implements OrdersDao {
-    Connector connector;
-    Connection connection;
-    Statement statement;
-    ResultSet resultSet;
-    Order order;
-    Basket basket;
+    private Connector connector;
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+    private Order order;
     private List<Order> orders;
 
     public OrdersDaoImpl() {
@@ -45,6 +43,7 @@ public class OrdersDaoImpl implements OrdersDao {
         int productAmountPrice;
         int userId;
         Integer orderId;
+        String productName;
 
         if (orders.isEmpty()) {
             orderId = 1;
@@ -56,14 +55,15 @@ public class OrdersDaoImpl implements OrdersDao {
         while (basketIterator.hasNext()) {
             currentProduct = basketIterator.next();
             productId = currentProduct.getId();
+            productName = currentProduct.getName();
             productAmount = currentProduct.getAmount();
             productAmountPrice = currentProduct.getAmount() * currentProduct.getPrice();
             userId = user.getId();
 
             try {
                 statement = connection.createStatement();
-                String insertInto = "INSERT INTO OrderDetails (OrderID, ProductID, ProductAmount, ProductAmountPrice, UserID) VALUES ("
-                        + orderId + ", " + productId + "," + productAmount + "," + productAmountPrice + "," + userId
+                String insertInto = "INSERT INTO OrderDetails (OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID) VALUES ("
+                        + orderId + "," + productId + ",\"" + productName + "\"," + productAmount + "," + productAmountPrice + "," + userId
                         + ");";
                 statement.executeUpdate(insertInto);
                 statement.close();
@@ -81,11 +81,12 @@ public class OrdersDaoImpl implements OrdersDao {
             while (resultSet.next()) {
                 int orderId = resultSet.getInt("OrderID");
                 int productId = resultSet.getInt("ProductID");
+                String productName = resultSet.getString("ProductName");
                 int productAmount = resultSet.getInt("ProductAmount");
                 int productAmountPrice = resultSet.getInt("ProductAmountPrice");
                 int userId = resultSet.getInt("UserID");
 
-                order = new Order(orderId, productId, productAmount, productAmountPrice, userId);
+                order = new Order(orderId, productId, productName, productAmount, productAmountPrice, userId);
                 orders.add(order);
             }
             resultSet.close();
