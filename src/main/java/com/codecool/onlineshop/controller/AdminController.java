@@ -46,7 +46,7 @@ public class AdminController {
                 adminService.editProductAmount();
                 break;
             case 7:
-                view.displayNotImplementedMessage();
+                adminService.displayOrdersForAdmin();
                 break;
             case 8:
                 view.displayNotImplementedMessage();
