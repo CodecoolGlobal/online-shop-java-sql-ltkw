@@ -52,14 +52,18 @@ public class AdminController {
                 break;
             case 6:
                 view.clearScreen();
-                view.displayNotImplementedMessage();
+                adminService.editProductAmount();
                 break;
             case 7:
                 view.clearScreen();
                 view.displayNotImplementedMessage();
                 break;
             case 8:
+                view.displayNotImplementedMessage();
+                break;
+            case 9:
                 isRunning = false;
+                break;
             default:
                 break;
 
