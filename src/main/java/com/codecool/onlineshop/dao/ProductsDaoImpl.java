@@ -17,7 +17,6 @@ public class ProductsDaoImpl implements ProductDao {
 
     public ProductsDaoImpl () {
         connector = new Connector(CONNECTIONSQL);
-        connection = connector.getDatabaseConnection();
         products = new ArrayList<Product>();
         getProductData();
     }
@@ -25,6 +24,7 @@ public class ProductsDaoImpl implements ProductDao {
 
     public List<Product> getProductData() {
         try {
+            connection = connector.getDatabaseConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Products;");
 
@@ -38,11 +38,10 @@ public class ProductsDaoImpl implements ProductDao {
                 products.add(product);
             }
             resultSet.close();
-            statement.close();       
-        } catch (Exception error) {
-            System.err.println(error.getClass().getName() + ": " 
-                            + error.getMessage() );
-            System.exit(0);
+            statement.close(); 
+            connection.close();  
+        } catch (SQLException error) {
+             error.printStackTrace();
         }
         return products;
     }
@@ -50,6 +49,7 @@ public class ProductsDaoImpl implements ProductDao {
     public void addNewProduct(String name, String category, String price, String amount) {
         int productID = getProductsSize() + 1;
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
@@ -60,47 +60,47 @@ public class ProductsDaoImpl implements ProductDao {
             statement.close();
             connection.commit();
             connection.close();        
-        } catch (Exception error) {
-            System.err.println(error.getClass().getName() + ": " 
-                            + error.getMessage() );
-            System.exit(0);
+        } catch (SQLException error) {
+            error.printStackTrace();
         }
     }
 
     public void deleteProduct(String productID) {
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "DELETE FROM Products WHERE productID = " + 
                             productID + ";";
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit();       
-        } catch (Exception error) {
-            System.err.println(error.getClass().getName() + ": " 
-                            + error.getMessage() );
-            System.exit(0);
+            connection.commit(); 
+            connection.close();      
+        } catch (SQLException error) {
+            error.printStackTrace();
         }
     }
 
 
     public void editProductPrice(String productID, String productPrice) {
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "UPDATE Products SET Price = " + productPrice + 
                             " WHERE productID = " + productID + ";";
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit();       
-        } catch (Exception error) {
-            System.err.println(error.getClass().getName() + ": " 
-                            + error.getMessage() );
-            System.exit(0);
+            connection.commit();
+            connection.close();       
+        } catch (SQLException error) {
+            error.printStackTrace();
         }
     }
+
     public void editProductName(String productID, String productName){
         try {
+            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "UPDATE Products SET Name = " + productName +
@@ -108,10 +108,9 @@ public class ProductsDaoImpl implements ProductDao {
             statement.executeUpdate(sql);
             statement.close();
             connection.commit();
-        } catch (Exception error) {
-            System.err.println(error.getClass().getName() + ": "
-                    + error.getMessage() );
-            System.exit(0);
+            connection.close();
+        } catch (SQLException error) {
+            error.printStackTrace();
         }
 
     }

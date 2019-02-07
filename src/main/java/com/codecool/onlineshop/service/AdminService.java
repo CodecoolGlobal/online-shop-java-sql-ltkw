@@ -54,5 +54,4 @@ public class AdminService {
         String productPrice = view.getStringInput();
         productDao.editProductPrice(productID, productPrice);
     }
-
 }

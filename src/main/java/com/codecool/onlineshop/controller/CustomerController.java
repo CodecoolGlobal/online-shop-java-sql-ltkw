@@ -44,6 +44,12 @@ public class CustomerController {
                 customerService.displayAllProductsInShop();
                 break;
             case 7:
+                customerService.displayProductsBycategory();
+                break;
+            case 8:
+                customerService.editProductQuantity();
+                break;
+            case 9:
                 isRunning = false;
                 break;
             default:
