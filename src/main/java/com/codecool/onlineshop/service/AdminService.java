@@ -75,11 +75,10 @@ public class AdminService {
 
     }
 
-    public void displayOrdersForAdmin() {
+    public void displayAllOrders() {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
-        for (Order order : orders) {
-            System.out.println(order);
-        } 
+        view.ordersTableAdmin(orders);
+        view.getEmptyInput();
     }
 }
