@@ -1,7 +1,7 @@
 package com.codecool.onlineshop.view;
 
 import com.codecool.onlineshop.model.Product;
-import java.util.ArrayList;
+import com.codecool.onlineshop.model.User;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,17 +30,26 @@ public class View {
     public void showMessage(String message){
         System.out.println(message);
     }
-
-    public void productsTable (List<Product> products){
+    public void productsTable(List<Product> products){
 
         table.setShowVerticalLines(true);
-
         table.setHeaders("id","name","category","price","amount");
         for (Product p: products){
             String.valueOf(p.getId());
             table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
         }
         table.print();
+    }
+
+    public void usersTable(List<User> users){
+        table.setShowVerticalLines(true);
+        table.setHeaders("id","name","password","user type");
+        for (User u: users){
+            table.addRow(String.valueOf(u.getId()),u.getName(),u.getPassword(),u.getUserType());
+
+        }
+        table.print();
+
     }
 
     public void displayMainMenu() {
