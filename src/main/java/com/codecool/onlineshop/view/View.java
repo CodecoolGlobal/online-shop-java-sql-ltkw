@@ -82,7 +82,7 @@ public class View {
                     "\n 6. Edit an amount" +
                     "\n 7. Display all orders" + 
                     "\n 8. Make a discount" +
-                    "\n 10. Exit");
+                    "\n 9. Exit");
     }
 
     public int getIntegerInput() {
@@ -112,13 +112,5 @@ public class View {
             clearScreen();
         }
         clearScreen();
-
     }
-
-    // public String getStringInput() {        
-    //     Scanner scanner = new Scanner(System.in);
-    //     return scanner.nextLine().toString();        
-    // }
-
-
 }

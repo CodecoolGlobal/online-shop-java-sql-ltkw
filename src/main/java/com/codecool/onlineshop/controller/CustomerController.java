@@ -1,5 +1,6 @@
 package com.codecool.onlineshop.controller;
 
+import com.codecool.onlineshop.dao.OrdersDaoImpl;
 import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.service.CustomerService;
 import com.codecool.onlineshop.view.View;
@@ -21,44 +22,37 @@ public class CustomerController {
         while (isRunning) {
             view.displayCustomerMenu();
             handleCustomerinput();
-
         }
     }
 
     public void handleCustomerinput() {
         int userInput = view.getIntegerInput();
+        view.clearScreen();
         switch (userInput) {
             case 1:
-                view.clearScreen();
                 customerService.DisplayAllProductsInBasket();
                 break;
             case 2:
-                view.clearScreen();
                 customerService.displayAllProductsInShop();
                 handleAddProduct();
                 break;
             case 3:
-                view.clearScreen();
                 handleDeleteProduct();
                 break;
             case 4:
-                view.clearScreen();
-                view.displayNotImplementedMessage();
+                OrdersDaoImpl orders = new OrdersDaoImpl();
+                orders.addOrder(customer);
                 break;
             case 5:
-                view.clearScreen();
-                view.displayNotImplementedMessage();
+                customerService.displayUserOrder();
                 break;
             case 6:
-                view.clearScreen();
                 customerService.displayAllProductsInShop();
                 break;
             case 7:
-                view.clearScreen();
                 customerService.displayProductsBycategory();
                 break;
             case 8:
-                view.clearScreen();
                 customerService.DisplayAllProductsInBasket();
                 customerService.editProductQuantity();
                 break;

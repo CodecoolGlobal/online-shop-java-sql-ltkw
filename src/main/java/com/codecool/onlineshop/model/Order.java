@@ -1,21 +1,30 @@
 package com.codecool.onlineshop.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.codecool.onlineshop.model.Basket;
+
 public class Order {
 
-    private int id;
+    private Integer orderId;
     private Basket basket;
     private int userID;
     private OrderStatus orderStatus;
+    private List<Order> orders;
+    private int orderSumPrice;
 
-    public Order(int id, Basket basket, int userID, String orderStatus) {
-        this.id = id;
+    public Order(int orderId, int productId, int productAmount, int productAmountPrice, int userID) {
+        this.orderId = orderId;
         this.basket = basket;
         this.userID = userID;
         this.orderStatus = OrderStatus.SUBMIT;
+        this.orderSumPrice = orderSumPrice;
+        orders = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public int getOrderId() {
+        return orderId;
     }
 
     public Basket getBasket() {
@@ -30,8 +39,8 @@ public class Order {
         return orderStatus;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public void setBasket(Basket basket) {
@@ -44,5 +53,21 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    public int getOrderSumPrice() {
+        return orderSumPrice;
+    }
+
+    public int compareTo(Order other) {
+        return this.orderId.compareTo(other.orderId);
     }
 }
