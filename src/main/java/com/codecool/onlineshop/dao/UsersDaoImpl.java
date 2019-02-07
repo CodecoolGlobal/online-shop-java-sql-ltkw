@@ -65,12 +65,12 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(String name, String password, String userType) {
 
         try {
             statement = connection.createStatement();
-            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + user.getName()
-                    + "\", \"" + user.getPassword() + "\", \"" + user.getUserType() + "\");";
+            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + name + "\", \""
+                    + password + "\", \"" + userType + "\");";
             statement.executeUpdate(insertInto);
             statement.close();
         } catch (SQLException e) {
