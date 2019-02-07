@@ -8,6 +8,5 @@ import com.codecool.onlineshop.model.User;
 public interface OrdersDao {
 
     public List<Order> getOrderData();
-    public Order getOrder(int id);
     public void addOrder(User user);
 }
