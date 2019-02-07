@@ -16,6 +16,7 @@ public class LoginController {
     public LoginController() {
         this.view = new View();
         this.isRunning = true;
+        this.usersDao = new UsersDaoImpl();
     }
 
     public void startLoginController() {

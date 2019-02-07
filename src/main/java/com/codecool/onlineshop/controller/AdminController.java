@@ -10,11 +10,10 @@ public class AdminController {
     private boolean isRunning;
     private ProductsDaoImpl productsDao;
     private AdminService adminService;
-    private User admin;
 
     public AdminController() {
         view = new View();
-        productsDao = new ProductsDaoImpl();
+        //productsDao = new ProductsDaoImpl();
         isRunning = true;
         this.adminService = new AdminService();
     }

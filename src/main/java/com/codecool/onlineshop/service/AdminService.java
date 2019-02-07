@@ -1,6 +1,7 @@
 package com.codecool.onlineshop.service;
 
 import com.codecool.onlineshop.model.User;
+import com.codecool.onlineshop.dao.ProductDao;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.view.View;
 
@@ -65,6 +66,7 @@ public class AdminService {
     }
 
     public void displayAllProductsInShop() {
+        ProductDao productDao = new ProductsDaoImpl();
         view.productsTable(productDao.getProducts());
     }
 }
