@@ -1,5 +1,6 @@
 package com.codecool.onlineshop.view;
 
+import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
 import java.util.List;
@@ -38,6 +39,16 @@ public class View {
         for (Product p: products){
             String.valueOf(p.getId());
             table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
+        }
+        table.print();
+    }
+    public void ordersTable(List<Order> orderList){
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id","product id","product amount","price","user id");
+
+        for (Order o: orderList){
+            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductId()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()), String.valueOf(o.getUserID()));
         }
         table.print();
     }

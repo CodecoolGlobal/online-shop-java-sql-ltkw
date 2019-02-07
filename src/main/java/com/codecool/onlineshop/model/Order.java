@@ -13,6 +13,10 @@ public class Order {
     private OrderStatus orderStatus;
     private List<Order> orders;
     private int orderSumPrice;
+    private int productId;
+    private String productName;
+    private int productAmount;
+    private int productAmountPrice;
 
     public Order(int orderId, int productId, int productAmount, int productAmountPrice, int userID) {
         this.orderId = orderId;
@@ -20,7 +24,26 @@ public class Order {
         this.userID = userID;
         this.orderStatus = OrderStatus.SUBMIT;
         this.orderSumPrice = orderSumPrice;
+        this.productAmount = productAmount;
         orders = new ArrayList<>();
+        this.productId = productId;
+        this.productAmountPrice = productAmountPrice;
+    }
+
+    public int getProductAmountPrice() {
+        return productAmountPrice;
+    }
+
+    public int getProductAmount(){
+        return productAmount;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public int getProductId(){
+        return productId;
     }
 
     public int getOrderId() {

@@ -97,11 +97,13 @@ public class CustomerService {
     public void displayUserOrder() {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
+        List<Order> userOrders = new ArrayList<>();
         
         for (Order order : orders) {
             if (order.getUserID() == user.getId()) {
-                System.out.println(order.getUserID());
+                userOrders.add(order);
             }
-        } 
+        }
+        view.ordersTable(userOrders);
     }
 }

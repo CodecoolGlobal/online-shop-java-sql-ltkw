@@ -42,6 +42,7 @@ public class CustomerController {
             case 4:
                 OrdersDaoImpl orders = new OrdersDaoImpl();
                 orders.addOrder(customer);
+
                 break;
             case 5:
                 customerService.displayUserOrder();
