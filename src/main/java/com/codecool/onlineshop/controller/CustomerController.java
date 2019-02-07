@@ -9,9 +9,10 @@ public class CustomerController {
     private View view = new View();
     private boolean isRunning;
     private CustomerService customerService;
-    User customer = new User(1, "test", "pass", "customer");
+    User customer;
 
-    public CustomerController() {
+    public CustomerController(User customer) {
+        this.customer = customer;
         this.isRunning = true;
         this.customerService = new CustomerService(customer);
     }
@@ -28,25 +29,37 @@ public class CustomerController {
         int userInput = view.getIntegerInput();
         switch (userInput) {
             case 1:
+                view.clearScreen();
                 customerService.DisplayAllProductsInBasket();
                 break;
             case 2:
+                view.clearScreen();
+                customerService.displayAllProductsInShop();
                 handleAddProduct();
                 break;
             case 3:
+                view.clearScreen();
                 handleDeleteProduct();
                 break;
             case 4:
+                view.clearScreen();
+                view.displayNotImplementedMessage();
                 break;
             case 5:
+                view.clearScreen();
+                view.displayNotImplementedMessage();
                 break;
             case 6:
+                view.clearScreen();
                 customerService.displayAllProductsInShop();
                 break;
             case 7:
+                view.clearScreen();
                 customerService.displayProductsBycategory();
                 break;
             case 8:
+                view.clearScreen();
+                customerService.DisplayAllProductsInBasket();
                 customerService.editProductQuantity();
                 break;
             case 9:

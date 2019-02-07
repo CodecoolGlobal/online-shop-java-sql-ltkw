@@ -5,6 +5,8 @@ import com.codecool.onlineshop.model.Product;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 
 public class ProductsDaoImpl implements ProductDao {
     private final String CONNECTIONSQL = "src/main/resources/databases/OnlineShop.db";
@@ -14,9 +16,12 @@ public class ProductsDaoImpl implements ProductDao {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
+    private Iterator<Product> shopIterator;
+    
 
     public ProductsDaoImpl () {
         connector = new Connector(CONNECTIONSQL);
+        connection = connector.getDatabaseConnection();
         products = new ArrayList<Product>();
         getProductData();
     }
@@ -24,10 +29,9 @@ public class ProductsDaoImpl implements ProductDao {
 
     public List<Product> getProductData() {
         try {
-            connection = connector.getDatabaseConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Products;");
-
+            
             while (resultSet.next()) {
                 int id = resultSet.getInt("productID");
                 String name = resultSet.getString("Name");
@@ -38,8 +42,7 @@ public class ProductsDaoImpl implements ProductDao {
                 products.add(product);
             }
             resultSet.close();
-            statement.close(); 
-            connection.close();  
+            statement.close();   
         } catch (SQLException error) {
              error.printStackTrace();
         }
@@ -49,7 +52,6 @@ public class ProductsDaoImpl implements ProductDao {
     public void addNewProduct(String name, String category, String price, String amount) {
         int productID = getProductsSize() + 1;
         try {
-            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
@@ -58,28 +60,51 @@ public class ProductsDaoImpl implements ProductDao {
                         amount +" );";
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit();
-            connection.close();        
+            connection.commit();        
         } catch (SQLException error) {
             error.printStackTrace();
         }
     }
 
-    public void deleteProduct(String productID) {
+    public void deleteProductAdmin(String productID) {
         try {
-            connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sql = "DELETE FROM Products WHERE productID = " + 
                             productID + ";";
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit(); 
-            connection.close();      
+            connection.commit();      
         } catch (SQLException error) {
             error.printStackTrace();
         }
     }
+
+    public void deleteProductsByUser(String productID, String productAmount) {
+        int amount = Integer.valueOf(productAmount);
+        int productId = Integer.valueOf(productID);
+        int lastAmout = 0;
+        shopIterator = products.iterator();
+        while (shopIterator.hasNext()) {   
+            Product currentProduct = shopIterator.next();      
+            if (currentProduct.getId() == productId){
+                lastAmout = currentProduct.getAmount() - amount;
+            }
+        }
+        
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sql = "UPDATE Products SET Amount = " + lastAmout +
+                    " WHERE productID = " + productID + ";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.commit();
+        } catch (SQLException error) {
+            error.printStackTrace();
+        }
+    }
+
 
 
     public void editProductPrice(String productID, String productPrice) {
@@ -91,8 +116,7 @@ public class ProductsDaoImpl implements ProductDao {
                             " WHERE productID = " + productID + ";";
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit();
-            connection.close();       
+            connection.commit();       
         } catch (SQLException error) {
             error.printStackTrace();
         }
@@ -108,7 +132,6 @@ public class ProductsDaoImpl implements ProductDao {
             statement.executeUpdate(sql);
             statement.close();
             connection.commit();
-            connection.close();
         } catch (SQLException error) {
             error.printStackTrace();
         }

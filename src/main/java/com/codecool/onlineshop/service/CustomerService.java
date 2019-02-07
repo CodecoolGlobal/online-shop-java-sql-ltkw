@@ -2,8 +2,6 @@ package com.codecool.onlineshop.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.ProductIterator;
@@ -16,13 +14,14 @@ public class CustomerService {
     private Iterator<Product> basketIterator;
     private Iterator<Product> shopIterator;
     private ProductsDaoImpl productDao;
-    View view = new View();
+    private View view;
 
     public CustomerService(User user) {
         this.user = user;
         this.basketIterator = user.getBasket().getIterator();
         this.productDao = new ProductsDaoImpl();
         this.shopIterator = new ProductIterator(productDao.getProducts());
+        this.view = new View();
     }
 
     public void addProductToBasket(int id, int amount) {
@@ -48,9 +47,6 @@ public class CustomerService {
     }
 
     public void displayAllProductsInShop() {
-        // while (shopIterator.hasNext()) {
-        //     view.showMessage(shopIterator.next().toString());
-        // }
         view.productsTable(productDao.getProducts());
     }
 
@@ -75,13 +71,21 @@ public class CustomerService {
         view.showMessage("enter category name ");
         String name = view.getStringInput();
         ArrayList<Product> productsByCategory = new ArrayList<>();
-        while (productsDao.getProductData().iterator().hasNext()){
-            Product product = productsDao.getProductData().iterator().next();
+        for(Product p: productsDao.getProductData()){
+            Product product = p;
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
             }
         }
         view.productsTable(productsByCategory);
+    }
+
+    public void deleteProductByUser() {
+        view.showMessage(view.ENTERPRODUCTID);
+        String productID = view.getStringInput();
+        view.showMessage(view.ENTERAMOUNT);
+        String productAmount = view.getStringInput();
+        productDao.deleteProductsByUser(productID, productAmount);
     }
 
 
