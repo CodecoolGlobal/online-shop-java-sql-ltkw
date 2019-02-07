@@ -1,31 +1,21 @@
 package com.codecool.onlineshop.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static javax.swing.text.html.HTML.Tag.HEAD;
-
 public class Order {
 
     private Integer orderId;
     private int userID;
-    private OrderStatus orderStatus;
-    private List<Order> orders;
-    private int orderSumPrice;
     private int productId;
     private String productName;
     private int productAmount;
     private int productAmountPrice;
 
-    public Order(int orderId, int productId, int productAmount, int productAmountPrice, int userID) {
+    public Order(int orderId, int productId, String productName, int productAmount, int productAmountPrice, int userID) {
         this.orderId = orderId;
         this.userID = userID;
-        this.orderStatus = OrderStatus.SUBMIT;
-        this.orderSumPrice = orderSumPrice;
         this.productAmount = productAmount;
-        orders = new ArrayList<>();
         this.productId = productId;
         this.productAmountPrice = productAmountPrice;
+        this.productName = productName;
     }
 
     public int getProductAmountPrice() {
@@ -50,34 +40,6 @@ public class Order {
 
     public int getUserID() {
         return userID;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public void setUser(int userID) {
-        this.userID = userID;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
-    public int getOrderSumPrice() {
-        return orderSumPrice;
     }
 
     public int compareTo(Order other) {
