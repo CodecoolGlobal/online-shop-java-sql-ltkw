@@ -26,8 +26,7 @@ public class ProductsDaoImpl implements ProductDao {
         getProductData();
     }
 
-
-    public List<Product> getProductData() {
+    private List<Product> getProductData() {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Products;");
@@ -49,6 +48,7 @@ public class ProductsDaoImpl implements ProductDao {
         return products;
     }
 
+    @Override
     public void addNewProduct(String name, String category, String price, String amount) {
         int productID = getProductsSize() + 1;
         try {
@@ -66,6 +66,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void deleteProductAdmin(String productID) {
         try {
             connection.setAutoCommit(false);
@@ -80,6 +81,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void deleteProductsByUser(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
         int productId = Integer.valueOf(productID);
@@ -105,8 +107,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
-
-
+    @Override
     public void editProductPrice(String productID, String productPrice) {
         try {
             connection = connector.getDatabaseConnection();
@@ -122,6 +123,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void editProductName(String productID, String productName){
         try {
             connection = connector.getDatabaseConnection();
@@ -138,6 +140,7 @@ public class ProductsDaoImpl implements ProductDao {
 
     }
 
+    @Override
     public void editProductAmount(String productID, String productAmount){
         try {
             connection.setAutoCommit(false);
@@ -152,15 +155,17 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
-
+    @Override
     public Integer getProductsSize() {
         return products.size();
     }
 
+    @Override
     public List<Product> getProducts() {
         return products;
     }
 
+    @Override
     public Product getProduct(int id) {
         return products.get(id);
     }
