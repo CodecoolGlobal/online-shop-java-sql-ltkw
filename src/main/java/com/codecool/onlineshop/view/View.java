@@ -79,7 +79,12 @@ public class View {
                     "\n 5. Edit a name" +
                     "\n 6. Display all orders" + 
                     "\n 7. Make a discount" +
+<<<<<<< HEAD
                     "\n 8. Edit product name" +
+=======
+                    "\n 8. Edit product name"+
+                    "\n 8. Edit product price" +
+>>>>>>> a4f3208fe725fa80d7f80cd51ebf12f620d3c131
                     "\n 9. Exit");
     }
 
