@@ -44,10 +44,12 @@ public class AdminController {
                 break;
             case 4:
                 view.clearScreen();
+                adminService.displayAllProductsInShop();
                 adminService.editProductPrice();
                 break;
             case 5:
                 view.clearScreen();
+                adminService.displayAllProductsInShop();
                 adminService.editProductName();
                 break;
             case 6:
