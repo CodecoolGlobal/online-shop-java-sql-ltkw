@@ -2,47 +2,47 @@ package com.codecool.onlineshop.model;
 
 public class Order {
 
-    private int id;
-    private Basket basket;
+    private Integer orderId;
     private int userID;
-    private OrderStatus orderStatus;
+    private int productId;
+    private String productName;
+    private int productAmount;
+    private int productAmountPrice;
 
-    public Order(int id, Basket basket, int userID, String orderStatus) {
-        this.id = id;
-        this.basket = basket;
+    public Order(int orderId, int productId, String productName, int productAmount, int productAmountPrice, int userID) {
+        this.orderId = orderId;
         this.userID = userID;
-        this.orderStatus = OrderStatus.SUBMIT;
+        this.productAmount = productAmount;
+        this.productId = productId;
+        this.productAmountPrice = productAmountPrice;
+        this.productName = productName;
     }
 
-    public int getId() {
-        return id;
+    public int getProductAmountPrice() {
+        return productAmountPrice;
     }
 
-    public Basket getBasket() {
-        return basket;
+    public int getProductAmount(){
+        return productAmount;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public int getProductId(){
+        return productId;
+    }
+
+    public int getOrderId() {
+        return orderId;
     }
 
     public int getUserID() {
         return userID;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
-
-    public void setUser(int userID) {
-        this.userID = userID;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public int compareTo(Order other) {
+        return this.orderId.compareTo(other.orderId);
     }
 }

@@ -26,8 +26,7 @@ public class ProductsDaoImpl implements ProductDao {
         getProductData();
     }
 
-
-    public List<Product> getProductData() {
+    private List<Product> getProductData() {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Products;");
@@ -49,6 +48,7 @@ public class ProductsDaoImpl implements ProductDao {
         return products;
     }
 
+    @Override
     public void addNewProduct(String name, String category, String price, String amount) {
         int productID = getProductsSize() + 1;
         try {
@@ -66,6 +66,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void deleteProductAdmin(String productID) {
         try {
             connection.setAutoCommit(false);
@@ -80,6 +81,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void deleteProductsByUser(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
         int productId = Integer.valueOf(productID);
@@ -105,8 +107,7 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
-
-
+    @Override
     public void editProductPrice(String productID, String productPrice) {
         try {
             connection = connector.getDatabaseConnection();
@@ -122,13 +123,19 @@ public class ProductsDaoImpl implements ProductDao {
         }
     }
 
+    @Override
     public void editProductName(String productID, String productName){
         try {
             connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
+<<<<<<< HEAD
             String sql = "UPDATE Products SET Name = " + "'" + productName + "'" +
                     " WHERE productID = " + productID + ";";
+=======
+            String sql = "UPDATE Products SET Name = " + "'" + productName +
+                    "'" + " WHERE productID = " + productID + ";";
+>>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
             statement.executeUpdate(sql);
             statement.close();
             connection.commit();
@@ -138,15 +145,32 @@ public class ProductsDaoImpl implements ProductDao {
 
     }
 
+    @Override
+    public void editProductAmount(String productID, String productAmount){
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sql = "UPDATE Products SET Amount = " + productAmount +
+                    " WHERE productID = " + productID + ";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.commit();
+        } catch (SQLException error) {
+            error.printStackTrace();
+        }
+    }
 
+    @Override
     public Integer getProductsSize() {
         return products.size();
     }
 
+    @Override
     public List<Product> getProducts() {
         return products;
     }
 
+    @Override
     public Product getProduct(int id) {
         return products.get(id);
     }

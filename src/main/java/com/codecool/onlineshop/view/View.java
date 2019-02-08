@@ -1,5 +1,6 @@
 package com.codecool.onlineshop.view;
 
+import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
 import java.util.List;
@@ -29,6 +30,8 @@ public class View {
     public void showMessage(String message){
         System.out.println(message);
     }
+
+
     public void productsTable(List<Product> products){
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
@@ -36,6 +39,27 @@ public class View {
         for (Product p: products){
             String.valueOf(p.getId());
             table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
+        }
+        table.print();
+    }
+    public void ordersTableUser(List<Order> orderList){
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id","product name","product amount","price");
+
+        for (Order o: orderList){
+            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()));
+        }
+        table.print();
+    }
+
+    public void ordersTableAdmin(List<Order> orderList){
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id","product id", "product name","product amount","price","user id");
+
+        for (Order o: orderList){
+            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()),String.valueOf(o.getUserID()));
         }
         table.print();
     }
@@ -60,7 +84,8 @@ public class View {
     }
 
     public void displayCustomerMenu() {
-        showMessage("\n 1. Display my basket" + 
+        showMessage("Customer menu:" + 
+                    "\n 1. Display my basket" + 
                     "\n 2. Add product to my basket" + 
                     "\n 3. Remove product" +
                     "\n 4. Place an order" +
@@ -72,14 +97,16 @@ public class View {
     }
 
     public void displayAdminMenu() {
-        showMessage("\n 1. Add new product" +                    
+        showMessage("Admin menu:" +
+                    "\n 1. Add new product" +                    
                     "\n 2. Delete product" +
-                    "\n 3. Edit product category" +
+                    "\n 3. Display products" +
                     "\n 4. Edit product price" +
                     "\n 5. Edit product name" +
-                    "\n 6. Display all orders" + 
-                    "\n 7. Make a discount" +
-                    "\n 8. Exit");
+                    "\n 6. Edit an amount" +
+                    "\n 7. Display all orders" + 
+                    "\n 8. Make a discount" +
+                    "\n 9. Exit");
     }
 
     public int getIntegerInput() {
@@ -109,13 +136,5 @@ public class View {
             clearScreen();
         }
         clearScreen();
-
     }
-
-    // public String getStringInput() {        
-    //     Scanner scanner = new Scanner(System.in);
-    //     return scanner.nextLine().toString();        
-    // }
-
-
 }

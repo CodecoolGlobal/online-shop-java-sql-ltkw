@@ -1,19 +1,15 @@
 package com.codecool.onlineshop.controller;
 
 import com.codecool.onlineshop.view.View;
-import com.codecool.onlineshop.dao.*;
-import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.service.AdminService;
 
 public class AdminController {
     private View view;
     private boolean isRunning;
-    private ProductsDaoImpl productsDao;
     private AdminService adminService;
 
     public AdminController() {
         view = new View();
-        //productsDao = new ProductsDaoImpl();
         isRunning = true;
         this.adminService = new AdminService();
     }
@@ -28,40 +24,48 @@ public class AdminController {
 
     public void handleAdminInput() {
         int userInput = view.getIntegerInput();
+        view.clearScreen();
         switch (userInput) {
             case 1:
-                view.clearScreen();
-                adminService.createNewProduct();;
+                adminService.createNewProduct();
                 break;
             case 2:
-                view.clearScreen();
                 adminService.displayAllProductsInShop();
                 adminService.deleteProductAdmin();
                 break;
             case 3:
-                view.clearScreen();
-                view.displayNotImplementedMessage();
+                adminService.displayAllProductsInShop();
+                view.getEmptyInput();
                 break;
             case 4:
+<<<<<<< HEAD
                 view.clearScreen();
+=======
+>>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
                 adminService.displayAllProductsInShop();
                 adminService.editProductPrice();
                 break;
             case 5:
+<<<<<<< HEAD
                 view.clearScreen();
+=======
+>>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
                 adminService.displayAllProductsInShop();
                 adminService.editProductName();
                 break;
             case 6:
-                view.clearScreen();
-                view.displayNotImplementedMessage();
+                adminService.displayAllProductsInShop();
+                adminService.editProductAmount();
                 break;
             case 7:
-                view.clearScreen();
-                view.displayNotImplementedMessage();
+                adminService.displayAllOrders();
                 break;
             case 8:
+                view.displayNotImplementedMessage();
+                break;
+            case 9:
                 isRunning = false;
+                break;
             default:
                 break;
 

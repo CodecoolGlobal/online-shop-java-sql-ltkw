@@ -1,26 +1,24 @@
 package com.codecool.onlineshop.service;
 
-import com.codecool.onlineshop.model.User;
+import java.util.List;
+
+import com.codecool.onlineshop.dao.OrdersDaoImpl;
 import com.codecool.onlineshop.dao.ProductDao;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
+import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.view.View;
 
 public class AdminService {
 
-    //private User user;
     private View view;
     private ProductsDaoImpl productDao;
+    private OrdersDaoImpl orderDao;
 
-    public AdminService() {//User user) {
-        //this.user = user;
+    public AdminService() {
         view = new View();
         productDao = new ProductsDaoImpl();
+        orderDao = new OrdersDaoImpl();
     }
-
-    // public User getUser() {
-    //     return this.user;
-    // }
- 
     
     public void createNewProduct() {
         view.showMessage(view.ENTERPRODUCT);
@@ -40,33 +38,46 @@ public class AdminService {
         productDao.deleteProductAdmin(productID);;
     }
 
-    public void deleteProductByUser() {
-        view.showMessage(view.ENTERPRODUCTID);
+    public String getID(String message) {
+        view.showMessage(message);
         String productID = view.getStringInput();
-        view.showMessage(view.ENTERAMOUNT);
-        String productAmount = view.getStringInput();
-        productDao.deleteProductsByUser(productID, productAmount);
+        return productID;
     }
 
-    public void editProductName(){
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERNAME);
-        String productName = view.getStringInput();
-        productDao.editProductName(productID, productName);
+    public String editValueOfProduct(String message) {
+        view.showMessage(message);
+        String producValue = view.getStringInput();
+        return producValue;
+    }
+
+    public void editProductName() {
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productName = editValueOfProduct(view.ENTERNAME);
+        productDao.editProductName(getProductId, productName);
     }
 
 
     public void editProductPrice() {
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERPRICE);
-        String productPrice = view.getStringInput();
-        productDao.editProductPrice(productID, productPrice);
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productPrice = editValueOfProduct(view.ENTERPRICE);
+        productDao.editProductPrice(getProductId, productPrice);
+    }
+
+    public void  editProductAmount() {
+        String getProductId = getID(view.ENTERPRODUCTID);
+        String productAmount = editValueOfProduct(view.ENTERAMOUNT);
+        productDao.editProductAmount(getProductId, productAmount);
     }
 
     public void displayAllProductsInShop() {
         ProductDao productDao = new ProductsDaoImpl();
         view.productsTable(productDao.getProducts());
+    }
+
+    public void displayAllOrders() {
+        orderDao = new OrdersDaoImpl();
+        List<Order> orders = orderDao.getOrderData();
+        view.ordersTableAdmin(orders);
+        view.getEmptyInput();
     }
 }

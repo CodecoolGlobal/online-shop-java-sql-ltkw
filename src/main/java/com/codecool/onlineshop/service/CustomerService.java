@@ -2,7 +2,11 @@ package com.codecool.onlineshop.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
+import com.codecool.onlineshop.dao.OrdersDaoImpl;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
+import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.ProductIterator;
 import com.codecool.onlineshop.model.User;
@@ -14,6 +18,7 @@ public class CustomerService {
     private Iterator<Product> basketIterator;
     private Iterator<Product> shopIterator;
     private ProductsDaoImpl productDao;
+    private OrdersDaoImpl orderDao;
     private View view;
 
     public CustomerService(User user) {
@@ -22,6 +27,7 @@ public class CustomerService {
         this.productDao = new ProductsDaoImpl();
         this.shopIterator = new ProductIterator(productDao.getProducts());
         this.view = new View();
+        this.orderDao = new OrdersDaoImpl();
     }
 
     public void addProductToBasket(int id, int amount) {
@@ -71,7 +77,7 @@ public class CustomerService {
         view.showMessage("enter category name ");
         String name = view.getStringInput();
         ArrayList<Product> productsByCategory = new ArrayList<>();
-        for(Product p: productsDao.getProductData()){
+        for(Product p: productsDao.getProducts()){
             Product product = p;
             if (product.getCategory().contains(name)){
                 productsByCategory.add(product);
@@ -88,5 +94,16 @@ public class CustomerService {
         productDao.deleteProductsByUser(productID, productAmount);
     }
 
-
+    public void displayUserOrder() {
+        orderDao = new OrdersDaoImpl();
+        List<Order> orders = orderDao.getOrderData();
+        List<Order> userOrders = new ArrayList<>();
+        
+        for (Order order : orders) {
+            if (order.getUserID() == user.getId()) {
+                userOrders.add(order);
+            }
+        }
+        view.ordersTableUser(userOrders);
+    }
 }

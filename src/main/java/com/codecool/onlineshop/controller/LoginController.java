@@ -1,6 +1,5 @@
 package com.codecool.onlineshop.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.codecool.onlineshop.dao.UsersDaoImpl;
@@ -50,7 +49,7 @@ public class LoginController {
         List<User> users = usersDao.getUserData();
         view.showMessage("Name: ");
         String name = view.getStringInput();
-        view.showMessage("Password");
+        view.showMessage("Password:");
         String password = view.getStringInput();
         for (User user: users) {
             if(user.getName().equals(name) && user.getPassword().equals(password)) {
@@ -62,6 +61,7 @@ public class LoginController {
     }
 
     public void chooseController(User user) {
+        view.clearScreen();
         if (user.getUserType().equals("ADMIN")) {
             view.showMessage("asdsfasdfadf");
             AdminController adminController = new AdminController();
@@ -75,12 +75,8 @@ public class LoginController {
     public void handleAddNewUser() {
         view.showMessage("Name: ");
         String name = view.getStringInput();
-        view.showMessage("Password");
+        view.showMessage("Password: ");
         String password = view.getStringInput();
         usersDao.addUser(name, password, "CUSTOMER");
-    }
-
-
-
-    
+    }  
 }
