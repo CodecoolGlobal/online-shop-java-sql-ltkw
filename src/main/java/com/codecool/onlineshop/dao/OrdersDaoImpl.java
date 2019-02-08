@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import java.time.LocalDate;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -37,6 +39,8 @@ public class OrdersDaoImpl implements OrdersDao {
     @Override
     public void addOrder(User user) {
         Iterator<Product> basketIterator = user.getBasket().getIterator();
+        LocalDate localDate = LocalDate.now();
+        String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
         Product currentProduct;
         int productId;
         int productAmount;
@@ -62,13 +66,13 @@ public class OrdersDaoImpl implements OrdersDao {
 
             try {
                 statement = connection.createStatement();
-                String insertInto = "INSERT INTO OrderDetails (OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID) VALUES ("
+                String insertInto = "INSERT INTO OrderDetails (OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID, Date) VALUES ("
                         + orderId + "," + productId + ",\"" + productName + "\"," + productAmount + "," + productAmountPrice + "," + userId
-                        + ");";
+                        + ",\"" + date + "\");";
                 statement.executeUpdate(insertInto);
                 statement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(" ");
             }
         }
     }
@@ -85,14 +89,15 @@ public class OrdersDaoImpl implements OrdersDao {
                 int productAmount = resultSet.getInt("ProductAmount");
                 int productAmountPrice = resultSet.getInt("ProductAmountPrice");
                 int userId = resultSet.getInt("UserID");
+                String date = resultSet.getString("Date");
 
-                order = new Order(orderId, productId, productName, productAmount, productAmountPrice, userId);
+                order = new Order(orderId, productId, productName, productAmount, productAmountPrice, userId, date);
                 orders.add(order);
             }
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(" ");
         }
         return orders;
     }
