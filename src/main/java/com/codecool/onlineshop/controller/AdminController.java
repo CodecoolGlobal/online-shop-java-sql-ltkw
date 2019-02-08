@@ -38,18 +38,10 @@ public class AdminController {
                 view.getEmptyInput();
                 break;
             case 4:
-<<<<<<< HEAD
-                view.clearScreen();
-=======
->>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
                 adminService.displayAllProductsInShop();
                 adminService.editProductPrice();
                 break;
             case 5:
-<<<<<<< HEAD
-                view.clearScreen();
-=======
->>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
                 adminService.displayAllProductsInShop();
                 adminService.editProductName();
                 break;

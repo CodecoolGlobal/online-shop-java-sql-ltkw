@@ -20,6 +20,7 @@ public class CustomerController {
 
     public void handleCustomerController() {
         while (isRunning) {
+            view.clearScreen();
             view.displayCustomerMenu();
             handleCustomerinput();
         }
@@ -34,10 +35,10 @@ public class CustomerController {
                 break;
             case 2:
                 customerService.displayAllProductsInShop();
-                handleAddProduct();
+                customerService.handleAddProduct();
                 break;
             case 3:
-                handleDeleteProduct();
+                customerService.handleDeleteProduct();
                 break;
             case 4:
                 OrdersDaoImpl orders = new OrdersDaoImpl();
@@ -45,12 +46,15 @@ public class CustomerController {
                 break;
             case 5:
                 customerService.displayUserOrder();
+                view.getEmptyInput();
                 break;
             case 6:
                 customerService.displayAllProductsInShop();
+                view.getEmptyInput();
                 break;
             case 7:
                 customerService.displayProductsBycategory();
+                view.getEmptyInput();
                 break;
             case 8:
                 customerService.DisplayAllProductsInBasket();
@@ -61,23 +65,6 @@ public class CustomerController {
                 break;
             default:
                 break;
-
         }
     }
-
-    public void handleDeleteProduct() {
-        view.showMessage("Enter product ID you want to remove");
-        int id = view.getIntegerInput();
-        customerService.removeProductFromBasket(id);
-    }
-
-    public void handleAddProduct() {
-        view.showMessage("Enter product ID you want to add");
-        int id = view.getIntegerInput();
-        view.showMessage("Enter amount");
-        int amount = view.getIntegerInput();
-        customerService.addProductToBasket(id, amount);
-    }
-
-    
 }

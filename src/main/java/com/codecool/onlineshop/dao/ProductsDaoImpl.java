@@ -129,13 +129,8 @@ public class ProductsDaoImpl implements ProductDao {
             connection = connector.getDatabaseConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-<<<<<<< HEAD
             String sql = "UPDATE Products SET Name = " + "'" + productName + "'" +
                     " WHERE productID = " + productID + ";";
-=======
-            String sql = "UPDATE Products SET Name = " + "'" + productName +
-                    "'" + " WHERE productID = " + productID + ";";
->>>>>>> 56d4e1f41de8549fadc2c1929ea94ac6debda3dc
             statement.executeUpdate(sql);
             statement.close();
             connection.commit();
