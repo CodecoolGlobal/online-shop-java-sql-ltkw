@@ -56,6 +56,7 @@ public class CustomerService {
     }
 
     public void displayAllProductsInShop() {
+        productDao = new ProductsDaoImpl();
         view.productsTable(productDao.getProducts());
     }
 
@@ -89,14 +90,6 @@ public class CustomerService {
         view.productsTable(productsByCategory);
     }
 
-    public void deleteProductByUser() {
-        view.showMessage(view.ENTERPRODUCTID);
-        String productID = view.getStringInput();
-        view.showMessage(view.ENTERAMOUNT);
-        String productAmount = view.getStringInput();
-        productDao.deleteProductsByUser(productID, productAmount);
-    }
-
     public void displayUserOrder() {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
@@ -121,5 +114,20 @@ public class CustomerService {
             }
         }
         view.ordersUserHistoryTable(userOrders);
+    }
+
+    public void handleAddProduct() {
+        view.showMessage(view.ENTERPRODUCTID);
+        int id = view.getIntegerInput();
+        view.showMessage(view.ENTERAMOUNT);
+        int amount = view.getIntegerInput();
+        addProductToBasket(id, amount);
+        productDao.deleteProductsByUser(String.valueOf(id), String.valueOf(amount));
+    }
+
+    public void handleDeleteProduct() {
+        view.showMessage("Enter product ID you want to remove");
+        int id = view.getIntegerInput();
+        removeProductFromBasket(id);
     }
 }
