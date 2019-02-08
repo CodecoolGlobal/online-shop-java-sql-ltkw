@@ -100,6 +100,7 @@ public class CustomerService {
                 userOrders.add(order);
             }
         }
+        view.showMessage("Orders Details:");
         view.ordersTableUser(userOrders);
     }
 
@@ -113,6 +114,7 @@ public class CustomerService {
                 userOrders.add(order);
             }
         }
+        view.showMessage("Orders History:");
         view.ordersUserHistoryTable(userOrders);
     }
 

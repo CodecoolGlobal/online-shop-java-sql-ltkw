@@ -80,12 +80,14 @@ public class AdminService {
     public void displayAllOrders() {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
+        view.showMessage("Orders Details:");
         view.ordersTableAdmin(orders);
     }
 
     public void displayOrdersHistory() {
         orderHistoryDao = new OrdersHistoryDaoImpl();
         List<Order> ordersHistory = orderHistoryDao.getOrderHistoryDetails();
+        view.showMessage("Orders History:");
         view.ordersHistoryTable(ordersHistory);
     }
 }

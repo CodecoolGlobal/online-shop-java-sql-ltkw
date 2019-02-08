@@ -32,6 +32,7 @@ public class CustomerController {
         switch (userInput) {
             case 1:
                 customerService.DisplayAllProductsInBasket();
+                view.getEmptyInput();
                 break;
             case 2:
                 customerService.displayAllProductsInShop();
