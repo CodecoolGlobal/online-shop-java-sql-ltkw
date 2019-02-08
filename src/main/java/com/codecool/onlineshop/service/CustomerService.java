@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.codecool.onlineshop.dao.OrdersDaoImpl;
+import com.codecool.onlineshop.dao.OrdersHistoryDaoImpl;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
@@ -19,6 +20,7 @@ public class CustomerService {
     private Iterator<Product> shopIterator;
     private ProductsDaoImpl productDao;
     private OrdersDaoImpl orderDao;
+    private OrdersHistoryDaoImpl orderHistoryDao;
     private View view;
 
     public CustomerService(User user) {
@@ -28,6 +30,7 @@ public class CustomerService {
         this.shopIterator = new ProductIterator(productDao.getProducts());
         this.view = new View();
         this.orderDao = new OrdersDaoImpl();
+        this.orderHistoryDao = new OrdersHistoryDaoImpl();
     }
 
     public void addProductToBasket(int id, int amount) {
@@ -105,5 +108,18 @@ public class CustomerService {
             }
         }
         view.ordersTableUser(userOrders);
+    }
+
+    public void displayOrdersHistory() {
+        orderHistoryDao = new OrdersHistoryDaoImpl();
+        List<Order> ordersHistory = orderHistoryDao.getOrderHistoryDetails();
+        List<Order> userOrders = new ArrayList<>();
+        
+        for (Order order : ordersHistory) {
+            if (order.getUserID() == user.getId()) {
+                userOrders.add(order);
+            }
+        }
+        view.ordersUserHistoryTable(userOrders);
     }
 }

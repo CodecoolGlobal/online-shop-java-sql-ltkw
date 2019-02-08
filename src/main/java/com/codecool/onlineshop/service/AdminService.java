@@ -3,6 +3,7 @@ package com.codecool.onlineshop.service;
 import java.util.List;
 
 import com.codecool.onlineshop.dao.OrdersDaoImpl;
+import com.codecool.onlineshop.dao.OrdersHistoryDaoImpl;
 import com.codecool.onlineshop.dao.ProductDao;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
 import com.codecool.onlineshop.model.Order;
@@ -13,11 +14,13 @@ public class AdminService {
     private View view;
     private ProductsDaoImpl productDao;
     private OrdersDaoImpl orderDao;
+    private OrdersHistoryDaoImpl orderHistoryDao;
 
     public AdminService() {
         view = new View();
         productDao = new ProductsDaoImpl();
         orderDao = new OrdersDaoImpl();
+        orderHistoryDao = new OrdersHistoryDaoImpl();
     }
     
     public void createNewProduct() {
@@ -79,6 +82,11 @@ public class AdminService {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
         view.ordersTableAdmin(orders);
-        view.getEmptyInput();
+    }
+
+    public void displayOrdersHistory() {
+        orderHistoryDao = new OrdersHistoryDaoImpl();
+        List<Order> ordersHistory = orderHistoryDao.getOrderHistoryDetails();
+        view.ordersHistoryTable(ordersHistory);
     }
 }
