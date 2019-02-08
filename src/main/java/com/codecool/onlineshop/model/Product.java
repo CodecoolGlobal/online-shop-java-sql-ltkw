@@ -1,21 +1,20 @@
-package com.codecool.onlineshop.main;
+package com.codecool.onlineshop.model;
 
 public class Product {
     
     private int id;
     private String name;
-    private double price;
-    private int amount;
-    private Category category;
+    private String category;
+    private int price;
+    private int amount;    
     private int rating;
-    private boolean isAvailable;
 
-    public Product(String name, double price, int amount, Category category, boolean isAvailable) {
+    public Product(int id, String name, String category, int price, int amount) {
+        this.id = id;
         this.name = name;
-        this.price = price;
-        this.amount = amount;
         this.category = category;
-        this.isAvailable = isAvailable;
+        this.price = price;
+        this.amount = amount;        
     }
 
     public int getId() {
@@ -26,7 +25,7 @@ public class Product {
         return name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -34,7 +33,7 @@ public class Product {
         return amount;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -42,9 +41,6 @@ public class Product {
         return rating;
     }
 
-    public boolean checkIfAvailable() {
-        return isAvailable;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -54,7 +50,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -62,7 +58,7 @@ public class Product {
         this.amount = amount;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -70,8 +66,20 @@ public class Product {
         this.rating = rating;
     }
 
-    public void setIfAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public boolean productIsAvailable() {
+        if(amount > 0) {
+            return true;
+        }
+        return false; 
     }
 
+    @Override
+	public String toString() {
+		return  "id = " + id +
+                ", \nname = " + name +
+                ", \ncategory = " + category +
+				", \nprice = " + price +
+				", \namount = " + amount +
+				"\n";
+	}
 }
