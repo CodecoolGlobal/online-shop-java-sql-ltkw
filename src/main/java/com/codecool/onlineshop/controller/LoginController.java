@@ -45,18 +45,22 @@ public class LoginController {
     }
 
     public User handleLogin() {
+        boolean isLogging = true;
         this.usersDao = new UsersDaoImpl();
         List<User> users = usersDao.getUserData();
-        view.showMessage("Name: ");
-        String name = view.getStringInput();
-        view.showMessage("Password:");
-        String password = view.getStringInput();
-        for (User user: users) {
-            if(user.getName().equals(name) && user.getPassword().equals(password)) {
-                return new User(user.getId(), user.getName(), user.getPassword(), user.getUserType());
+        while (isLogging) {
+            view.showMessage("Name: ");
+            String name = view.getStringInput();
+            view.showMessage("Password:");
+            String password = view.getStringInput();
+            for (User user: users) {
+                if(user.getName().equals(name) && user.getPassword().equals(password)) {
+                    return new User(user.getId(), user.getName(), user.getPassword(), user.getUserType());
+                }
             }
+            view.showMessage("Wrong name/password");
+            continue;
         }
-        view.showMessage("Wrong name/password");
         return null;
     }
 
