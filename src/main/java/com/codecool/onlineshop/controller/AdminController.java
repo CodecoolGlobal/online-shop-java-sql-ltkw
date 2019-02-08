@@ -46,7 +46,10 @@ public class AdminController {
                 adminService.editProductAmount();
                 break;
             case 7:
+                adminService.displayOrdersHistory();
+                view.getEmptyInput();
                 adminService.displayAllOrders();
+                view.getEmptyInput();
                 break;
             case 8:
                 view.displayNotImplementedMessage();

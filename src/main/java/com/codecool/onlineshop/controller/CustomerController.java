@@ -45,7 +45,10 @@ public class CustomerController {
 
                 break;
             case 5:
+                customerService.displayOrdersHistory();
+                view.getEmptyInput();
                 customerService.displayUserOrder();
+                view.getEmptyInput();
                 break;
             case 6:
                 customerService.displayAllProductsInShop();
