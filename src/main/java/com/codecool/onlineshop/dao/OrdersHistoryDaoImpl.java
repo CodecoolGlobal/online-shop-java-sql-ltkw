@@ -43,7 +43,7 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
             statement.executeUpdate(insertToOrderHistory);
             statement.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println(" ");
         }
     }
 
@@ -64,7 +64,7 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();;
         }
         return orderHistoryDetails;
     }

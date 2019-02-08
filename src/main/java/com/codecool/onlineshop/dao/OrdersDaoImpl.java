@@ -72,7 +72,7 @@ public class OrdersDaoImpl implements OrdersDao {
                 statement.executeUpdate(insertInto);
                 statement.close();
             } catch (SQLException e) {
-                System.out.println(" ");
+                e.printStackTrace();
             }
         }
     }
@@ -97,7 +97,7 @@ public class OrdersDaoImpl implements OrdersDao {
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
-            System.out.println(" ");
+            e.printStackTrace();
         }
         return orders;
     }
