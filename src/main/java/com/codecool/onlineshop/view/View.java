@@ -48,7 +48,10 @@ public class View {
         table.setHeaders("order id","product name","product amount","price");
 
         for (Order o: orderList){
-            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()));
+            table.addRow(String.valueOf(o.getOrderId()),
+                         String.valueOf(o.getProductName()),
+                         String.valueOf(o.getProductAmount()),
+                         String.valueOf(o.getProductAmountPrice()));
         }
         table.print();
     }
@@ -59,7 +62,37 @@ public class View {
         table.setHeaders("order id","product id", "product name","product amount","price","user id");
 
         for (Order o: orderList){
-            table.addRow(String.valueOf(o.getOrderId()),String.valueOf(o.getProductId()),String.valueOf(o.getProductName()),String.valueOf(o.getProductAmount()), String.valueOf(o.getProductAmountPrice()),String.valueOf(o.getUserID()));
+            table.addRow(String.valueOf(o.getOrderId()),
+                         String.valueOf(o.getProductId()),
+                         String.valueOf(o.getProductName()),
+                         String.valueOf(o.getProductAmount()),
+                         String.valueOf(o.getProductAmountPrice()),
+                         String.valueOf(o.getUserID()));
+        }
+        table.print();
+    }
+
+    public void ordersHistoryTable(List<Order> orderHistoryList) {
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id", "date", "user id","price");
+
+        for (Order oh: orderHistoryList) {
+            table.addRow(String.valueOf(oh.getOrderId()),
+                         String.valueOf(oh.getDate()),
+                         String.valueOf(oh.getUserID()),
+                         String.valueOf(oh.getTotalPrice()));
+        }
+        table.print();
+    }
+
+    public void ordersUserHistoryTable(List<Order> orderHistoryList) {
+        TableClass table = new TableClass();
+        table.setShowVerticalLines(true);
+        table.setHeaders("order id", "date","price");
+
+        for (Order oh: orderHistoryList) {
+            table.addRow(String.valueOf(oh.getOrderId()),String.valueOf(oh.getDate()),String.valueOf(oh.getTotalPrice()));
         }
         table.print();
     }
@@ -130,9 +163,9 @@ public class View {
     public void getEmptyInput() {
         showMessage("Press enter to continue ");
         String input = scanner.nextLine();
-        if (input.isEmpty()) {
-            clearScreen();
-        }
-        clearScreen();
+        // if (input.isEmpty()) {
+        //     clearScreen();
+        // }
+        //clearScreen();
     }
 }
