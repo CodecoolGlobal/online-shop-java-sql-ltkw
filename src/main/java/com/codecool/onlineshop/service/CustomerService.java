@@ -96,7 +96,7 @@ public class CustomerService {
         List<Order> userOrders = new ArrayList<>();
         
         for (Order order : orders) {
-            if (order.getUserID() == user.getId()) {
+            if (order.getUserId() == user.getId()) {
                 userOrders.add(order);
             }
         }
@@ -110,7 +110,7 @@ public class CustomerService {
         List<Order> userOrders = new ArrayList<>();
         
         for (Order order : ordersHistory) {
-            if (order.getUserID() == user.getId()) {
+            if (order.getUserId() == user.getId()) {
                 userOrders.add(order);
             }
         }
