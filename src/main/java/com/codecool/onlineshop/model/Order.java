@@ -38,7 +38,7 @@ public class Order {
         return productId;
     }
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
