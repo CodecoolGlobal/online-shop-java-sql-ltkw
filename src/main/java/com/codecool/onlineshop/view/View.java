@@ -67,7 +67,7 @@ public class View {
                          String.valueOf(o.getProductName()),
                          String.valueOf(o.getProductAmount()),
                          String.valueOf(o.getProductAmountPrice()),
-                         String.valueOf(o.getUserID()));
+                         String.valueOf(o.getUserId()));
         }
         table.print();
     }
@@ -80,7 +80,7 @@ public class View {
         for (Order oh: orderHistoryList) {
             table.addRow(String.valueOf(oh.getOrderId()),
                          String.valueOf(oh.getDate()),
-                         String.valueOf(oh.getUserID()),
+                         String.valueOf(oh.getUserId()),
                          String.valueOf(oh.getTotalPrice()));
         }
         table.print();

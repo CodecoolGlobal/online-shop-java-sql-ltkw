@@ -36,6 +36,8 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
 
         try {
             statement = connection.createStatement();
+            String clearTable = "DELETE FROM AllOrders;";
+            statement.executeUpdate(clearTable);
             String insertToOrderHistory = "INSERT INTO AllOrders (OrderID, Date, UserID, TotalPrice)"
                                         + "SELECT OrderID, Date, UserID, SUM(ProductAmountPrice)"
                                         + "FROM OrderDetails GROUP BY OrderID;";
@@ -43,7 +45,7 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
             statement.executeUpdate(insertToOrderHistory);
             statement.close();
         } catch (SQLException e) {
-            System.out.println(" ");
+            e.printStackTrace();
         }
     }
 
@@ -58,13 +60,18 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
                 int userId = resultSet.getInt("UserID");
                 int totalPrice = resultSet.getInt("TotalPrice");
                 
-                order = new Order(orderId, date, userId, totalPrice);
+                order = new Order.Builder()
+                                 .withOrderId(orderId)
+                                 .withDate(date)
+                                 .withUserId(userId)
+                                 .withTotalPrice(totalPrice)
+                                 .build();
                 orderHistoryDetails.add(order);
             }
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
         return orderHistoryDetails;
     }

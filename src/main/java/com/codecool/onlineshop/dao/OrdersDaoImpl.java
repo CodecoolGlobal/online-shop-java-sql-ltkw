@@ -91,7 +91,15 @@ public class OrdersDaoImpl implements OrdersDao {
                 int userId = resultSet.getInt("UserID");
                 String date = resultSet.getString("Date");
 
-                order = new Order(orderId, productId, productName, productAmount, productAmountPrice, userId, date);
+                order = new Order.Builder()
+                                 .withOrderId(orderId)
+                                 .withProductId(productId)
+                                 .withProductName(productName)
+                                 .withProductAmount(productAmount)
+                                 .withProductAmountPrice(productAmountPrice)
+                                 .withUserId(userId)
+                                 .withDate(date)
+                                 .build();
                 orders.add(order);
             }
             resultSet.close();

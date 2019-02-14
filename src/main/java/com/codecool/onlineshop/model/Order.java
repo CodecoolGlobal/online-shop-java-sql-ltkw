@@ -3,7 +3,7 @@ package com.codecool.onlineshop.model;
 public class Order {
 
     private Integer orderId;
-    private int userID;
+    private int userId;
     private int productId;
     private String productName;
     private int productAmount;
@@ -11,21 +11,15 @@ public class Order {
     private int totalPrice;
     private String date;
 
-    public Order(int orderId, int productId, String productName, int productAmount, int productAmountPrice, int userID, String date) {
-        this.orderId = orderId;
-        this.userID = userID;
-        this.productAmount = productAmount;
-        this.productId = productId;
-        this.productAmountPrice = productAmountPrice;
-        this.productName = productName;
-        this.date = date;
-    }
-
-    public Order(int orderId, String date, int userId, int totalPrice) {
-        this.orderId = orderId;
-        this.userID = userId;
-        this.totalPrice = totalPrice;
-        this.date = date;
+    private Order(Builder builder) {
+        this.orderId = builder.orderId;
+        this.userId = builder.userId;
+        this.productAmount = builder.productAmount;
+        this.productId = builder.productId;
+        this.productAmountPrice = builder.productAmountPrice;
+        this.productName = builder.productName;
+        this.totalPrice = builder.totalPrice;
+        this.date = builder.date;
     }
 
     public int getProductAmountPrice() {
@@ -44,12 +38,12 @@ public class Order {
         return productId;
     }
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
     
     public int getTotalPrice() {
@@ -64,4 +58,58 @@ public class Order {
         return this.orderId.compareTo(other.orderId);
     }
 
+    public static class Builder {
+        private Integer orderId;
+        private String date;
+        private int userId;
+        private int totalPrice;
+        private int productId;
+        private String productName;
+        private int productAmount;
+        private int productAmountPrice;
+    
+        public Builder withOrderId(Integer orderId) {
+            this.orderId = orderId;
+            return this;
+        }
+    
+        public Builder withUserId(int userId) {
+            this.userId = userId;
+            return this;
+        }
+    
+        public Builder withProductId(int productId) {
+            this.productId = productId;
+            return this;
+        }
+    
+        public Builder withProductName(String productName) {
+            this.productName = productName;
+            return this;
+        }
+    
+        public Builder withProductAmount(int productAmount) {
+            this.productAmount = productAmount;
+            return this;
+        }
+    
+        public Builder withProductAmountPrice(int productAmountPrice) {
+            this.productAmountPrice = productAmountPrice;
+            return this;
+        }
+    
+        public Builder withTotalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+    
+        public Builder withDate(String date) {
+            this.date = date;
+            return this;
+        }
+    
+        public Order build() {
+            return new Order(this);
+        }
+    }
 }
