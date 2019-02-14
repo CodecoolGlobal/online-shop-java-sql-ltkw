@@ -58,7 +58,12 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
                 int userId = resultSet.getInt("UserID");
                 int totalPrice = resultSet.getInt("TotalPrice");
                 
-                order = new Order(orderId, date, userId, totalPrice);
+                order = new Order.Builder()
+                                 .withOrderId(orderId)
+                                 .withDate(date)
+                                 .withUserId(userId)
+                                 .withTotalPrice(totalPrice)
+                                 .build();
                 orderHistoryDetails.add(order);
             }
             resultSet.close();
