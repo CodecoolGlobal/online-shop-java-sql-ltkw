@@ -78,19 +78,23 @@ public class ProductsDaoImpl implements ProductDao {
         createSqlStatement(sql);
     }
 
-    @Override
-    public void deleteProductsByUser(String productID, String productAmount) {
+    private Integer deleteProduct(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
         int productId = Integer.valueOf(productID);
         int lastAmout = 0;
         shopIterator = products.iterator();
-        while (shopIterator.hasNext()) {   
-            Product currentProduct = shopIterator.next();      
+        while (shopIterator.hasNext()) {
+            Product currentProduct = shopIterator.next();
             if (currentProduct.getId() == productId){
                 lastAmout = currentProduct.getAmount() - amount;
             }
         }
+        return lastAmout;
+    }
 
+    @Override
+    public void deleteProductsByUser(String productID, String productAmount) {
+        int lastAmout = deleteProduct(productID, productAmount);
         String sql = "UPDATE Products SET Amount = " + lastAmout +
                 " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
