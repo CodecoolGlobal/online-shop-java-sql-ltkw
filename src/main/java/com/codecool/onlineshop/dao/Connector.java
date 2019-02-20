@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connector {
-    Connection connection;
-    String databasePath;
+    private Connection connection;
+    private String databasePath;
 
     public Connector(String databasePath) {
         this.databasePath = databasePath;
