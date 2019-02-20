@@ -8,13 +8,16 @@ public class Product {
     private int price;
     private int amount;    
     private int rating;
+    private int numberOfRatings;
 
-    public Product(int id, String name, String category, int price, int amount) {
+    public Product(int id, String name, String category, int price, int amount, int rating, int numberOfRatings) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
-        this.amount = amount;        
+        this.amount = amount;
+        this.rating = rating;
+        this.numberOfRatings = numberOfRatings;
     }
 
     public int getId() {
@@ -67,10 +70,7 @@ public class Product {
     }
 
     public boolean productIsAvailable() {
-        if(amount > 0) {
-            return true;
-        }
-        return false; 
+        return amount > 0;
     }
 
     @Override
@@ -82,4 +82,12 @@ public class Product {
 				", \namount = " + amount +
 				"\n";
 	}
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
 }

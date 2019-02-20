@@ -35,10 +35,16 @@ public class View {
     public void productsTable(List<Product> products){
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
-        table.setHeaders("id","name","category","price","amount");
+        table.setHeaders("id","name","category","price","amount","rating");
         for (Product p: products){
             String.valueOf(p.getId());
-            table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()));
+            double ratings;
+            if (p.getNumberOfRatings() == 0) {
+                ratings = p.getRating() / 1;
+            } else {
+                ratings = (double) p.getRating() / p.getNumberOfRatings();
+            }
+            table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()),String.format("%.2f", ratings));
         }
         table.print();
     }
@@ -126,7 +132,8 @@ public class View {
                     "\n 6. Display all products" +
                     "\n 7. Display all products from given category"+
                     "\n 8. Edit products quantity"+
-                    "\n 9. Exit");
+                    "\n 9. Rate product"+
+                    "\n 10. Exit");
     }
 
     public void displayAdminMenu() {

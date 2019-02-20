@@ -37,10 +37,7 @@ public class Basket {
     }
 
     public boolean checkIfBasketEmpty() {
-        if (products.isEmpty()) {
-            return true;
-        }
-        return false;
+        return products.isEmpty();
     }
 
     public void clearBasket() {
