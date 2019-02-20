@@ -59,6 +59,10 @@ public class AdminController {
                 view.displayNotImplementedMessage();
                 break;
             case 9:
+                adminService.displayAllCustomers();
+                view.getEmptyInput();
+                break;
+            case 10:
                 isRunning = false;
                 break;
             default:

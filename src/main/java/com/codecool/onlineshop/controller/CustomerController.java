@@ -42,8 +42,7 @@ public class CustomerController {
                 customerService.handleDeleteProduct();
                 break;
             case 4:
-                OrdersDaoImpl orders = new OrdersDaoImpl();
-                orders.addOrder(customer);
+                customerService.placeOrderIfBasketNotEmpty();
                 break;
             case 5:
                 customerService.displayOrdersHistory();

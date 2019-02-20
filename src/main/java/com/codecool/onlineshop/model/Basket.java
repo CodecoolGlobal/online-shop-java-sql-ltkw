@@ -35,4 +35,15 @@ public class Basket {
         basketIterator = new ProductIterator(products);
         return basketIterator;
     }
+
+    public boolean checkIfBasketEmpty() {
+        if (products.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void clearBasket() {
+        this.products = new ArrayList<Product>();
+    }
 }

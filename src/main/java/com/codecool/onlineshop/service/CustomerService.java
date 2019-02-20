@@ -132,4 +132,15 @@ public class CustomerService {
         int id = view.getIntegerInput();
         removeProductFromBasket(id);
     }
+
+    public void placeOrderIfBasketNotEmpty() {
+        OrdersDaoImpl orders = new OrdersDaoImpl();
+        if (user.getBasket().checkIfBasketEmpty()) {
+            view.showMessage("Add products to basket!");
+            view.getEmptyInput();
+        } else {
+            orders.addOrder(user);
+            user.getBasket().clearBasket();
+        }
+    }
 }

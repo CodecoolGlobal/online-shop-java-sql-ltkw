@@ -2,12 +2,12 @@ package com.codecool.onlineshop.service;
 
 import java.util.List;
 
-import com.codecool.onlineshop.dao.OrdersDaoImpl;
-import com.codecool.onlineshop.dao.OrdersHistoryDaoImpl;
-import com.codecool.onlineshop.dao.ProductDao;
-import com.codecool.onlineshop.dao.ProductsDaoImpl;
+import com.codecool.onlineshop.dao.*;
 import com.codecool.onlineshop.model.Order;
+import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.view.View;
+
+import javax.jws.soap.SOAPBinding;
 
 public class AdminService {
 
@@ -15,12 +15,14 @@ public class AdminService {
     private ProductsDaoImpl productDao;
     private OrdersDaoImpl orderDao;
     private OrdersHistoryDaoImpl orderHistoryDao;
+    private UsersDaoImpl usersDao;
 
     public AdminService() {
         view = new View();
         productDao = new ProductsDaoImpl();
         orderDao = new OrdersDaoImpl();
         orderHistoryDao = new OrdersHistoryDaoImpl();
+        usersDao = new UsersDaoImpl();
     }
     
     public void createNewProduct() {
@@ -89,5 +91,12 @@ public class AdminService {
         List<Order> ordersHistory = orderHistoryDao.getOrderHistoryDetails();
         view.showMessage("Orders History:");
         view.ordersHistoryTable(ordersHistory);
+    }
+
+    public void displayAllCustomers(){
+        usersDao = new UsersDaoImpl();
+        List<User> allUsers = usersDao.getUserData();
+        view.showMessage("table of all customers");
+        view.usersTable(allUsers);
     }
 }

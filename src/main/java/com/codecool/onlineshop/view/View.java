@@ -139,7 +139,8 @@ public class View {
                     "\n 6. Edit an amount" +
                     "\n 7. Display all orders" + 
                     "\n 8. Make a discount" +
-                    "\n 9. Exit");
+                    "\n 9. Display all users" +
+                    "\n 10. Exit");
     }
 
     public int getIntegerInput() {
