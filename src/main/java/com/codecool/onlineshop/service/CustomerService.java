@@ -143,4 +143,22 @@ public class CustomerService {
             user.getBasket().clearBasket();
         }
     }
+
+    public void handleRateProduct() {
+        view.showMessage("Enter product ID you want to rate");
+        int id = view.getIntegerInput();
+        view.showMessage("Enter your rating (1 - 5)");
+        int userRating = view.getIntegerInput();
+        while (shopIterator.hasNext()) {
+            Product current = shopIterator.next();
+            if (current.getId() == id) {
+                current.setRating(current.getRating() + userRating);
+                current.setNumberOfRatings(current.getNumberOfRatings() + 1);
+                productDao.editProductRating(String.valueOf(id), String.valueOf(current.getRating()));
+                productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()));
+            }
+        }
+
+
+    }
 }

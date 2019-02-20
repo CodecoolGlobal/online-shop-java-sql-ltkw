@@ -63,6 +63,10 @@ public class CustomerController {
                 customerService.editProductQuantity();
                 break;
             case 9:
+                customerService.displayAllProductsInShop();
+                customerService.handleRateProduct();
+                break;
+            case 10:
                 isRunning = false;
                 break;
             default:

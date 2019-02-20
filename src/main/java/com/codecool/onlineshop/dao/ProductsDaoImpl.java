@@ -37,7 +37,9 @@ public class ProductsDaoImpl implements ProductDao {
                 String category = resultSet.getString("Category");
                 int price  = resultSet.getInt("Price");
                 int amount = resultSet.getInt("Amount");
-                product = new Product(id, name, category, price, amount);
+                int rating = resultSet.getInt("Rating");
+                int numberOfRatings = resultSet.getInt("RatingsAmount");
+                product = new Product(id, name, category, price, amount, rating, numberOfRatings);
                 products.add(product);
             }
             resultSet.close();
@@ -64,10 +66,10 @@ public class ProductsDaoImpl implements ProductDao {
     @Override
     public void addNewProduct(String name, String category, String price, String amount) {
         int productID = getProductsSize() + 1;
-        String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
+        String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount,Rating,RatingsAmount) " +
                         "VALUES ( " + productID + "," + "'" + name + "'" + "," +
                         "'" + category + "'" + "," + price + "," +
-                        amount +" );";
+                        amount + "," + 0 + "," + 0 + " );";
         createSqlStatement(sql);
     }
 
@@ -121,6 +123,19 @@ public class ProductsDaoImpl implements ProductDao {
                 " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
     }
+
+    @Override
+    public void editProductRating(String productId, String rating) {
+        String sql = "UPDATE Products SET Rating = " + rating + " WHERE productID = " + productId + ";";
+        createSqlStatement(sql);
+    }
+
+    @Override
+    public void editProductNumberOfRatings(String productId, String numberOfRatings) {
+        String sql = "UPDATE Products SET RatingsAmount = " + numberOfRatings + " WHERE productID = " + productId + ";";
+        createSqlStatement(sql);
+    }
+
 
     @Override
     public Integer getProductsSize() {
