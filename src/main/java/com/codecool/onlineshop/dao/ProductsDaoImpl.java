@@ -48,111 +48,78 @@ public class ProductsDaoImpl implements ProductDao {
         return products;
     }
 
-    @Override
-    public void addNewProduct(String name, String category, String price, String amount) {
-        int productID = getProductsSize() + 1;
+    private void createSqlStatement(String sqlStatement) {
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
-                        "VALUES ( " + productID + "," + "'" + name + "'" + "," + 
-                        "'" + category + "'" + "," + price + "," + 
-                        amount +" );";
+            String sql = sqlStatement;
             statement.executeUpdate(sql);
             statement.close();
-            connection.commit();        
+            connection.commit();
         } catch (SQLException error) {
             error.printStackTrace();
         }
+    }
+
+    @Override
+    public void addNewProduct(String name, String category, String price, String amount) {
+        int productID = getProductsSize() + 1;
+        String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount) " +
+                        "VALUES ( " + productID + "," + "'" + name + "'" + "," +
+                        "'" + category + "'" + "," + price + "," +
+                        amount +" );";
+        createSqlStatement(sql);
     }
 
     @Override
     public void deleteProductAdmin(String productID) {
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            String sql = "DELETE FROM Products WHERE productID = " + 
+        String sql = "DELETE FROM Products WHERE productID = " +
                             productID + ";";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.commit();      
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }
+        createSqlStatement(sql);
     }
 
-    @Override
-    public void deleteProductsByUser(String productID, String productAmount) {
+    private Integer deleteProduct(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
         int productId = Integer.valueOf(productID);
         int lastAmout = 0;
         shopIterator = products.iterator();
-        while (shopIterator.hasNext()) {   
-            Product currentProduct = shopIterator.next();      
+        while (shopIterator.hasNext()) {
+            Product currentProduct = shopIterator.next();
             if (currentProduct.getId() == productId){
                 lastAmout = currentProduct.getAmount() - amount;
             }
         }
-        
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            String sql = "UPDATE Products SET Amount = " + lastAmout +
-                    " WHERE productID = " + productID + ";";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.commit();
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }
+        return lastAmout;
+    }
+
+    @Override
+    public void deleteProductsByUser(String productID, String productAmount) {
+        int lastAmout = deleteProduct(productID, productAmount);
+        String sql = "UPDATE Products SET Amount = " + lastAmout +
+                " WHERE productID = " + productID + ";";
+        createSqlStatement(sql);
     }
 
     @Override
     public void editProductPrice(String productID, String productPrice) {
-        try {
-            connection = connector.getDatabaseConnection();
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            String sql = "UPDATE Products SET Price = " + productPrice + 
-                            " WHERE productID = " + productID + ";";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.commit();       
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }
+        String sql = "UPDATE Products SET Price = " + productPrice +
+                " WHERE productID = " + productID + ";";
+        createSqlStatement(sql);
     }
+
 
     @Override
     public void editProductName(String productID, String productName){
-        try {
-            connection = connector.getDatabaseConnection();
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            String sql = "UPDATE Products SET Name = " + "'" + productName + "'" +
-                    " WHERE productID = " + productID + ";";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.commit();
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }
-
+        String sql = "UPDATE Products SET Name = " + "'" + productName + "'" +
+                " WHERE productID = " + productID + ";";
+        createSqlStatement(sql);
     }
 
     @Override
     public void editProductAmount(String productID, String productAmount){
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            String sql = "UPDATE Products SET Amount = " + productAmount +
-                    " WHERE productID = " + productID + ";";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.commit();
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }
+        String sql = "UPDATE Products SET Amount = " + productAmount +
+                " WHERE productID = " + productID + ";";
+        createSqlStatement(sql);
     }
 
     @Override
