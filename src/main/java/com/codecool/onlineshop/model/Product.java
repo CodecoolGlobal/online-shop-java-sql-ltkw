@@ -70,10 +70,7 @@ public class Product {
     }
 
     public boolean productIsAvailable() {
-        if(amount > 0) {
-            return true;
-        }
-        return false; 
+        return amount > 0;
     }
 
     @Override
