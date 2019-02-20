@@ -13,7 +13,7 @@ import com.codecool.onlineshop.model.User;
 
 public class UsersDaoImpl implements UsersDao {
 
-    Connection connection;
+    private Connection connection;
     private List<User> users;
 
     public UsersDaoImpl() {
@@ -35,7 +35,7 @@ public class UsersDaoImpl implements UsersDao {
     public void updateUser(int userId, String columnName, String newUpdate) {
         connection = initializeConnection();
         PreparedStatement updateUser;
-        String updateString = "UPDATE Users SET " + columnName + "= ? WHERE UserID= ?";
+        String updateString = "UPDATE Users SET " + columnName + " = ? WHERE UserID = ?";
         try {
             updateUser = connection.prepareStatement(updateString);
             updateUser.setString(1, newUpdate);
@@ -75,6 +75,8 @@ public class UsersDaoImpl implements UsersDao {
             addUser.setString(2, userPassword);
             addUser.setString(3, userType);
             addUser.executeUpdate();
+            addUser.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,6 +104,7 @@ public class UsersDaoImpl implements UsersDao {
             }
             resultSet.close();
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
