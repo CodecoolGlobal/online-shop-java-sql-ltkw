@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.codecool.onlineshop.dao.*;
 import com.codecool.onlineshop.model.Order;
+import com.codecool.onlineshop.model.OrderStatus;
 import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.view.View;
 
@@ -14,8 +15,10 @@ public class AdminService {
     private OrdersDaoImpl orderDao;
     private OrdersHistoryDaoImpl orderHistoryDao;
     private UsersDaoImpl usersDao;
+    private boolean wrongInput;
     private final String COLUMNAMOUNT = "Amount";
     private final String COLUMNPRICE = "Price";
+    
 
     public AdminService() {
         view = new View();
@@ -148,6 +151,50 @@ public class AdminService {
         view.showMessage(view.ENTERNEWVALUE);
         String newValue = view.getStringInput();
         usersDao.updateUser(userID, columnName, newValue);
-        view.showMessage("Successfully Updated");
+        view.showMessage(view.UPDATED);
+    }
+
+    public void updateOrderStatus() {
+        orderDao = new OrdersDaoImpl();
+        wrongInput = true;
+        view.showMessage("Enter ID of an Order: ");
+        int orderId = view.getIntegerInput();
+        if (orderDao.isValid(orderId)) {
+            view.displayUpdateStatusMenu();
+            while (wrongInput) {
+                handleOrderStatusUpdate(orderId);
+            }
+            view.showMessage(view.UPDATED);
+        } else {
+            view.showMessage("There is no such order");
+        }
+    }
+
+    private void handleOrderStatusUpdate(int orderId) {
+        int chosenOption = view.getIntegerInput();
+        switch (chosenOption) {
+            case 1:
+                orderDao.updateOrderStatus(orderId, OrderStatus.PENDING.name());
+                wrongInput = false;
+                break;
+            case 2:
+                orderDao.updateOrderStatus(orderId, OrderStatus.SENT.name());
+                wrongInput = false;
+                break;
+            case 3:
+                orderDao.updateOrderStatus(orderId, OrderStatus.DELIVERED.name());
+                wrongInput = false;
+                break;
+            case 4:
+                orderDao.updateOrderStatus(orderId, OrderStatus.CANCELED.name());
+                wrongInput = false;
+                break;
+            case 0:
+                wrongInput = false;
+                break;
+            default:
+                view.showMessage("There is no such option.");
+                break;
+        }
     }
 }
