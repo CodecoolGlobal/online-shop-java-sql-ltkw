@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 import com.codecool.onlineshop.model.Order;
+import com.codecool.onlineshop.model.OrderStatus;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
 
@@ -44,7 +45,6 @@ public class OrdersDaoImpl implements OrdersDao {
 
         String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
         int orderId = getIncrementedOrderId();
-        final String STATUS = "PENDING";
         while (basketIterator.hasNext()) {
             Product currentProduct = basketIterator.next();
             String productName = currentProduct.getName();
@@ -62,7 +62,7 @@ public class OrdersDaoImpl implements OrdersDao {
                 insertOrder.setInt(5, productAmountPrice);
                 insertOrder.setInt(6, userId);
                 insertOrder.setString(7, date);
-                insertOrder.setString(8, STATUS);
+                insertOrder.setString(8, OrderStatus.PENDING.name());
                 insertOrder.executeUpdate();
                 insertOrder.close();
                 connection.close();
