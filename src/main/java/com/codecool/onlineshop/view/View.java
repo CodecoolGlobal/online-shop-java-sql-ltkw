@@ -21,6 +21,9 @@ public class View {
     public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
     public final String WRONGINPUT = "Wrong id of product, try again!";
+    public final String STATUSPENDING = "PENDING";
+    public final String STATUSSENT = "SENT";
+    public final String STATUSDELIVERED = "DELIVERED";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -90,13 +93,14 @@ public class View {
     public void ordersHistoryTable(List<Order> orderHistoryList) {
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
-        table.setHeaders("order id", "date", "user id","price");
+        table.setHeaders("order id", "date", "user id","price", "status");
 
         for (Order oh: orderHistoryList) {
             table.addRow(String.valueOf(oh.getOrderId()),
                          String.valueOf(oh.getDate()),
                          String.valueOf(oh.getUserId()),
-                         String.valueOf(oh.getTotalPrice()));
+                         String.valueOf(oh.getTotalPrice()),
+                         String.valueOf(oh.getStatus()));
         }
         table.print();
     }
@@ -104,12 +108,13 @@ public class View {
     public void ordersUserHistoryTable(List<Order> orderHistoryList) {
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
-        table.setHeaders("order id", "date","price");
+        table.setHeaders("order id", "date","price", "status");
 
         for (Order oh: orderHistoryList) {
             table.addRow(String.valueOf(oh.getOrderId()),
                          String.valueOf(oh.getDate()),
-                         String.valueOf(oh.getTotalPrice()));
+                         String.valueOf(oh.getTotalPrice()),
+                         String.valueOf(oh.getStatus()));
         }
         table.print();
     }
