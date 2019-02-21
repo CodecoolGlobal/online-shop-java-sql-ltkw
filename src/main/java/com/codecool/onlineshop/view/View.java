@@ -41,18 +41,12 @@ public class View {
         table.setHeaders("id","name","category","price","amount","rating");
         for (Product p: products){
             String.valueOf(p.getId());
-            double ratings;
-            if (p.getNumberOfRatings() == 0) {
-                ratings = p.getRating() / 1;
-            } else {
-                ratings = (double) p.getRating() / p.getNumberOfRatings();
-            }
             table.addRow(String.valueOf(p.getId()),
                          p.getName(),
                          p.getCategory(),
                          String.valueOf(p.getPrice()),
                          String.valueOf(p.getAmount()),
-                         String.format("%.2f", ratings));
+                         String.format("%.2f", p.calculateRating()));
         }
         table.print();
     }

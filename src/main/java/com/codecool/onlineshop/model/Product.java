@@ -89,4 +89,14 @@ public class Product {
     public void setNumberOfRatings(int numberOfRatings) {
         this.numberOfRatings = numberOfRatings;
     }
+
+    public double calculateRating() {
+        double ratings;
+        if (this.numberOfRatings == 0) {
+            ratings = rating / 1;
+        } else {
+            ratings = (double) rating / numberOfRatings;
+        }
+        return ratings;
+    }
 }
