@@ -43,7 +43,7 @@ public class AdminService {
                 productDao.deleteProductAdmin(productID);
                 editProduct = false;
             } else {
-                view.showMessage(view.WRONGINPUT);
+                view.showMessage(view.WRONGID);
             }
         }
     }
@@ -69,7 +69,7 @@ public class AdminService {
                 productDao.editProductName(productId, productName);
                 editProduct = false;
             } else {
-                view.showMessage(view.WRONGINPUT);
+                view.showMessage(view.WRONGID);
             }
         }
     }
@@ -83,7 +83,7 @@ public class AdminService {
                 String productPrice = editValueOfProduct(view.ENTERPRICE);
                 productDao.editProductPrice(productId, productPrice);
             } else {
-                view.showMessage(view.WRONGINPUT);
+                view.showMessage(view.WRONGID);
             }
         }
     }
@@ -97,7 +97,7 @@ public class AdminService {
                 String productAmount = editValueOfProduct(view.ENTERAMOUNT);
                 productDao.editProductAmount(productId, productAmount);
             } else {
-                view.showMessage(view.WRONGINPUT);
+                view.showMessage(view.WRONGID);
             }
         }
     }

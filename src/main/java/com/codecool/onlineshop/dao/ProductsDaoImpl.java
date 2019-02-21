@@ -95,30 +95,34 @@ public class ProductsDaoImpl implements ProductDao {
 
     private Integer addProduct(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
-        int productId = Integer.valueOf(productID);
+        int id = Integer.valueOf(productID);
         int lastAmount = 0;
-        shopIterator = products.iterator();
-        while (shopIterator.hasNext()) {
-            Product currentProduct = shopIterator.next();
-            if (currentProduct.getId() == productId){
-                lastAmount = currentProduct.getAmount() + amount;
+        for (Product product : products) {
+            if(id == product.getId()){
+                lastAmount = product.getAmount() + amount;
             }
         }
+
+//        shopIterator = products.iterator();
+//        while (shopIterator.hasNext()) {
+//            Product currentProduct = shopIterator.next();
+//            if (currentProduct.getId() == productId){
+//                lastAmount = currentProduct.getAmount() + amount;
+//            }
+//        }
         return lastAmount;
     }
 
     private Integer deleteProduct(String productID, String productAmount) {
         int amount = Integer.valueOf(productAmount);
-        int productId = Integer.valueOf(productID);
-        int lastAmout = 0;
-        shopIterator = products.iterator();
-        while (shopIterator.hasNext()) {
-            Product currentProduct = shopIterator.next();
-            if (currentProduct.getId() == productId){
-                lastAmout = currentProduct.getAmount() - amount;
+        int id = Integer.valueOf(productID);
+        int lastAmount = 0;
+        for (Product product : products) {
+            if(id == product.getId()){
+                lastAmount = product.getAmount() - amount;
             }
         }
-        return lastAmout;
+        return lastAmount;
     }
 
     private Integer getNextPrimaryKey() {
@@ -166,8 +170,8 @@ public class ProductsDaoImpl implements ProductDao {
 
     @Override
     public void deleteProductsByUser(String productID, String productAmount) {
-        int lastAmout = deleteProduct(productID, productAmount);
-        String sql = "UPDATE Products SET Amount = " + lastAmout +
+        int lastAmount = deleteProduct(productID, productAmount);
+        String sql = "UPDATE Products SET Amount = " + lastAmount +
                 " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
     }
