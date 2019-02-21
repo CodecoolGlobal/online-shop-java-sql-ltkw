@@ -39,12 +39,12 @@ public class OrdersDaoImpl implements OrdersDao {
         connection = initializeConnection();
         PreparedStatement insertOrder;
         String insertOrderString = "INSERT INTO OrderDetails"
-                                 + "(OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID, Date)"
-                                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                                 + "(OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID, Date, Status)"
+                                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
         int orderId = getIncrementedOrderId();
-
+        final String STATUS = "PENDING";
         while (basketIterator.hasNext()) {
             Product currentProduct = basketIterator.next();
             String productName = currentProduct.getName();
@@ -62,6 +62,7 @@ public class OrdersDaoImpl implements OrdersDao {
                 insertOrder.setInt(5, productAmountPrice);
                 insertOrder.setInt(6, userId);
                 insertOrder.setString(7, date);
+                insertOrder.setString(8, STATUS);
                 insertOrder.executeUpdate();
                 insertOrder.close();
                 connection.close();
@@ -104,6 +105,7 @@ public class OrdersDaoImpl implements OrdersDao {
                 int productAmountPrice = resultSet.getInt("ProductAmountPrice");
                 int userId = resultSet.getInt("UserID");
                 String date = resultSet.getString("Date");
+                String status = resultSet.getString("Status");
 
                 order = new Order.Builder()
                                  .withOrderId(orderId)
@@ -113,6 +115,7 @@ public class OrdersDaoImpl implements OrdersDao {
                                  .withProductAmountPrice(productAmountPrice)
                                  .withUserId(userId)
                                  .withDate(date)
+                                 .withStatus(status)
                                  .build();
                 orders.add(order);
             }

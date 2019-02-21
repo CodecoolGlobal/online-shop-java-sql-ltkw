@@ -29,8 +29,8 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
     private void addOrderHistory() {
         connection = initializeConnection();
         String clearTable = "DELETE FROM AllOrders;";
-        String insertToOrderHistory = "INSERT INTO AllOrders (OrderID, Date, UserID, TotalPrice)"
-                                    + "SELECT OrderID, Date, UserID, SUM(ProductAmountPrice)"
+        String insertToOrderHistory = "INSERT INTO AllOrders (OrderID, Date, UserID, TotalPrice, Status)"
+                                    + "SELECT OrderID, Date, UserID, SUM(ProductAmountPrice), Status "
                                     + "FROM OrderDetails GROUP BY OrderID;";
         try {
             statement = connection.createStatement();
@@ -60,12 +60,14 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
                 String date = resultSet.getString("Date");
                 int userId = resultSet.getInt("UserID");
                 int totalPrice = resultSet.getInt("TotalPrice");
+                String status = resultSet.getString("Status");
                 
                 order = new Order.Builder()
                                  .withOrderId(orderId)
                                  .withDate(date)
                                  .withUserId(userId)
                                  .withTotalPrice(totalPrice)
+                                 .withStatus(status)
                                  .build();
                 orderHistoryDetails.add(order);
             }
