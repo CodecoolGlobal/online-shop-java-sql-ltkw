@@ -5,15 +5,14 @@ import com.codecool.onlineshop.model.Product;
 import java.util.List;
 
 public interface ProductDao {
-    public void deleteProductAdmin(String id);
-    public void deleteProductsByUser(String productID, String productAmount);
-    public void addNewProduct(String name, String category, String price, String amount);
-    public void editProductPrice(String productID, String productPrice, String columnName);
-    public void editProductName(String productID, String productName);
-    public void editProductAmount(String productID, String productAmount, String columnName);
-    public void editProductRating(String ProductId, String rating, String columnName);
-    public void editProductNumberOfRatings(String ProductId, String numberOfRatings, String columnName);
-    public Integer getProductsSize();
-    public List<Product> getProducts();
-    public Product getProduct(int id);
+    void deleteProductAdmin(int id);
+    void deleteProductsByUser(int productID, int productAmount);
+    void addNewProduct(String name, String category, String price, String amount);
+    void editProductName(int productID, String productName);
+    void editProductRating(int productId, int rating, String columnName);
+    void editProductNumberOfRatings(int ProductId, int numberOfRatings, String columnName);
+    void addProductByUser(int productID, int productAmount);
+    boolean productAmountIsValid(int productID, int productAmount);
+    boolean validID(int id);
+    List<Product> getProducts();
 }
