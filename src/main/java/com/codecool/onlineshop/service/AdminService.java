@@ -6,6 +6,7 @@ import com.codecool.onlineshop.dao.*;
 import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.OrderStatus;
 import com.codecool.onlineshop.model.User;
+import com.codecool.onlineshop.model.UserType;
 import com.codecool.onlineshop.view.View;
 
 public class AdminService {
@@ -104,7 +105,6 @@ public class AdminService {
         editProductValue(COLUMNPRICE, view.ENTERPRICE);
     }
 
-
     public void  editProductAmount() {
         editProductValue(COLUMNAMOUNT, view.ENTERAMOUNT);
     }
@@ -145,14 +145,18 @@ public class AdminService {
 
     public void updateUserDetails() {
         usersDao = new UsersDaoImpl();
+        wrongInput = true;
         view.showMessage(view.ENTERUSERID);
         int userID = view.getIntegerInput();
-        view.showMessage(view.ENTERCOLUMNNAME);
-        String columnName = view.getStringInput();
-        view.showMessage(view.ENTERNEWVALUE);
-        String newValue = view.getStringInput();
-        usersDao.updateUser(userID, columnName, newValue);
-        view.showMessage(view.UPDATED);
+        if (usersDao.isValid(userID)) {
+            view.displayUpdateUserDetailsMenu();
+            while (wrongInput) {
+                handleUpdateUserDetails(userID);
+            }
+            view.showMessage(view.UPDATED);
+        } else {
+            view.showMessage(view.NOOPTION);
+        }
     }
 
     public void updateOrderStatus() {
@@ -167,7 +171,7 @@ public class AdminService {
             }
             view.showMessage(view.UPDATED);
         } else {
-            view.showMessage("There is no such order");
+            view.showMessage(view.NOOPTION);
         }
     }
 
@@ -194,8 +198,59 @@ public class AdminService {
                 wrongInput = false;
                 break;
             default:
-                view.showMessage("There is no such option.");
+                view.showMessage(view.NOOPTION);
                 break;
         }
+    }
+
+    private void handleUpdateUserDetails(int userID) {
+        String newValue;
+        int chosenOption = view.getIntegerInput();
+        switch (chosenOption) {
+            case 1:
+                newValue = getNewValueFromUser();
+                usersDao.updateUser(userID, "Name", newValue);
+                wrongInput = false;
+                break;
+            case 2:
+                newValue = getNewValueFromUser();
+                usersDao.updateUser(userID, "Password", newValue);
+                wrongInput = false;
+                break;
+            case 3:
+                newValue = handleUserTypeUpdate();
+                usersDao.updateUser(userID, "UserType", newValue);
+                wrongInput = false;
+                break;
+            case 0:
+                wrongInput = false;
+                break;
+            default:
+                view.showMessage(view.NOOPTION);
+                break;
+        }
+    }
+
+    private String handleUserTypeUpdate() {
+        wrongInput = true;
+        while (wrongInput) {
+            view.showMessage("\n1. Customer\n2. Admin");
+            int chosenOption = view.getIntegerInput();
+            switch (chosenOption) {
+                case 1:
+                    return UserType.CUSTOMER.name();
+                case 2:
+                    return UserType.ADMIN.name();
+                default:
+                    view.showMessage(view.NOOPTION);
+                    break;
+            }
+        }
+        return null;
+    }
+
+    private String getNewValueFromUser() {
+        view.showMessage(view.ENTERNEWVALUE);
+        return view.getStringInput();
     }
 }

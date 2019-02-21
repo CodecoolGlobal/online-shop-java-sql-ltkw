@@ -82,6 +82,15 @@ public class UsersDaoImpl implements UsersDao {
         }
     }
 
+    public boolean isValid(int userId) {
+        for (User user : users) {
+            if (user.getId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Connection initializeConnection() {
         final String DATABASEPATH = "src/main/resources/databases/OnlineShop.db";
         Connector connector = new Connector(DATABASEPATH);

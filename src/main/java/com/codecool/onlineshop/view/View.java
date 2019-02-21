@@ -19,11 +19,11 @@ public class View {
     public final String DELETEPRODUCT = "Enter ID of product to delete: ";
     public final String ENTERNAME = "Enter name of product: ";
     public final String ENTERUSERID = "Enter ID of a user: ";
-    public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
     public final String WRONGID = "Wrong id of product, try again!";
     public final String WRONGAMOUNT = "Wrong amount of product or not enough amount of product in shop, try again!!";
     public final String UPDATED = "Successfully updated.";
+    public final String NOOPTION = "There is no such option.";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -170,6 +170,14 @@ public class View {
                     "\n 3. Delivered" +
                     "\n 4. Canceled" +
                     "\n 0. Exit");
+    }
+
+    public void displayUpdateUserDetailsMenu() {
+        showMessage("Update: " +
+                "\n 1. Name" +
+                "\n 2. Password xD" +
+                "\n 3. User Type" +
+                "\n 0. Exit");
     }
 
     public int getIntegerInput() {
