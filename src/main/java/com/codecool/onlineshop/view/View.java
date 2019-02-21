@@ -144,7 +144,8 @@ public class View {
                     "\n 7. Display all products from given category"+
                     "\n 8. Edit products quantity"+
                     "\n 9. Rate product"+
-                    "\n 10. Exit");
+                    "\n 10. Change password"+
+                    "\n 11. Exit");
     }
 
     public void displayAdminMenu() {
