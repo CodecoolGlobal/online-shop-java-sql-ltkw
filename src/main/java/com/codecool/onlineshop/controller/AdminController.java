@@ -60,7 +60,7 @@ public class AdminController {
                 break;
             case 9:
                 adminService.displayAllCustomers();
-                // Edit user details
+                adminService.updateUserDetails();
                 view.getEmptyInput();
                 break;
             case 10:
