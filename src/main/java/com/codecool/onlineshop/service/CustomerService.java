@@ -178,6 +178,7 @@ public class CustomerService {
             }
         }
         return userOrders;
+    }
 
     public boolean validateProductId(int id) {
         while (shopIterator.hasNext()) {
