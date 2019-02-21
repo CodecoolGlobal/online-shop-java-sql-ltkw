@@ -139,8 +139,12 @@ public class AdminService {
         usersDao = new UsersDaoImpl();
         view.showMessage(view.ENTERUSERID);
         int userID = view.getIntegerInput();
-        usersDao.deleteUser(userID);
-        view.showMessage("Successfully Deleted");
+        if (usersDao.isValid(userID)) {
+            usersDao.deleteUser(userID);
+            view.showMessage("Successfully Deleted");
+        } else {
+            view.showMessage(view.NOOPTION);
+        }
     }
 
     public void updateUserDetails() {
