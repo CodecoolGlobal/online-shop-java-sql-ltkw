@@ -60,10 +60,6 @@ public class Order {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public int compareTo(Order other) {
         return this.orderId.compareTo(other.orderId);
     }
