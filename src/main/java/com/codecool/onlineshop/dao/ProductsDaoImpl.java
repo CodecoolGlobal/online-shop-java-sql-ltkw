@@ -97,19 +97,13 @@ public class ProductsDaoImpl implements ProductDao {
         int amount = Integer.valueOf(productAmount);
         int id = Integer.valueOf(productID);
         int lastAmount = 0;
-        for (Product product : products) {
-            if(id == product.getId()){
-                lastAmount = product.getAmount() + amount;
+        shopIterator = products.iterator();
+        while (shopIterator.hasNext()) {
+            Product currentProduct = shopIterator.next();
+            if (currentProduct.getId() == id){
+                lastAmount = currentProduct.getAmount() + amount;
             }
         }
-
-//        shopIterator = products.iterator();
-//        while (shopIterator.hasNext()) {
-//            Product currentProduct = shopIterator.next();
-//            if (currentProduct.getId() == productId){
-//                lastAmount = currentProduct.getAmount() + amount;
-//            }
-//        }
         return lastAmount;
     }
 
@@ -165,7 +159,6 @@ public class ProductsDaoImpl implements ProductDao {
         String sql = "UPDATE Products SET Amount = " + lastAmount +
                 " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
-
     }
 
     @Override

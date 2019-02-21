@@ -78,7 +78,7 @@ public class CustomerService {
         }
     }
 
-    public void displayProductsBycategory(){
+    public void displayProductsByCategory() {
         ProductsDaoImpl productsDao = new ProductsDaoImpl();
         view.showMessage("enter category name ");
         String name = view.getStringInput();
@@ -147,12 +147,22 @@ public class CustomerService {
         }
     }
 
+    private void addProductToShop(int id) {
+        while (shopIterator.hasNext()) {
+            Product current = shopIterator.next();
+            if (current.getId() == id) {
+                productDao.addAmountOfProductByUser(Integer.toString(id), Integer.toString(current.getAmount()));
+            }
+        }
+    }
+
     public void handleDeleteProduct() {
         view.showMessage("Enter product ID you want to remove");
         int id = view.getIntegerInput();
         while (!productDao.validID(Integer.toString(id))) {
             id = view.getIntegerInput();
         }
+        addProductToShop(id);
         removeProductFromBasket(id);
     }
 

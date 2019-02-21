@@ -39,6 +39,7 @@ public class CustomerController {
                 customerService.handleAddProduct();
                 break;
             case 3:
+                customerService.DisplayAllProductsInBasket();
                 customerService.handleDeleteProduct();
                 break;
             case 4:
@@ -55,7 +56,7 @@ public class CustomerController {
                 view.getEmptyInput();
                 break;
             case 7:
-                customerService.displayProductsBycategory();
+                customerService.displayProductsByCategory();
                 view.getEmptyInput();
                 break;
             case 8:
