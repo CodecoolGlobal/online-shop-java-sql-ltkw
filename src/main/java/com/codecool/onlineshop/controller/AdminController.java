@@ -69,6 +69,11 @@ public class AdminController {
                 view.getEmptyInput();
                 break;
             case 11:
+                adminService.displayOrdersHistory();
+                adminService.updateOrderStatus();
+                view.getEmptyInput();
+                break;
+            case 12:
                 isRunning = false;
                 break;
             default:

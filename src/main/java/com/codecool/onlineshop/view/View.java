@@ -21,12 +21,9 @@ public class View {
     public final String ENTERUSERID = "Enter ID of a user: ";
     public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
-    public final String WRONGINPUT = "Wrong id of product, try again!";
-    public final String STATUSPENDING = "PENDING";
-    public final String STATUSSENT = "SENT";
-    public final String STATUSDELIVERED = "DELIVERED";
     public final String WRONGID = "Wrong id of product, try again!";
     public final String WRONGAMOUNT = "Wrong amount of product or not enough amount of product in shop, try again!!";
+    public final String UPDATED = "Successfully updated.";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -137,32 +134,42 @@ public class View {
 
     public void displayCustomerMenu() {
         showMessage("Customer menu:" + 
-                    "\n 1. Display my basket" + 
-                    "\n 2. Add product to my basket" + 
-                    "\n 3. Remove product" +
-                    "\n 4. Place an order" +
-                    "\n 5. Display my order history" +
-                    "\n 6. Display all products" +
-                    "\n 7. Display all products from given category"+
-                    "\n 8. Edit products quantity"+
-                    "\n 9. Rate product"+
+                    "\n  1. Display my basket" +
+                    "\n  2. Add product to my basket" +
+                    "\n  3. Remove product" +
+                    "\n  4. Place an order" +
+                    "\n  5. Display my order history" +
+                    "\n  6. Display all products" +
+                    "\n  7. Display all products from given category"+
+                    "\n  8. Edit products quantity"+
+                    "\n  9. Rate product"+
                     "\n 10. Change password"+
                     "\n 11. Exit");
     }
 
     public void displayAdminMenu() {
         showMessage("Admin menu:" +
-                    "\n 1. Add new product" +
-                    "\n 2. Delete product" +
-                    "\n 3. Display products" +
-                    "\n 4. Edit product price" +
-                    "\n 5. Edit product name" +
-                    "\n 6. Edit an amount" +
-                    "\n 7. Display all orders" + 
-                    "\n 8. Make a discount" +
-                    "\n 9. Edit user details" +
+                    "\n  1. Add new product" +
+                    "\n  2. Delete product" +
+                    "\n  3. Display products" +
+                    "\n  4. Edit product price" +
+                    "\n  5. Edit product name" +
+                    "\n  6. Edit an amount" +
+                    "\n  7. Display all orders" +
+                    "\n  8. Make a discount" +
+                    "\n  9. Edit user details" +
                     "\n 10. Delete user" +
-                    "\n 11. Exit");
+                    "\n 11. Update order status" +
+                    "\n 12. Exit");
+    }
+
+    public void displayUpdateStatusMenu() {
+        showMessage("Update status to: " +
+                    "\n 1. Pending" +
+                    "\n 2. Sent" +
+                    "\n 3. Delivered" +
+                    "\n 4. Canceled" +
+                    "\n 0. Exit");
     }
 
     public int getIntegerInput() {
