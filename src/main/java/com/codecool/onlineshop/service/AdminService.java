@@ -74,7 +74,6 @@ public class AdminService {
         }
     }
 
-
     public void editProductPrice() {
         boolean editProduct = true;
         while (editProduct) {
@@ -82,6 +81,7 @@ public class AdminService {
             if (productDao.validID(productId)) {
                 String productPrice = editValueOfProduct(view.ENTERPRICE);
                 productDao.editProductPrice(productId, productPrice);
+                editProduct = false;
             } else {
                 view.showMessage(view.WRONGID);
             }
@@ -96,6 +96,7 @@ public class AdminService {
             if (productDao.validID(productId)) {
                 String productAmount = editValueOfProduct(view.ENTERAMOUNT);
                 productDao.editProductAmount(productId, productAmount);
+                editProduct = false;
             } else {
                 view.showMessage(view.WRONGID);
             }

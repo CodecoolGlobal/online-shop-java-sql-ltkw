@@ -10,6 +10,7 @@ public class Order {
     private int productAmountPrice;
     private int totalPrice;
     private String date;
+    private String status;
 
     private Order(Builder builder) {
         this.orderId = builder.orderId;
@@ -20,6 +21,7 @@ public class Order {
         this.productName = builder.productName;
         this.totalPrice = builder.totalPrice;
         this.date = builder.date;
+        this.status = builder.status;
     }
 
     public int getProductAmountPrice() {
@@ -54,6 +56,14 @@ public class Order {
         return date;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public int compareTo(Order other) {
         return this.orderId.compareTo(other.orderId);
     }
@@ -67,6 +77,7 @@ public class Order {
         private String productName;
         private int productAmount;
         private int productAmountPrice;
+        private String status;
     
         public Builder withOrderId(Integer orderId) {
             this.orderId = orderId;
@@ -105,6 +116,11 @@ public class Order {
     
         public Builder withDate(String date) {
             this.date = date;
+            return this;
+        }
+
+        public Builder withStatus(String status) {
+            this.status = status;
             return this;
         }
     
