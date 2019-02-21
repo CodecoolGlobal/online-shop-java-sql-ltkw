@@ -79,14 +79,23 @@ public class OrdersDaoImpl implements OrdersDao {
         String updateOrderStatusString = "UPDATE OrderDetails SET Status = ? WHERE OrderID = ?";
         try {
             updateOrderStatus = connection.prepareStatement(updateOrderStatusString);
-            updateOrderStatus.setInt(1, orderId);
-            updateOrderStatus.setString(2, status);
+            updateOrderStatus.setInt(2, orderId);
+            updateOrderStatus.setString(1, status);
             updateOrderStatus.executeUpdate();
             updateOrderStatus.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isValid(int orderId) {
+        for (Order order : orders) {
+            if (order.getOrderId() == orderId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private int getIncrementedOrderId() {
