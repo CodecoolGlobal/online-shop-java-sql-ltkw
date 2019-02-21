@@ -44,7 +44,12 @@ public class View {
             } else {
                 ratings = (double) p.getRating() / p.getNumberOfRatings();
             }
-            table.addRow(String.valueOf(p.getId()),p.getName(),p.getCategory(),String.valueOf(p.getPrice()),String.valueOf(p.getAmount()),String.format("%.2f", ratings));
+            table.addRow(String.valueOf(p.getId()),
+                         p.getName(),
+                         p.getCategory(),
+                         String.valueOf(p.getPrice()),
+                         String.valueOf(p.getAmount()),
+                         String.format("%.2f", ratings));
         }
         table.print();
     }
@@ -98,7 +103,9 @@ public class View {
         table.setHeaders("order id", "date","price");
 
         for (Order oh: orderHistoryList) {
-            table.addRow(String.valueOf(oh.getOrderId()),String.valueOf(oh.getDate()),String.valueOf(oh.getTotalPrice()));
+            table.addRow(String.valueOf(oh.getOrderId()),
+                         String.valueOf(oh.getDate()),
+                         String.valueOf(oh.getTotalPrice()));
         }
         table.print();
     }
@@ -107,12 +114,13 @@ public class View {
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
         table.setHeaders("id","name","password","user type");
-        for (User u: users){
-            table.addRow(String.valueOf(u.getId()),u.getName(),u.getPassword(),u.getUserType());
-
+        for (User u: users) {
+            table.addRow(String.valueOf(u.getId()),
+                         String.valueOf(u.getName()),
+                         String.valueOf(u.getPassword()),
+                         String.valueOf(u.getUserType()));
         }
         table.print();
-
     }
 
     public void displayMainMenu() {
@@ -138,7 +146,7 @@ public class View {
 
     public void displayAdminMenu() {
         showMessage("Admin menu:" +
-                    "\n 1. Add new product" +                    
+                    "\n 1. Add new product" +
                     "\n 2. Delete product" +
                     "\n 3. Display products" +
                     "\n 4. Edit product price" +
@@ -159,9 +167,9 @@ public class View {
         scanner.nextLine();
         return num;
     }
+
     public String getStringInput(){
-        String string = scanner.nextLine().toString();
-        return string;
+        return scanner.nextLine();
     }
 
     public void displayNotImplementedMessage() {
@@ -173,9 +181,5 @@ public class View {
     public void getEmptyInput() {
         showMessage("Press enter to continue ");
         String input = scanner.nextLine();
-        // if (input.isEmpty()) {
-        //     clearScreen();
-        // }
-        //clearScreen();
     }
 }
