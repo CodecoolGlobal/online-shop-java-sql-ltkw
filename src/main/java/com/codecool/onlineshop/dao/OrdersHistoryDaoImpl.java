@@ -8,20 +8,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-import com.codecool.onlineshop.dao.Connector;
 import com.codecool.onlineshop.model.Order;
 
 public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
-    private Connector connector;
     private Connection connection;
     private Statement statement;
-    private ResultSet resultSet;
-    private Order order;
     private List<Order> orderHistoryDetails;
 
     public OrdersHistoryDaoImpl() {
-        connector = new Connector("src/main/resources/databases/OnlineShop.db");
-        connection = connector.getDatabaseConnection();
         orderHistoryDetails = new ArrayList<>();
         addOrderHistory();
         addOrderHistoryData();
@@ -33,27 +27,34 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
     }
 
     private void addOrderHistory() {
-
+        connection = initializeConnection();
+        String clearTable = "DELETE FROM AllOrders;";
+        String insertToOrderHistory = "INSERT INTO AllOrders (OrderID, Date, UserID, TotalPrice)"
+                                    + "SELECT OrderID, Date, UserID, SUM(ProductAmountPrice)"
+                                    + "FROM OrderDetails GROUP BY OrderID;";
         try {
             statement = connection.createStatement();
-            String clearTable = "DELETE FROM AllOrders;";
             statement.executeUpdate(clearTable);
-            String insertToOrderHistory = "INSERT INTO AllOrders (OrderID, Date, UserID, TotalPrice)"
-                                        + "SELECT OrderID, Date, UserID, SUM(ProductAmountPrice)"
-                                        + "FROM OrderDetails GROUP BY OrderID;";
-                                        
             statement.executeUpdate(insertToOrderHistory);
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private List<Order> addOrderHistoryData() {
+    private Connection initializeConnection() {
+        final String DATABASEPATH = "src/main/resources/databases/OnlineShop.db";
+        Connector connector = new Connector(DATABASEPATH);
+        return connector.getDatabaseConnection();
+    }
 
+    private void addOrderHistoryData() {
+        connection = initializeConnection();
+        Order order;
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM AllOrders;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM AllOrders;");
             while (resultSet.next()) {
                 int orderId = resultSet.getInt("OrderID");
                 String date = resultSet.getString("Date");
@@ -70,9 +71,9 @@ public class OrdersHistoryDaoImpl implements OrdersHistoryDao {
             }
             resultSet.close();
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return orderHistoryDetails;
     }
 }
