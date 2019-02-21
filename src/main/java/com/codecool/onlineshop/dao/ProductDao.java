@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProductDao {
     void deleteProductAdmin(int id);
     void deleteProductsByUser(int productID, int productAmount);
-    void addNewProduct(String name, String category, String price, String amount);
+    void addNewProduct(String name, String category, int price, int amount);
     void editProductName(int productID, String productName);
     void editProductRating(int productId, int rating, String columnName);
     void editProductNumberOfRatings(int ProductId, int numberOfRatings, String columnName);
