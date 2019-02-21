@@ -11,6 +11,7 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
 
     public final String ENTERPRODUCTID = "Enter ID of Product to edit: ";
+    public final String ID = "Enter ID of Product to buy: ";
     public final String ENTERPRODUCT = "Enter name of Product: ";
     public final String ENTERCATEGORY = "Enter category of Product: ";
     public final String ENTERPRICE = "Enter price of product: ";
@@ -24,6 +25,8 @@ public class View {
     public final String STATUSPENDING = "PENDING";
     public final String STATUSSENT = "SENT";
     public final String STATUSDELIVERED = "DELIVERED";
+    public final String WRONGID = "Wrong id of product, try again!";
+    public final String WRONGAMOUNT = "Wrong amount of product or not enough amount of product in shop, try again!!";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -38,25 +41,18 @@ public class View {
         System.out.println(message);
     }
 
-
     public void productsTable(List<Product> products){
         TableClass table = new TableClass();
         table.setShowVerticalLines(true);
         table.setHeaders("id","name","category","price","amount","rating");
         for (Product p: products){
             String.valueOf(p.getId());
-            double ratings;
-            if (p.getNumberOfRatings() == 0) {
-                ratings = p.getRating() / 1;
-            } else {
-                ratings = (double) p.getRating() / p.getNumberOfRatings();
-            }
             table.addRow(String.valueOf(p.getId()),
                          p.getName(),
                          p.getCategory(),
                          String.valueOf(p.getPrice()),
                          String.valueOf(p.getAmount()),
-                         String.format("%.2f", ratings));
+                         String.format("%.2f", p.calculateRating()));
         }
         table.print();
     }

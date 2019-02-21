@@ -78,10 +78,10 @@ public class Product {
         return  "id = " + id +
                 ", \nname = " + name +
                 ", \ncategory = " + category +
-                ", \nprice = " + price +
-                ", \namount = " + amount +
-                "\n";
-    }
+				", \nprice = " + price +
+				", \namount = " + amount;
+	}
+
 
     public int getNumberOfRatings() {
         return numberOfRatings;
@@ -89,6 +89,17 @@ public class Product {
 
     public void setNumberOfRatings(int numberOfRatings) {
         this.numberOfRatings = numberOfRatings;
+    }
+
+
+    public double calculateRating() {
+        double ratings;
+        if (this.numberOfRatings == 0) {
+            ratings = rating / 1;
+        } else {
+            ratings = (double) rating / numberOfRatings;
+        }
+        return ratings;
     }
 
     public static class Builder {
