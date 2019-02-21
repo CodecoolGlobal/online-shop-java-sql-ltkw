@@ -14,6 +14,8 @@ public class AdminService {
     private OrdersDaoImpl orderDao;
     private OrdersHistoryDaoImpl orderHistoryDao;
     private UsersDaoImpl usersDao;
+    private final String COLUMNAMOUNT = "Amount";
+    private final String COLUMNPRICE = "Price";
 
     public AdminService() {
         view = new View();
@@ -38,7 +40,7 @@ public class AdminService {
     public void deleteProductAdmin() {
         boolean editProduct = true;
         while (editProduct) {
-            String productID = getID(view.DELETEPRODUCT);
+            int productID = getID(view.DELETEPRODUCT);
             if (productDao.validID(productID)) {
                 productDao.deleteProductAdmin(productID);
                 editProduct = false;
@@ -48,13 +50,19 @@ public class AdminService {
         }
     }
 
-    public String getID(String message) {
+    public Integer getID(String message) {
         view.showMessage(message);
-        String productID = view.getStringInput();
+        int productID = view.getIntegerInput();
         return productID;
     }
 
-    public String editValueOfProduct(String message) {
+    public Integer editValueOfProduct(String message) {
+        view.showMessage(message);
+        int producValue = view.getIntegerInput();
+        return producValue;
+    }
+
+    public String editNameOfProduct(String message) {
         view.showMessage(message);
         String producValue = view.getStringInput();
         return producValue;
@@ -63,9 +71,9 @@ public class AdminService {
     public void editProductName() {
         boolean editProduct = true;
         while(editProduct) {
-            String productId = getID(view.ENTERPRODUCTID);
+            int productId = getID(view.ENTERPRODUCTID);
             if (productDao.validID(productId)) {
-                String productName = editValueOfProduct(view.ENTERNAME);
+                String productName = editNameOfProduct(view.ENTERNAME);
                 productDao.editProductName(productId, productName);
                 editProduct = false;
             } else {
@@ -74,14 +82,13 @@ public class AdminService {
         }
     }
 
-    public void editProductPrice() {
-        String columnName = "Price";
+    private void editProductValue(String column, String sentence) {
         boolean editProduct = true;
-        while (editProduct) {
-            String productId = getID(view.ENTERPRODUCTID);
+        while(editProduct) {
+            int productId = getID(view.ENTERPRODUCTID);
             if (productDao.validID(productId)) {
-                String productPrice = editValueOfProduct(view.ENTERPRICE);
-                productDao.editProductPrice(productId, productPrice, columnName);
+                int productValue = editValueOfProduct(sentence);
+                productDao.editProduct(productId, productValue, column);
                 editProduct = false;
             } else {
                 view.showMessage(view.WRONGID);
@@ -89,20 +96,13 @@ public class AdminService {
         }
     }
 
+    public void editProductPrice() {
+        editProductValue(COLUMNPRICE, view.ENTERPRICE);
+    }
+
 
     public void  editProductAmount() {
-        String columnName = "Amount";
-        boolean editProduct = true;
-        while (editProduct) {
-            String productId = getID(view.ENTERPRODUCTID);
-            if (productDao.validID(productId)) {
-                String productAmount = editValueOfProduct(view.ENTERAMOUNT);
-                productDao.editProductAmount(productId, productAmount, columnName);
-                editProduct = false;
-            } else {
-                view.showMessage(view.WRONGID);
-            }
-        }
+        editProductValue(COLUMNAMOUNT, view.ENTERAMOUNT);
     }
 
     public void displayAllProductsInShop() {

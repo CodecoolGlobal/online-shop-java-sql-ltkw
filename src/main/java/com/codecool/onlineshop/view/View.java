@@ -167,7 +167,7 @@ public class View {
 
     public int getIntegerInput() {
         while (!scanner.hasNextInt()) {
-            showMessage("Wrong input.");
+            showMessage("Wrong input, try again!");
             scanner.nextLine();
         }
         int num = scanner.nextInt();

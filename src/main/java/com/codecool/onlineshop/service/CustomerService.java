@@ -122,9 +122,9 @@ public class CustomerService {
     }
 
     private boolean validAmount(int id, int amount) {
-        if (productDao.productAmountIsValid(Integer.toString(id), Integer.toString(amount))) {
+        if (productDao.productAmountIsValid(id, amount)) {
             addProductToBasket(id, amount);
-            productDao.deleteProductsByUser(String.valueOf(id), String.valueOf(amount));
+            productDao.deleteProductsByUser(id, amount);
             return true;
         } else {
             view.showMessage(view.WRONGAMOUNT);
@@ -136,7 +136,7 @@ public class CustomerService {
         boolean editProduct = true;
         while (editProduct) {
             int id = getProductId();
-            if (productDao.validID(Integer.toString(id))) {
+            if (productDao.validID(id)) {
                 int amount = getProductAmount();
                 if (validAmount(id, amount)) {
                     editProduct = false;
@@ -151,7 +151,7 @@ public class CustomerService {
         while (shopIterator.hasNext()) {
             Product current = shopIterator.next();
             if (current.getId() == id) {
-                productDao.addAmountOfProductByUser(Integer.toString(id), Integer.toString(current.getAmount()));
+                productDao.addProductByUser(id, current.getAmount());
             }
         }
     }
@@ -159,7 +159,7 @@ public class CustomerService {
     public void handleDeleteProduct() {
         view.showMessage("Enter product ID you want to remove");
         int id = view.getIntegerInput();
-        while (!productDao.validID(Integer.toString(id))) {
+        while (!productDao.validID(id)) {
             id = view.getIntegerInput();
         }
         addProductToShop(id);
@@ -182,7 +182,7 @@ public class CustomerService {
         String columnName1 = "Rating";
         view.showMessage("Enter product ID you want to rate");
         int id = view.getIntegerInput();
-        while (!productDao.validID(Integer.toString(id))) {
+        while (!productDao.validID(id)) {
             id = view.getIntegerInput();
         }
         view.showMessage("Enter your rating (1 - 5)");
@@ -192,9 +192,8 @@ public class CustomerService {
             if (current.getId() == id) {
                 current.setRating(current.getRating() + userRating);
                 current.setNumberOfRatings(current.getNumberOfRatings() + 1);
-                productDao.editProductRating(String.valueOf(id), String.valueOf(current.getRating()), columnName1);
-                productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()),
-                                                        columnName);
+                productDao.editProductRating(id, current.getRating(), columnName1);
+                productDao.editProductNumberOfRatings(id, current.getNumberOfRatings(), columnName);
             }
         }
     }
