@@ -7,10 +7,13 @@ import java.util.List;
 import com.codecool.onlineshop.dao.OrdersDaoImpl;
 import com.codecool.onlineshop.dao.OrdersHistoryDaoImpl;
 import com.codecool.onlineshop.dao.ProductsDaoImpl;
+import com.codecool.onlineshop.dao.UsersDaoImpl;
+
 import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.ProductIterator;
 import com.codecool.onlineshop.model.User;
+
 import com.codecool.onlineshop.view.View;
 
 public class CustomerService {
@@ -75,7 +78,6 @@ public class CustomerService {
         }
     }
 
-
     public void displayProductsBycategory(){
         ProductsDaoImpl productsDao = new ProductsDaoImpl();
         view.showMessage("enter category name ");
@@ -93,13 +95,7 @@ public class CustomerService {
     public void displayUserOrder() {
         orderDao = new OrdersDaoImpl();
         List<Order> orders = orderDao.getOrderData();
-        List<Order> userOrders = new ArrayList<>();
-        
-        for (Order order : orders) {
-            if (order.getUserId() == user.getId()) {
-                userOrders.add(order);
-            }
-        }
+        List<Order> userOrders = getOrderDataForUser(orders);
         view.showMessage("Orders Details:");
         view.ordersTableUser(userOrders);
     }
@@ -107,13 +103,7 @@ public class CustomerService {
     public void displayOrdersHistory() {
         orderHistoryDao = new OrdersHistoryDaoImpl();
         List<Order> ordersHistory = orderHistoryDao.getOrderHistoryDetails();
-        List<Order> userOrders = new ArrayList<>();
-        
-        for (Order order : ordersHistory) {
-            if (order.getUserId() == user.getId()) {
-                userOrders.add(order);
-            }
-        }
+        List<Order> userOrders = getOrderDataForUser(ordersHistory);
         view.showMessage("Orders History:");
         view.ordersUserHistoryTable(userOrders);
     }
@@ -158,7 +148,23 @@ public class CustomerService {
                 productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()));
             }
         }
+    }
 
+    public void changePassword() {
+        UsersDaoImpl usersDao = new UsersDaoImpl();
+        view.showMessage(view.ENTERNEWVALUE);
+        String newPassword = view.getStringInput();
+        usersDao.updateUser(user.getId(), "Password", newPassword);
+        view.showMessage("Successfully Updated");
+    }
 
+    private List<Order> getOrderDataForUser(List<Order> allOrders) {
+        List<Order> userOrders = new ArrayList<>();
+        for (Order order : allOrders) {
+            if (order.getUserId() == user.getId()) {
+                userOrders.add(order);
+            }
+        }
+        return userOrders;
     }
 }
