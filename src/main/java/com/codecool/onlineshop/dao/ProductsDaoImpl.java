@@ -39,7 +39,15 @@ public class ProductsDaoImpl implements ProductDao {
                 int amount = resultSet.getInt("Amount");
                 int rating = resultSet.getInt("Rating");
                 int numberOfRatings = resultSet.getInt("RatingsAmount");
-                product = new Product(id, name, category, price, amount, rating, numberOfRatings);
+                product = new Product.Builder()
+                                     .withId(id)
+                                     .withName(name)
+                                     .withCategory(category)
+                                     .withPrice(price)
+                                     .withAmount(amount)
+                                     .withRating(rating)
+                                     .withNumberOfRatings(numberOfRatings)
+                                     .build();
                 products.add(product);
             }
             resultSet.close();
