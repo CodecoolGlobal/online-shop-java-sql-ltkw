@@ -79,8 +79,7 @@ public class Product {
                 ", \nname = " + name +
                 ", \ncategory = " + category +
 				", \nprice = " + price +
-				", \namount = " + amount +
-				"\n";
+				", \namount = " + amount;
 	}
 
     public int getNumberOfRatings() {
