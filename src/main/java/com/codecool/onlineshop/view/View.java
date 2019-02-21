@@ -17,6 +17,7 @@ public class View {
     public final String ENTERAMOUNT = "Enter amount of product: ";
     public final String DELETEPRODUCT = "Enter ID of product to delete: ";
     public final String ENTERNAME = "Enter name of product: ";
+    public final String ENTERUSERID = "Enter ID of a user";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -154,8 +155,9 @@ public class View {
                     "\n 6. Edit an amount" +
                     "\n 7. Display all orders" + 
                     "\n 8. Make a discount" +
-                    "\n 9. Display all users" +
-                    "\n 10. Exit");
+                    "\n 9. Edit user details" +
+                    "\n 10. Delete user" +
+                    "\n 11. Exit");
     }
 
     public int getIntegerInput() {
