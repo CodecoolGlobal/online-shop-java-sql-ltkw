@@ -72,6 +72,23 @@ public class OrdersDaoImpl implements OrdersDao {
         }
     }
 
+    @Override
+    public void updateOrderStatus(int orderId, String status) {
+        connection = initializeConnection();
+        PreparedStatement updateOrderStatus;
+        String updateOrderStatusString = "UPDATE OrderDetails SET Status = ? WHERE OrderID = ?";
+        try {
+            updateOrderStatus = connection.prepareStatement(updateOrderStatusString);
+            updateOrderStatus.setInt(1, orderId);
+            updateOrderStatus.setString(2, status);
+            updateOrderStatus.executeUpdate();
+            updateOrderStatus.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private int getIncrementedOrderId() {
         int orderId;
 
