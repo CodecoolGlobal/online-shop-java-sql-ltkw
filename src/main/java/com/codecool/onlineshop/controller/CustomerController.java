@@ -67,6 +67,10 @@ public class CustomerController {
                 customerService.handleRateProduct();
                 break;
             case 10:
+                customerService.changePassword();
+                view.getEmptyInput();
+                break;
+            case 11:
                 isRunning = false;
                 break;
             default:
