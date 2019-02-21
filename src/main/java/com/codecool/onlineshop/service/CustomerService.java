@@ -108,25 +108,49 @@ public class CustomerService {
         view.ordersUserHistoryTable(userOrders);
     }
 
-    public void handleAddProduct() {
-        view.showMessage(view.ENTERPRODUCTID);
+
+    private Integer getProductId() {
+        view.showMessage(view.ID);
         int id = view.getIntegerInput();
-        while (!validateProductId(id)) {
-            id = view.getIntegerInput();
-        }
+        return id;
+    }
+
+    private Integer getProductAmount() {
         view.showMessage(view.ENTERAMOUNT);
         int amount = view.getIntegerInput();
-        while (!validateAmount(id, amount)) {
-            amount = view.getIntegerInput();
+        return amount;
+    }
+
+    private boolean validAmount(int id, int amount) {
+        if (productDao.productAmountIsValid(Integer.toString(id), Integer.toString(amount))) {
+            addProductToBasket(id, amount);
+            productDao.deleteProductsByUser(String.valueOf(id), String.valueOf(amount));
+            return true;
+        } else {
+            view.showMessage(view.WRONGAMOUNT);
+            return false;
         }
-        addProductToBasket(id, amount);
-        productDao.deleteProductsByUser(String.valueOf(id), String.valueOf(amount));
+    }
+
+    public void handleAddProduct() {
+        boolean editProduct = true;
+        while (editProduct) {
+            int id = getProductId();
+            if (productDao.validID(Integer.toString(id))) {
+                int amount = getProductAmount();
+                if (validAmount(id, amount)) {
+                    editProduct = false;
+                }
+            } else {
+                view.showMessage(view.WRONGID);
+            }
+        }
     }
 
     public void handleDeleteProduct() {
         view.showMessage("Enter product ID you want to remove");
         int id = view.getIntegerInput();
-        while (!validateProductId(id)) {
+        while (!productDao.validID(Integer.toString(id))) {
             id = view.getIntegerInput();
         }
         removeProductFromBasket(id);
@@ -146,7 +170,7 @@ public class CustomerService {
     public void handleRateProduct() {
         view.showMessage("Enter product ID you want to rate");
         int id = view.getIntegerInput();
-        while (!validateProductId(id)) {
+        while (!productDao.validID(Integer.toString(id))) {
             id = view.getIntegerInput();
         }
         view.showMessage("Enter your rating (1 - 5)");
@@ -180,18 +204,6 @@ public class CustomerService {
         return userOrders;
     }
 
-    public boolean validateProductId(int id) {
-        while (shopIterator.hasNext()) {
-            Product current = shopIterator.next();
-            if (current.getId() == id) {
-                this.shopIterator = new ProductIterator(productDao.getProducts());
-                return true;
-            }
-        }
-        view.showMessage("No product with this ID");
-        return false;
-    }
-
     public int validateRating() {
         int userRating = view.getIntegerInput();
         while (!String.valueOf(userRating).matches("[1-5]")) {
@@ -199,16 +211,5 @@ public class CustomerService {
             userRating = view.getIntegerInput();
         }
         return userRating;
-    }
-
-    public boolean validateAmount(int id, int amount) {
-        if (amount <= 0) {
-            view.showMessage("You can't bro");
-            return false;
-        } else if (productDao.getProduct(id - 1).getAmount() >= amount) {
-            return true;
-        }
-        view.showMessage("Not enough product in store!");
-        return false;
     }
 }
