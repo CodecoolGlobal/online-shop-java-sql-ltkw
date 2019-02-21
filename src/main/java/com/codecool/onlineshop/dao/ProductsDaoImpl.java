@@ -20,13 +20,13 @@ public class ProductsDaoImpl implements ProductDao {
     
 
     public ProductsDaoImpl () {
-        connector = new Connector(CONNECTIONSQL);
-        connection = connector.getDatabaseConnection();
         products = new ArrayList<Product>();
         getProductData();
     }
 
     private List<Product> getProductData() {
+        connector = new Connector(CONNECTIONSQL);
+        connection = connector.getDatabaseConnection();
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Products;");
@@ -43,7 +43,8 @@ public class ProductsDaoImpl implements ProductDao {
                 products.add(product);
             }
             resultSet.close();
-            statement.close();   
+            statement.close();
+            connection.close();
         } catch (SQLException error) {
              error.printStackTrace();
         }
@@ -51,6 +52,8 @@ public class ProductsDaoImpl implements ProductDao {
     }
 
     private void createSqlStatement(String sqlStatement) {
+        Connector connector = new Connector(CONNECTIONSQL);
+        Connection connection = connector.getDatabaseConnection();
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
@@ -65,11 +68,13 @@ public class ProductsDaoImpl implements ProductDao {
 
     @Override
     public void addNewProduct(String name, String category, String price, String amount) {
-        int productID = getProductsSize() + 1;
+        int productID = Integer.valueOf(getNextPrimaryKey());
+        String amountRating = "0";
+        String ratingsAmount = "0";
         String sql = "INSERT INTO Products (productID,Name,Category,Price,Amount,Rating,RatingsAmount) " +
                         "VALUES ( " + productID + "," + "'" + name + "'" + "," +
                         "'" + category + "'" + "," + price + "," +
-                        amount + "," + 0 + "," + 0 + " );";
+                        amount + "," + amountRating + "," + ratingsAmount + " );";
         createSqlStatement(sql);
     }
 
@@ -78,6 +83,20 @@ public class ProductsDaoImpl implements ProductDao {
         String sql = "DELETE FROM Products WHERE productID = " +
                             productID + ";";
         createSqlStatement(sql);
+    }
+
+    private Integer addProduct(String productID, String productAmount) {
+        int amount = Integer.valueOf(productAmount);
+        int productId = Integer.valueOf(productID);
+        int lastAmount = 0;
+        shopIterator = products.iterator();
+        while (shopIterator.hasNext()) {
+            Product currentProduct = shopIterator.next();
+            if (currentProduct.getId() == productId){
+                lastAmount = currentProduct.getAmount() + amount;
+            }
+        }
+        return lastAmount;
     }
 
     private Integer deleteProduct(String productID, String productAmount) {
@@ -92,6 +111,49 @@ public class ProductsDaoImpl implements ProductDao {
             }
         }
         return lastAmout;
+    }
+
+    private Integer getNextPrimaryKey() {
+        int result = 1;
+        for(Product product : products) {
+            int productId = product.getId();
+            if (productId > result) {
+                result = productId;
+            }
+        }
+        result += 1;
+        return result;
+    }
+
+    public boolean validID(String id) {//should be private or public???
+        int productID = Integer.parseInt(id);
+        for (Product product : products) {
+            if(product.getId() == productID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean productAmountIsValid(String productID, String productAmount) {//should be private or public???
+        int id = Integer.parseInt(productID);
+        int amount = Integer.parseInt(productAmount);
+        for (Product el : products) {
+            if(id == el.getId()) {
+                if (amount <= el.getAmount()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void addAmountOfProductByUser(String productID, String productAmount) {
+        int lastAmount =  addProduct(productID, productAmount);
+        String sql = "UPDATE Products SET Amount = " + lastAmount +
+                " WHERE productID = " + productID + ";";
+        createSqlStatement(sql);
+
     }
 
     @Override
