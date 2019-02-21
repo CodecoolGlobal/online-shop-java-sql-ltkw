@@ -36,9 +36,16 @@ public class AdminService {
     }
 
     public void deleteProductAdmin() {
-        view.showMessage(view.DELETEPRODUCT);
-        String productID = view.getStringInput();
-        productDao.deleteProductAdmin(productID);;
+        boolean editProduct = true;
+        while (editProduct) {
+            String productID = getID(view.DELETEPRODUCT);
+            if (productDao.validID(productID)) {
+                productDao.deleteProductAdmin(productID);
+                editProduct = false;
+            } else {
+                view.showMessage(view.WRONGINPUT);
+            }
+        }
     }
 
     public String getID(String message) {
@@ -54,22 +61,45 @@ public class AdminService {
     }
 
     public void editProductName() {
-        String getProductId = getID(view.ENTERPRODUCTID);
-        String productName = editValueOfProduct(view.ENTERNAME);
-        productDao.editProductName(getProductId, productName);
+        boolean editProduct = true;
+        while(editProduct) {
+            String productId = getID(view.ENTERPRODUCTID);
+            if (productDao.validID(productId)) {
+                String productName = editValueOfProduct(view.ENTERNAME);
+                productDao.editProductName(productId, productName);
+                editProduct = false;
+            } else {
+                view.showMessage(view.WRONGINPUT);
+            }
+        }
     }
 
 
     public void editProductPrice() {
-        String getProductId = getID(view.ENTERPRODUCTID);
-        String productPrice = editValueOfProduct(view.ENTERPRICE);
-        productDao.editProductPrice(getProductId, productPrice);
+        boolean editProduct = true;
+        while (editProduct) {
+            String productId = getID(view.ENTERPRODUCTID);
+            if (productDao.validID(productId)) {
+                String productPrice = editValueOfProduct(view.ENTERPRICE);
+                productDao.editProductPrice(productId, productPrice);
+            } else {
+                view.showMessage(view.WRONGINPUT);
+            }
+        }
     }
 
+
     public void  editProductAmount() {
-        String getProductId = getID(view.ENTERPRODUCTID);
-        String productAmount = editValueOfProduct(view.ENTERAMOUNT);
-        productDao.editProductAmount(getProductId, productAmount);
+        boolean editProduct = true;
+        while (editProduct) {
+            String productId = getID(view.ENTERPRODUCTID);
+            if (productDao.validID(productId)) {
+                String productAmount = editValueOfProduct(view.ENTERAMOUNT);
+                productDao.editProductAmount(productId, productAmount);
+            } else {
+                view.showMessage(view.WRONGINPUT);
+            }
+        }
     }
 
     public void displayAllProductsInShop() {

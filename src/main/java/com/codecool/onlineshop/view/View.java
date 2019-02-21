@@ -20,6 +20,7 @@ public class View {
     public final String ENTERUSERID = "Enter ID of a user: ";
     public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
+    public final String WRONGINPUT = "Wrong id of product, try again!";
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
