@@ -121,8 +121,14 @@ public class CustomerService {
     public void handleAddProduct() {
         view.showMessage(view.ENTERPRODUCTID);
         int id = view.getIntegerInput();
+        while (!validateProductId(id)) {
+            id = view.getIntegerInput();
+        }
         view.showMessage(view.ENTERAMOUNT);
         int amount = view.getIntegerInput();
+        while (!validateAmount(id, amount)) {
+            amount = view.getIntegerInput();
+        }
         addProductToBasket(id, amount);
         productDao.deleteProductsByUser(String.valueOf(id), String.valueOf(amount));
     }
@@ -130,6 +136,9 @@ public class CustomerService {
     public void handleDeleteProduct() {
         view.showMessage("Enter product ID you want to remove");
         int id = view.getIntegerInput();
+        while (!validateProductId(id)) {
+            id = view.getIntegerInput();
+        }
         removeProductFromBasket(id);
     }
 
@@ -147,8 +156,11 @@ public class CustomerService {
     public void handleRateProduct() {
         view.showMessage("Enter product ID you want to rate");
         int id = view.getIntegerInput();
+        while (!validateProductId(id)) {
+            id = view.getIntegerInput();
+        }
         view.showMessage("Enter your rating (1 - 5)");
-        int userRating = view.getIntegerInput();
+        int userRating = validateRating();
         while (shopIterator.hasNext()) {
             Product current = shopIterator.next();
             if (current.getId() == id) {
@@ -158,7 +170,37 @@ public class CustomerService {
                 productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()));
             }
         }
+    }
 
+    public boolean validateProductId(int id) {
+        while (shopIterator.hasNext()) {
+            Product current = shopIterator.next();
+            if (current.getId() == id) {
+                this.shopIterator = new ProductIterator(productDao.getProducts());
+                return true;
+            }
+        }
+        view.showMessage("No product with this ID");
+        return false;
+    }
 
+    public int validateRating() {
+        int userRating = view.getIntegerInput();
+        while (!String.valueOf(userRating).matches("[1-5]")) {
+            view.showMessage("Enter number from 1 to 5!");
+            userRating = view.getIntegerInput();
+        }
+        return userRating;
+    }
+
+    public boolean validateAmount(int id, int amount) {
+        if (amount == 0) {
+            view.showMessage("You can't order 0 products!");
+            return false;
+        } else if (productDao.getProduct(id - 1).getAmount() >= amount) {
+            return true;
+        }
+        view.showMessage("Not enough product in store!");
+        return false;
     }
 }
