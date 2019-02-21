@@ -60,9 +60,15 @@ public class AdminController {
                 break;
             case 9:
                 adminService.displayAllCustomers();
+                // Edit user details
                 view.getEmptyInput();
                 break;
             case 10:
+                adminService.displayAllCustomers();
+                adminService.deleteUser();
+                view.getEmptyInput();
+                break;
+            case 11:
                 isRunning = false;
                 break;
             default:
