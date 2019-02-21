@@ -178,6 +178,8 @@ public class CustomerService {
     }
 
     public void handleRateProduct() {
+        String columnName = "RatingsAmount";
+        String columnName1 = "Rating";
         view.showMessage("Enter product ID you want to rate");
         int id = view.getIntegerInput();
         while (!productDao.validID(Integer.toString(id))) {
@@ -190,8 +192,9 @@ public class CustomerService {
             if (current.getId() == id) {
                 current.setRating(current.getRating() + userRating);
                 current.setNumberOfRatings(current.getNumberOfRatings() + 1);
-                productDao.editProductRating(String.valueOf(id), String.valueOf(current.getRating()));
-                productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()));
+                productDao.editProductRating(String.valueOf(id), String.valueOf(current.getRating()), columnName1);
+                productDao.editProductNumberOfRatings(String.valueOf(id), String.valueOf(current.getNumberOfRatings()),
+                                                        columnName);
             }
         }
     }
