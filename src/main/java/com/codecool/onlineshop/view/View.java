@@ -11,6 +11,7 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
 
     public final String ENTERPRODUCTID = "Enter ID of Product to edit: ";
+    public final String ID = "Enter ID of Product to buy: ";
     public final String ENTERPRODUCT = "Enter name of Product: ";
     public final String ENTERCATEGORY = "Enter category of Product: ";
     public final String ENTERPRICE = "Enter price of product: ";
@@ -20,7 +21,9 @@ public class View {
     public final String ENTERUSERID = "Enter ID of a user: ";
     public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
-    public final String WRONGINPUT = "Wrong id of product, try again!";
+    public final String WRONGID = "Wrong id of product, try again!";
+    public final String WRONGAMOUNT = "Wrong amount of product or not enough amount of product in shop, try again!!";
+
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
