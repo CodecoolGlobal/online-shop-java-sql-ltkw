@@ -21,10 +21,6 @@ public class View {
     public final String ENTERUSERID = "Enter ID of a user: ";
     public final String ENTERCOLUMNNAME = "Enter name of the column: ";
     public final String ENTERNEWVALUE = "Enter new value: ";
-    public final String WRONGINPUT = "Wrong id of product, try again!";
-    public final String STATUSPENDING = "PENDING";
-    public final String STATUSSENT = "SENT";
-    public final String STATUSDELIVERED = "DELIVERED";
     public final String WRONGID = "Wrong id of product, try again!";
     public final String WRONGAMOUNT = "Wrong amount of product or not enough amount of product in shop, try again!!";
 
