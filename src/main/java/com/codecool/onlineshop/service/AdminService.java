@@ -143,14 +143,20 @@ public class AdminService {
 
     public void updateUserDetails() {
         usersDao = new UsersDaoImpl();
+        wrongInput = true;
         view.showMessage(view.ENTERUSERID);
         int userID = view.getIntegerInput();
-        view.showMessage(view.ENTERCOLUMNNAME);
-        String columnName = view.getStringInput();
-        view.showMessage(view.ENTERNEWVALUE);
-        String newValue = view.getStringInput();
-        usersDao.updateUser(userID, columnName, newValue);
-        view.showMessage(view.UPDATED);
+        if (usersDao.isValid(userID)) {
+            view.showMessage(view.ENTERNEWVALUE);
+            String newValue = view.getStringInput();
+            view.displayUpdateUserDetailsMenu();
+            while (wrongInput) {
+                handleUpdateUserDetails(userID, newValue);
+            }
+            view.showMessage(view.UPDATED);
+        } else {
+            view.showMessage(view.NOOPTION);
+        }
     }
 
     public void updateOrderStatus() {
@@ -165,7 +171,7 @@ public class AdminService {
             }
             view.showMessage(view.UPDATED);
         } else {
-            view.showMessage("There is no such order");
+            view.showMessage(view.NOOPTION);
         }
     }
 
@@ -192,7 +198,28 @@ public class AdminService {
                 wrongInput = false;
                 break;
             default:
-                view.showMessage("There is no such option.");
+                view.showMessage(view.NOOPTION);
+                break;
+        }
+    }
+
+    private void handleUpdateUserDetails(int userID, String newValue) {
+        int chosenOption = view.getIntegerInput();
+        switch (chosenOption) {
+            case 1:
+                usersDao.updateUser(userID, "Name", newValue);
+                wrongInput = false;
+                break;
+            case 2:
+                usersDao.updateUser(userID, "Password", newValue);
+                wrongInput = false;
+                break;
+            case 3:
+                usersDao.updateUser(userID, "UserType", newValue);
+                wrongInput = false;
+                break;
+            case 0:
+                view.showMessage(view.NOOPTION);
                 break;
         }
     }
