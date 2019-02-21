@@ -194,8 +194,8 @@ public class CustomerService {
     }
 
     public boolean validateAmount(int id, int amount) {
-        if (amount == 0) {
-            view.showMessage("You can't order 0 products!");
+        if (amount <= 0) {
+            view.showMessage("You can't bro");
             return false;
         } else if (productDao.getProduct(id - 1).getAmount() >= amount) {
             return true;
