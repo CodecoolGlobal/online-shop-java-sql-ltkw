@@ -169,37 +169,35 @@ public class ProductsDaoImpl implements ProductDao {
         createSqlStatement(sql);
     }
 
-    @Override
-    public void editProductPrice(String productID, String productPrice) {
-        String sql = "UPDATE Products SET Price = " + productPrice +
-                " WHERE productID = " + productID + ";";
+    private void editProduct(String productID, String productChange, String column) {
+        String sql = "UPDATE Products SET " + column + " = " + productChange + " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
     }
 
+    @Override
+    public void editProductPrice(String productID, String productPrice, String column) {
+        editProduct(productID, productPrice, column);
+    }
+
+    @Override
+    public void editProductAmount(String productID, String productAmount, String column){
+        editProduct(productID, productAmount, column);
+
+    }
+
+    @Override
+    public void editProductRating(String productID, String rating, String column) {
+        editProduct(productID, rating, column);
+    }
+
+    @Override
+    public void editProductNumberOfRatings(String productID, String numberOfRatings, String column) {
+        editProduct(productID, numberOfRatings, column);
+    }
 
     @Override
     public void editProductName(String productID, String productName){
-        String sql = "UPDATE Products SET Name = " + "'" + productName + "'" +
-                " WHERE productID = " + productID + ";";
-        createSqlStatement(sql);
-    }
-
-    @Override
-    public void editProductAmount(String productID, String productAmount){
-        String sql = "UPDATE Products SET Amount = " + productAmount +
-                " WHERE productID = " + productID + ";";
-        createSqlStatement(sql);
-    }
-
-    @Override
-    public void editProductRating(String productId, String rating) {
-        String sql = "UPDATE Products SET Rating = " + rating + " WHERE productID = " + productId + ";";
-        createSqlStatement(sql);
-    }
-
-    @Override
-    public void editProductNumberOfRatings(String productId, String numberOfRatings) {
-        String sql = "UPDATE Products SET RatingsAmount = " + numberOfRatings + " WHERE productID = " + productId + ";";
+        String sql = "UPDATE Products SET Name = " + "'" + productName + "'" + " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
     }
 

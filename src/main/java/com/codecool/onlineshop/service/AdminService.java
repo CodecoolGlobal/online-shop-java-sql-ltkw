@@ -75,12 +75,13 @@ public class AdminService {
     }
 
     public void editProductPrice() {
+        String columnName = "Price";
         boolean editProduct = true;
         while (editProduct) {
             String productId = getID(view.ENTERPRODUCTID);
             if (productDao.validID(productId)) {
                 String productPrice = editValueOfProduct(view.ENTERPRICE);
-                productDao.editProductPrice(productId, productPrice);
+                productDao.editProductPrice(productId, productPrice, columnName);
                 editProduct = false;
             } else {
                 view.showMessage(view.WRONGID);
@@ -90,12 +91,13 @@ public class AdminService {
 
 
     public void  editProductAmount() {
+        String columnName = "Amount";
         boolean editProduct = true;
         while (editProduct) {
             String productId = getID(view.ENTERPRODUCTID);
             if (productDao.validID(productId)) {
                 String productAmount = editValueOfProduct(view.ENTERAMOUNT);
-                productDao.editProductAmount(productId, productAmount);
+                productDao.editProductAmount(productId, productAmount, columnName);
                 editProduct = false;
             } else {
                 view.showMessage(view.WRONGID);
