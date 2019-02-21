@@ -105,4 +105,16 @@ public class AdminService {
         usersDao.deleteUser(userID);
         view.showMessage("Successfully Deleted");
     }
+
+    public void updateUserDetails() {
+        usersDao = new UsersDaoImpl();
+        view.showMessage(view.ENTERUSERID);
+        int userID = view.getIntegerInput();
+        view.showMessage(view.ENTERCOLUMNNAME);
+        String columnName = view.getStringInput();
+        view.showMessage(view.ENTERNEWVALUE);
+        String newValue = view.getStringInput();
+        usersDao.updateUser(userID, columnName, newValue);
+        view.showMessage("Successfully Updated");
+    }
 }
