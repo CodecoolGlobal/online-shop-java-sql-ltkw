@@ -17,6 +17,7 @@ public class ProductsDaoImpl implements ProductDao {
     private Statement statement;
     private ResultSet resultSet;
     private Iterator<Product> shopIterator;
+    private final String COLUMNAMOUNT = "Amount";
     
 
     public ProductsDaoImpl () {
@@ -75,7 +76,7 @@ public class ProductsDaoImpl implements ProductDao {
     }
 
     @Override
-    public void addNewProduct(String name, String category, String price, String amount) {
+    public void addNewProduct(String name, String category, int price, int amount) {
         int productID = Integer.valueOf(getNextPrimaryKey());
         String amountRating = "0";
         String ratingsAmount = "0";
@@ -87,33 +88,29 @@ public class ProductsDaoImpl implements ProductDao {
     }
 
     @Override
-    public void deleteProductAdmin(String productID) {
+    public void deleteProductAdmin(int productID) {
         String sql = "DELETE FROM Products WHERE productID = " +
                             productID + ";";
         createSqlStatement(sql);
     }
 
-    private Integer addProduct(String productID, String productAmount) {
-        int amount = Integer.valueOf(productAmount);
-        int id = Integer.valueOf(productID);
+    private Integer addProduct(int productID, int productAmount) {
         int lastAmount = 0;
         shopIterator = products.iterator();
         while (shopIterator.hasNext()) {
             Product currentProduct = shopIterator.next();
-            if (currentProduct.getId() == id){
-                lastAmount = currentProduct.getAmount() + amount;
+            if (currentProduct.getId() == productID){
+                lastAmount = currentProduct.getAmount() + productAmount;
             }
         }
         return lastAmount;
     }
 
-    private Integer deleteProduct(String productID, String productAmount) {
-        int amount = Integer.valueOf(productAmount);
-        int id = Integer.valueOf(productID);
+    private Integer deleteProduct(int productID, int productAmount) {
         int lastAmount = 0;
         for (Product product : products) {
-            if(id == product.getId()){
-                lastAmount = product.getAmount() - amount;
+            if(productID == product.getId()){
+                lastAmount = product.getAmount() - productAmount;
             }
         }
         return lastAmount;
@@ -131,8 +128,9 @@ public class ProductsDaoImpl implements ProductDao {
         return result;
     }
 
-    public boolean validID(String id) {//should be private or public???
-        int productID = Integer.parseInt(id);
+    @Override
+    public boolean validID(int id) {
+        int productID = id;
         for (Product product : products) {
             if(product.getId() == productID) {
                 return true;
@@ -141,12 +139,13 @@ public class ProductsDaoImpl implements ProductDao {
         return false;
     }
 
-    public boolean productAmountIsValid(String productID, String productAmount) {//should be private or public???
-        int id = Integer.parseInt(productID);
-        int amount = Integer.parseInt(productAmount);
+    @Override
+    public boolean productAmountIsValid(int productID, int productAmount) {
+        //int id = Integer.parseInt(productID);
+        //int amount = Integer.parseInt(productAmount);
         for (Product el : products) {
-            if(id == el.getId()) {
-                if (amount <= el.getAmount()) {
+            if(productID == el.getId()) {
+                if (productAmount <= el.getAmount()) {
                     return true;
                 }
             }
@@ -154,67 +153,41 @@ public class ProductsDaoImpl implements ProductDao {
         return false;
     }
 
-    public void addAmountOfProductByUser(String productID, String productAmount) {
+    @Override
+    public void addProductByUser(int productID, int productAmount) {
         int lastAmount =  addProduct(productID, productAmount);
-        String sql = "UPDATE Products SET Amount = " + lastAmount +
-                " WHERE productID = " + productID + ";";
-        createSqlStatement(sql);
+        editProduct(productID, lastAmount, COLUMNAMOUNT);
     }
 
     @Override
-    public void deleteProductsByUser(String productID, String productAmount) {
+    public void deleteProductsByUser(int productID, int productAmount) {
         int lastAmount = deleteProduct(productID, productAmount);
-        String sql = "UPDATE Products SET Amount = " + lastAmount +
-                " WHERE productID = " + productID + ";";
-        createSqlStatement(sql);
+        editProduct(productID, lastAmount, COLUMNAMOUNT);
     }
 
-    private void editProduct(String productID, String productChange, String column) {
+    public void editProduct(int productID, int productChange, String column) {
         String sql = "UPDATE Products SET " + column + " = " + productChange + " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
     }
 
     @Override
-    public void editProductPrice(String productID, String productPrice, String column) {
-        editProduct(productID, productPrice, column);
-    }
-
-    @Override
-    public void editProductAmount(String productID, String productAmount, String column){
-        editProduct(productID, productAmount, column);
-
-    }
-
-    @Override
-    public void editProductRating(String productID, String rating, String column) {
+    public void editProductRating(int productID, int rating, String column) {
         editProduct(productID, rating, column);
     }
 
     @Override
-    public void editProductNumberOfRatings(String productID, String numberOfRatings, String column) {
+    public void editProductNumberOfRatings(int productID, int numberOfRatings, String column) {
         editProduct(productID, numberOfRatings, column);
     }
 
     @Override
-    public void editProductName(String productID, String productName){
+    public void editProductName(int productID, String productName){
         String sql = "UPDATE Products SET Name = " + "'" + productName + "'" + " WHERE productID = " + productID + ";";
         createSqlStatement(sql);
-    }
-
-
-    @Override
-    public Integer getProductsSize() {
-        return products.size();
     }
 
     @Override
     public List<Product> getProducts() {
         return products;
     }
-
-    @Override
-    public Product getProduct(int id) {
-        return products.get(id);
-    }
-
 }
