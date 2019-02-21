@@ -15,9 +15,9 @@ class ProductIteratorTest {
 
     @BeforeEach
     public void addproductsToFakeProductList(){
-        fakeProductList.add(new Product(1,"name1","category2",1,1));
-        fakeProductList.add(new Product(2,"name1","category2",2,2));
-        fakeProductList.add(new Product(3,"name1","category2",3,3));
+        fakeProductList.add(new Product(1,"name1","category2",1,1,0,0));
+        fakeProductList.add(new Product(2,"name1","category2",2,2,0,0));
+        fakeProductList.add(new Product(3,"name1","category2",3,3,0,0));
         iteratorForTests = new ProductIterator(fakeProductList);
     }
 
