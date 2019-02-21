@@ -34,10 +34,11 @@ public class AdminService {
         view.showMessage(view.ENTERCATEGORY);
         String category = view.getStringInput();
         view.showMessage(view.ENTERPRICE);
-        String price = view.getStringInput();
+        int price = view.getIntegerInput();
         view.showMessage(view.ENTERAMOUNT);
-        String amount = view.getStringInput();
+        int amount = view.getIntegerInput();
         productDao.addNewProduct(name, category, price, amount);
+        productDao = new ProductsDaoImpl();
     }
 
     public void deleteProductAdmin() {

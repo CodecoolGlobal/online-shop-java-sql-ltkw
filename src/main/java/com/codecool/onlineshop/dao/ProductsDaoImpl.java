@@ -76,7 +76,7 @@ public class ProductsDaoImpl implements ProductDao {
     }
 
     @Override
-    public void addNewProduct(String name, String category, String price, String amount) {
+    public void addNewProduct(String name, String category, int price, int amount) {
         int productID = Integer.valueOf(getNextPrimaryKey());
         String amountRating = "0";
         String ratingsAmount = "0";
