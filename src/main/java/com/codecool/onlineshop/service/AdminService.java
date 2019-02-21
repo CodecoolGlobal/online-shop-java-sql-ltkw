@@ -7,8 +7,6 @@ import com.codecool.onlineshop.model.Order;
 import com.codecool.onlineshop.model.User;
 import com.codecool.onlineshop.view.View;
 
-import javax.jws.soap.SOAPBinding;
-
 public class AdminService {
 
     private View view;
@@ -96,7 +94,27 @@ public class AdminService {
     public void displayAllCustomers(){
         usersDao = new UsersDaoImpl();
         List<User> allUsers = usersDao.getUserData();
-        view.showMessage("table of all customers");
+        view.showMessage("Table of all customers");
         view.usersTable(allUsers);
+    }
+
+    public void deleteUser() {
+        usersDao = new UsersDaoImpl();
+        view.showMessage(view.ENTERUSERID);
+        int userID = view.getIntegerInput();
+        usersDao.deleteUser(userID);
+        view.showMessage("Successfully Deleted");
+    }
+
+    public void updateUserDetails() {
+        usersDao = new UsersDaoImpl();
+        view.showMessage(view.ENTERUSERID);
+        int userID = view.getIntegerInput();
+        view.showMessage(view.ENTERCOLUMNNAME);
+        String columnName = view.getStringInput();
+        view.showMessage(view.ENTERNEWVALUE);
+        String newValue = view.getStringInput();
+        usersDao.updateUser(userID, columnName, newValue);
+        view.showMessage("Successfully Updated");
     }
 }
