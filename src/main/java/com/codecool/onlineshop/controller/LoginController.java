@@ -29,7 +29,8 @@ public class LoginController {
             int userInput = view.getIntegerInput();
             switch (userInput) {
                 case 1:
-                    chooseController(handleLogin());;
+                    List<User> users = usersDao.getUserData();
+                    chooseController(handleLogin(users));
                     break;
                 case 2:
                     handleAddNewUser();
@@ -44,10 +45,10 @@ public class LoginController {
         }
     }
 
-    public User handleLogin() {
+    public User handleLogin(List<User> usersList) {
         boolean isLogging = true;
         this.usersDao = new UsersDaoImpl();
-        List<User> users = usersDao.getUserData();
+        List<User> users = usersList;
         while (isLogging) {
             view.showMessage("Name: ");
             String name = view.getStringInput();
