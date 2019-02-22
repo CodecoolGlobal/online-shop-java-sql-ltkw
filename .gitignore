@@ -5,6 +5,7 @@
 # Maven folders
 
 target/
+out/
 
 # Miscellaneous
 
