@@ -59,12 +59,25 @@ public class AdminController {
                 view.displayNotImplementedMessage();
                 break;
             case 9:
+                adminService.displayAllCustomers();
+                adminService.updateUserDetails();
+                view.getEmptyInput();
+                break;
+            case 10:
+                adminService.displayAllCustomers();
+                adminService.deleteUser();
+                view.getEmptyInput();
+                break;
+            case 11:
+                adminService.displayOrdersHistory();
+                adminService.updateOrderStatus();
+                view.getEmptyInput();
+                break;
+            case 12:
                 isRunning = false;
                 break;
             default:
                 break;
-
         }
     }
-
 }

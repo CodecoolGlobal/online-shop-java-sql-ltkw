@@ -9,4 +9,5 @@ public interface OrdersDao {
 
     public List<Order> getOrderData();
     public void addOrder(User user);
+    public void updateOrderStatus(int orderId, String status);
 }

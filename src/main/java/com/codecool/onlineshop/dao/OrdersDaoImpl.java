@@ -7,26 +7,22 @@ import java.util.List;
 import java.time.LocalDate;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-import com.codecool.onlineshop.dao.Connector;
 import com.codecool.onlineshop.model.Order;
+import com.codecool.onlineshop.model.OrderStatus;
 import com.codecool.onlineshop.model.Product;
 import com.codecool.onlineshop.model.User;
 
 public class OrdersDaoImpl implements OrdersDao {
-    private Connector connector;
+
     private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-    private Order order;
     private List<Order> orders;
 
     public OrdersDaoImpl() {
-        connector = new Connector("src/main/resources/databases/OnlineShop.db");
-        connection = connector.getDatabaseConnection();
         orders = new ArrayList<>();
         addOrderData();
     }
@@ -40,14 +36,70 @@ public class OrdersDaoImpl implements OrdersDao {
     public void addOrder(User user) {
         Iterator<Product> basketIterator = user.getBasket().getIterator();
         LocalDate localDate = LocalDate.now();
+
+        connection = initializeConnection();
+        PreparedStatement insertOrder;
+        String insertOrderString = "INSERT INTO OrderDetails"
+                                 + "(OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID, Date, Status)"
+                                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
-        Product currentProduct;
-        int productId;
-        int productAmount;
-        int productAmountPrice;
-        int userId;
-        Integer orderId;
-        String productName;
+        int orderId = getIncrementedOrderId();
+        while (basketIterator.hasNext()) {
+            Product currentProduct = basketIterator.next();
+            String productName = currentProduct.getName();
+            int productId = currentProduct.getId();
+            int productAmount = currentProduct.getAmount();
+            int productAmountPrice = currentProduct.getAmount() * currentProduct.getPrice();
+            int userId = user.getId();
+
+            try {
+                insertOrder = connection.prepareStatement(insertOrderString);
+                insertOrder.setInt(1, orderId);
+                insertOrder.setInt(2, productId);
+                insertOrder.setString(3, productName);
+                insertOrder.setInt(4, productAmount);
+                insertOrder.setInt(5, productAmountPrice);
+                insertOrder.setInt(6, userId);
+                insertOrder.setString(7, date);
+                insertOrder.setString(8, OrderStatus.PENDING.name());
+                insertOrder.executeUpdate();
+                insertOrder.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void updateOrderStatus(int orderId, String status) {
+        connection = initializeConnection();
+        PreparedStatement updateOrderStatus;
+        String updateOrderStatusString = "UPDATE OrderDetails SET Status = ? WHERE OrderID = ?";
+        try {
+            updateOrderStatus = connection.prepareStatement(updateOrderStatusString);
+            updateOrderStatus.setInt(2, orderId);
+            updateOrderStatus.setString(1, status);
+            updateOrderStatus.executeUpdate();
+            updateOrderStatus.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isValid(int orderId) {
+        for (Order order : orders) {
+            if (order.getOrderId() == orderId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getIncrementedOrderId() {
+        int orderId;
 
         if (orders.isEmpty()) {
             orderId = 1;
@@ -55,33 +107,22 @@ public class OrdersDaoImpl implements OrdersDao {
             orders.sort(Order::compareTo);
             orderId = orders.get(orders.size()-1).getOrderId() + 1;
         }
-
-        while (basketIterator.hasNext()) {
-            currentProduct = basketIterator.next();
-            productId = currentProduct.getId();
-            productName = currentProduct.getName();
-            productAmount = currentProduct.getAmount();
-            productAmountPrice = currentProduct.getAmount() * currentProduct.getPrice();
-            userId = user.getId();
-
-            try {
-                statement = connection.createStatement();
-                String insertInto = "INSERT INTO OrderDetails (OrderID, ProductID, ProductName, ProductAmount, ProductAmountPrice, UserID, Date) VALUES ("
-                        + orderId + "," + productId + ",\"" + productName + "\"," + productAmount + "," + productAmountPrice + "," + userId
-                        + ",\"" + date + "\");";
-                statement.executeUpdate(insertInto);
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        return orderId;
     }
 
-    private List<Order> addOrderData() {
+    private Connection initializeConnection() {
+        final String DATABASEPATH = "src/main/resources/databases/OnlineShop.db";
+        Connector connector = new Connector(DATABASEPATH);
+        return connector.getDatabaseConnection();
+    }
+
+    private void addOrderData() {
+        connection = initializeConnection();
+        Order order;
 
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM OrderDetails;");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM OrderDetails;");
             while (resultSet.next()) {
                 int orderId = resultSet.getInt("OrderID");
                 int productId = resultSet.getInt("ProductID");
@@ -90,6 +131,7 @@ public class OrdersDaoImpl implements OrdersDao {
                 int productAmountPrice = resultSet.getInt("ProductAmountPrice");
                 int userId = resultSet.getInt("UserID");
                 String date = resultSet.getString("Date");
+                String status = resultSet.getString("Status");
 
                 order = new Order.Builder()
                                  .withOrderId(orderId)
@@ -99,14 +141,15 @@ public class OrdersDaoImpl implements OrdersDao {
                                  .withProductAmountPrice(productAmountPrice)
                                  .withUserId(userId)
                                  .withDate(date)
+                                 .withStatus(status)
                                  .build();
                 orders.add(order);
             }
             resultSet.close();
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return orders;
     }
 }

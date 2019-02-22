@@ -6,15 +6,18 @@ public class Product {
     private String name;
     private String category;
     private int price;
-    private int amount;    
+    private int amount;
     private int rating;
+    private int numberOfRatings;
 
-    public Product(int id, String name, String category, int price, int amount) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.amount = amount;        
+    public Product(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.category = builder.category;
+        this.price = builder.price;
+        this.amount = builder.amount;
+        this.rating = builder.rating;
+        this.numberOfRatings = builder.numberOfRatings;
     }
 
     public int getId() {
@@ -67,19 +70,84 @@ public class Product {
     }
 
     public boolean productIsAvailable() {
-        if(amount > 0) {
-            return true;
-        }
-        return false; 
+        return amount > 0;
     }
 
     @Override
-	public String toString() {
-		return  "id = " + id +
+    public String toString() {
+        return  "id = " + id +
                 ", \nname = " + name +
                 ", \ncategory = " + category +
 				", \nprice = " + price +
-				", \namount = " + amount +
-				"\n";
+				", \namount = " + amount;
 	}
+
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+
+    public double calculateRating() {
+        double ratings;
+        if (this.numberOfRatings == 0) {
+            ratings = rating / 1;
+        } else {
+            ratings = (double) rating / numberOfRatings;
+        }
+        return ratings;
+    }
+
+    public static class Builder {
+        private int id;
+        private String name;
+        private String category;
+        private int price;
+        private int amount;
+        private int rating;
+        private int numberOfRatings;
+
+        public Builder withId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withCategory(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder withPrice(int price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder withAmount(int amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public Builder withRating(int rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public Builder withNumberOfRatings(int numberOfRatings) {
+            this.numberOfRatings = numberOfRatings;
+            return this;
+        }
+
+        public Product build() {
+            return new Product(this);
+        }
+    }
 }

@@ -39,11 +39,11 @@ public class CustomerController {
                 customerService.handleAddProduct();
                 break;
             case 3:
+                customerService.DisplayAllProductsInBasket();
                 customerService.handleDeleteProduct();
                 break;
             case 4:
-                OrdersDaoImpl orders = new OrdersDaoImpl();
-                orders.addOrder(customer);
+                customerService.placeOrderIfBasketNotEmpty();
                 break;
             case 5:
                 customerService.displayOrdersHistory();
@@ -56,7 +56,7 @@ public class CustomerController {
                 view.getEmptyInput();
                 break;
             case 7:
-                customerService.displayProductsBycategory();
+                customerService.displayProductsByCategory();
                 view.getEmptyInput();
                 break;
             case 8:
@@ -64,6 +64,14 @@ public class CustomerController {
                 customerService.editProductQuantity();
                 break;
             case 9:
+                customerService.displayAllProductsInShop();
+                customerService.handleRateProduct();
+                break;
+            case 10:
+                customerService.changePassword();
+                view.getEmptyInput();
+                break;
+            case 11:
                 isRunning = false;
                 break;
             default:

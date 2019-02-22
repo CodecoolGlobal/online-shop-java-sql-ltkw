@@ -4,24 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-import com.codecool.onlineshop.dao.Connector;
 import com.codecool.onlineshop.model.User;
 
 public class UsersDaoImpl implements UsersDao {
-    Connector connector;
-    Connection connection;
-    Statement statement;
-    ResultSet resultSet;
-    User user;
+
+    private Connection connection;
     private List<User> users;
 
     public UsersDaoImpl() {
-        connector = new Connector("src/main/resources/databases/OnlineShop.db");
-        connection = connector.getDatabaseConnection();
         users = new ArrayList<>();
         addUserData();
     }
@@ -38,13 +33,16 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void updateUser(int userId, String columnName, String newUpdate) {
-
+        connection = initializeConnection();
+        PreparedStatement updateUser;
+        String updateString = "UPDATE Users SET " + columnName + " = ? WHERE UserID = ?";
         try {
-            statement = connection.createStatement();
-            String update = "UPDATE Users set " + columnName + "=" + "\"" + newUpdate + "\"" + "where UserID = "
-                    + userId + ";";
-            statement.executeUpdate(update);
-            statement.close();
+            updateUser = connection.prepareStatement(updateString);
+            updateUser.setString(1, newUpdate);
+            updateUser.setInt(2, userId);
+            updateUser.executeUpdate();
+            updateUser.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,36 +50,59 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void deleteUser(int userId) {
-
+        connection = initializeConnection();
+        PreparedStatement deleteUser;
+        String deleteString = "DELETE FROM Users WHERE UserID = ?";
         try {
-            statement = connection.createStatement();
-            String delete = "DELETE from Users WHERE UserID = " + userId + ";";
-            statement.executeUpdate(delete);
-            statement.close();
+            deleteUser = connection.prepareStatement(deleteString);
+            deleteUser.setInt(1, userId);
+            deleteUser.executeUpdate();
+            deleteUser.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void addUser(String name, String password, String userType) {
-
+    public void addUser(String userName, String userPassword, String userType) {
+        connection = initializeConnection();
+        PreparedStatement addUser;
+        String addString = "INSERT INTO Users (Name, Password, UserType) VALUES (?, ?, ?)";
         try {
-            statement = connection.createStatement();
-            String insertInto = "INSERT INTO Users (Name, Password, UserType)" + "VALUES (\"" + name + "\", \""
-                    + password + "\", \"" + userType + "\");";
-            statement.executeUpdate(insertInto);
-            statement.close();
+            addUser = connection.prepareStatement(addString);
+            addUser.setString(1, userName);
+            addUser.setString(2, userPassword);
+            addUser.setString(3, userType);
+            addUser.executeUpdate();
+            addUser.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private List<User> addUserData() {
+    public boolean isValid(int userId) {
+        for (User user : users) {
+            if (user.getId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private Connection initializeConnection() {
+        final String DATABASEPATH = "src/main/resources/databases/OnlineShop.db";
+        Connector connector = new Connector(DATABASEPATH);
+        return connector.getDatabaseConnection();
+    }
+
+    private void addUserData() {
+        connection = initializeConnection();
+        User user;
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Users;");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users;");
             while (resultSet.next()) {
                 int id = resultSet.getInt("UserID");
                 String name = resultSet.getString("Name");
@@ -92,9 +113,9 @@ public class UsersDaoImpl implements UsersDao {
             }
             resultSet.close();
             statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users;
     }
 }
